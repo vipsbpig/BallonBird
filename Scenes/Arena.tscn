@@ -1,3 +1,11 @@
-[gd_scene format=3 uid="uid://bat6am4i5o3cb"]
+[gd_scene load_steps=2 format=3 uid="uid://bat6am4i5o3cb"]
+
+[ext_resource type="Environment" uid="uid://cbw5xswycm6in" path="res://DefaultEnvironment.tres" id="1_26mor"]
 
 [node name="Arena" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_26mor")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17643, 1.61518)
