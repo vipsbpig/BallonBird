@@ -13,6 +13,7 @@
 [node name="Ballon" type="RigidBody3D"]
 axis_lock_linear_z = true
 axis_lock_angular_x = true
+axis_lock_angular_y = true
 mass = 0.2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -32,5 +33,5 @@ skeleton = NodePath("../..")
 [node name="InputBehaviour" type="Node" parent="." node_paths=PackedStringArray("rigidBody")]
 script = ExtResource("1_3mcgo")
 rigidBody = NodePath("..")
-moveSpeed = 10.0
-jumpForce = 100.0
+moveSpeed = 720.0
+jumpForce = 200.0
