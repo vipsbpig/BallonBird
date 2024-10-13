@@ -39,5 +39,6 @@ skeleton = NodePath("../..")
 [node name="InputBehaviour" type="Node" parent="." node_paths=PackedStringArray("rigidBody")]
 script = ExtResource("1_3mcgo")
 rigidBody = NodePath("..")
+maxSpeed = 15.0
 rotateSpeed = 180.0
 jumpForce = 40.0

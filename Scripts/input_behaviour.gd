@@ -4,22 +4,29 @@ extends Node
 
 @export var maxSpeed : float = 12
 @export var rotateSpeed : float = 5
+@export var rotateTime : float = 0.05
 @export var jumpForce : float = 1
 @export var rotaionDampForce : float = 10
 
 var fixedDeltaTime : float = 0
+var holdTime = 0
 
 func _physics_process(delta: float) -> void:
 	fixedDeltaTime = delta	
 	
 	var velocity : Vector3 = rigidBody.angular_velocity
-	var moveDirection : int = 0;
+	var rotateDirection : int = 0;
 	if Input.is_action_pressed("move_left"):
-		moveDirection = 1
+		rotateDirection = 1
 	elif Input.is_action_pressed("move_right"):
-		moveDirection = -1
+		rotateDirection = -1
 	
-	if moveDirection != 0: velocity.z = rotateSpeed * moveDirection * delta
+	if Input.is_action_just_pressed("move_left") || Input.is_action_just_pressed("move_right"):
+		holdTime = rotateTime
+		
+	holdTime -= fixedDeltaTime
+	
+	if rotateDirection != 0 && holdTime > 0: velocity.z = rotateSpeed * rotateDirection * delta
 	else: velocity.z = lerp(velocity.z, 0.0, rotaionDampForce * fixedDeltaTime)
 
 	rigidBody.angular_velocity = velocity
