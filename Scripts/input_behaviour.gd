@@ -28,8 +28,12 @@ func _physics_process(delta: float) -> void:
 		elif Input.is_action_pressed("move_right2"):
 			rotateDirection = -1
 	
-	if Input.is_action_just_pressed("move_left") || Input.is_action_just_pressed("move_right"):
-		holdTime = rotateTime
+	if player_index == 0:
+		if Input.is_action_just_pressed("move_left") || Input.is_action_just_pressed("move_right"):
+			holdTime = rotateTime
+	else:
+		if Input.is_action_just_pressed("move_left2") || Input.is_action_just_pressed("move_right2"):
+			holdTime = rotateTime
 		
 	holdTime -= fixedDeltaTime
 	
