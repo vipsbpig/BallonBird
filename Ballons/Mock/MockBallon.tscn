@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d8820thlxuqb"]
+[gd_scene load_steps=6 format=3 uid="uid://d8820thlxuqb"]
 
 [ext_resource type="Script" path="res://Scripts/input_behaviour.gd" id="1_3mcgo"]
 
@@ -6,9 +6,13 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_f8134"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_fs1t1"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nxd32"]
+
 [node name="Ballon" type="RigidBody3D"]
 axis_lock_linear_z = true
-axis_lock_angular_z = true
+axis_lock_angular_x = true
 mass = 0.2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -16,6 +20,14 @@ mesh = SubResource("SphereMesh_h1bja")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_f8134")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-9.39795e-09, -0.215, 0, 0.215, -9.39795e-09, 0, 0, 0, 0.215, 0.552213, 0, 0)
+shape = SubResource("CylinderShape3D_fs1t1")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D2"]
+mesh = SubResource("CylinderMesh_nxd32")
+skeleton = NodePath("../..")
 
 [node name="InputBehaviour" type="Node" parent="." node_paths=PackedStringArray("rigidBody")]
 script = ExtResource("1_3mcgo")
