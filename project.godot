@@ -59,6 +59,11 @@ jump2={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_2="HitBox"
+3d_physics/layer_3="HurtBox"
+
 [physics]
 
 3d/default_gravity=3.0

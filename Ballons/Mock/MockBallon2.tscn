@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cycggop18cfjq"]
+[gd_scene load_steps=13 format=3 uid="uid://cto2ht8o722lu"]
 
 [ext_resource type="Material" uid="uid://c20fo10ds06e6" path="res://Ballons/Mock/RedBird.tres" id="1_lhfth"]
 [ext_resource type="Script" path="res://Scripts/input_behaviour.gd" id="2_q010t"]
+[ext_resource type="Script" path="res://Scripts/hurt_box.gd" id="3_7ti32"]
+[ext_resource type="Script" path="res://Scripts/attack_behaviour.gd" id="4_3m41a"]
+[ext_resource type="Script" path="res://Scripts/health_component.gd" id="5_wybvu"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_00qlv"]
 bounce = 0.6
@@ -16,6 +19,11 @@ height = 3.353
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_nxd32"]
 material = ExtResource("1_lhfth")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_flick"]
+size = Vector3(0.757263, 0.252197, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2dtmm"]
 
 [node name="Ballon" type="RigidBody3D"]
 axis_lock_linear_z = true
@@ -41,6 +49,23 @@ transform = Transform3D(1, 0, 0, 0, 1.695, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_nxd32")
 skeleton = NodePath("../..")
 
+[node name="HitBox" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.83326, 0.0032959, 0)
+shape = SubResource("BoxShape3D_flick")
+
+[node name="HurtBox" type="Area3D" parent="." node_paths=PackedStringArray("healthComponent")]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_7ti32")
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
+shape = SubResource("BoxShape3D_2dtmm")
+
 [node name="InputBehaviour" type="Node" parent="." node_paths=PackedStringArray("rigidBody")]
 script = ExtResource("2_q010t")
 rigidBody = NodePath("..")
@@ -49,3 +74,12 @@ rotateSpeed = 180.0
 jumpForce = 40.0
 rotaionDampForce = 5.0
 player_index = 1
+
+[node name="AttackBehaviour" type="Node" parent="." node_paths=PackedStringArray("rigidBody", "hitBox", "hurtBox")]
+script = ExtResource("4_3m41a")
+rigidBody = NodePath("..")
+hitBox = NodePath("../HitBox")
+hurtBox = NodePath("../HurtBox")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5_wybvu")
