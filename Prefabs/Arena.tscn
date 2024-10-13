@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://iu5r7md2ly71"]
+
+[ext_resource type="Environment" uid="uid://cbw5xswycm6in" path="res://DefaultEnvironment.tres" id="4_nn2b4"]
+
+[node name="Arena" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("4_nn2b4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.385004, 0.922915, 0, -0.922915, 0.385004, 0, 3.50095, 5.20668)
+shadow_enabled = true
+
+[node name="Walls" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Walls"]
+size = Vector3(25, 1, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 7, 0)
+size = Vector3(1, 14, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 7, 0)
+size = Vector3(1, 14, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14, 0)
+size = Vector3(25, 1, 1)

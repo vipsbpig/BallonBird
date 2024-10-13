@@ -11,13 +11,17 @@ config_version=5
 [application]
 
 config/name="BallonBird"
-run/main_scene="res://Scenes/Arena.tscn"
+run/main_scene="res://Scenes/Game.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gd-plug-ui/plugin.cfg")
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
 [rendering]
 
