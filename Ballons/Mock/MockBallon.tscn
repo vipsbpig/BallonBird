@@ -42,3 +42,4 @@ rigidBody = NodePath("..")
 maxSpeed = 15.0
 rotateSpeed = 180.0
 jumpForce = 40.0
+rotaionDampForce = 5.0
