@@ -1,13 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://d8820thlxuqb"]
+[gd_scene load_steps=8 format=3 uid="uid://cycggop18cfjq"]
 
-[ext_resource type="Material" uid="uid://djkmajce4r0m5" path="res://Ballons/Mock/BlueBird.tres" id="1_2o7av"]
-[ext_resource type="Script" path="res://Scripts/input_behaviour.gd" id="1_3mcgo"]
+[ext_resource type="Material" uid="uid://c20fo10ds06e6" path="res://Ballons/Mock/RedBird.tres" id="1_lhfth"]
+[ext_resource type="Script" path="res://Scripts/input_behaviour.gd" id="2_q010t"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_00qlv"]
 bounce = 0.6
 
 [sub_resource type="SphereMesh" id="SphereMesh_h1bja"]
-material = ExtResource("1_2o7av")
+material = ExtResource("1_lhfth")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_f8134"]
 
@@ -15,7 +15,7 @@ material = ExtResource("1_2o7av")
 height = 3.353
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_nxd32"]
-material = ExtResource("1_2o7av")
+material = ExtResource("1_lhfth")
 
 [node name="Ballon" type="RigidBody3D"]
 axis_lock_linear_z = true
@@ -42,9 +42,10 @@ mesh = SubResource("CylinderMesh_nxd32")
 skeleton = NodePath("../..")
 
 [node name="InputBehaviour" type="Node" parent="." node_paths=PackedStringArray("rigidBody")]
-script = ExtResource("1_3mcgo")
+script = ExtResource("2_q010t")
 rigidBody = NodePath("..")
 maxSpeed = 15.0
 rotateSpeed = 180.0
 jumpForce = 40.0
 rotaionDampForce = 5.0
+player_index = 1
