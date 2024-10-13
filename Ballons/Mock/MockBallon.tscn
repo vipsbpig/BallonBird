@@ -10,6 +10,7 @@ bounce = 0.6
 [sub_resource type="SphereShape3D" id="SphereShape3D_f8134"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_fs1t1"]
+height = 3.353
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_nxd32"]
 
@@ -27,10 +28,11 @@ mesh = SubResource("SphereMesh_h1bja")
 shape = SubResource("SphereShape3D_f8134")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(-9.39795e-09, -0.215, 0, 0.215, -9.39795e-09, 0, 0, 0, 0.215, 0.552213, 0, 0)
+transform = Transform3D(-9.39795e-09, -0.215, 0, 0.215, -9.39795e-09, 0, 0, 0, 0.215, 0.851526, 0, 0)
 shape = SubResource("CylinderShape3D_fs1t1")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D2"]
+transform = Transform3D(1, 0, 0, 0, 1.695, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CylinderMesh_nxd32")
 skeleton = NodePath("../..")
 
