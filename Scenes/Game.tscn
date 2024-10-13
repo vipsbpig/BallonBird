@@ -44,5 +44,11 @@ camera_3d_resource = SubResource("Resource_q6toe")
 
 [node name="Ballon" parent="." instance=ExtResource("6_0vunb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.42185, 0)
-gravity_scale = 0.0
-constant_force = Vector3(0, 0.1, 0)
+
+[node name="Ballon2" parent="." instance=ExtResource("6_0vunb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.94553, 6.07147, 0)
+
+[node name="InputBehaviour" parent="Ballon2" index="3"]
+player_index = 1
+
+[editable path="Ballon2"]

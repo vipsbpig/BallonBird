@@ -20,6 +20,8 @@ axis_lock_angular_x = true
 axis_lock_angular_y = true
 mass = 0.2
 physics_material_override = SubResource("PhysicsMaterial_00qlv")
+gravity_scale = 0.0
+constant_force = Vector3(0, 0.1, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_h1bja")
