@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 	if moveDirection != 0: velocity.z = moveSpeed * moveDirection * delta
 	else: velocity.z = lerp(velocity.z, 0.0, rotaionDampForce * fixedDeltaTime)
 
-	rigidBody.angular_velocity = velocity	
+	rigidBody.angular_velocity = velocity
 		
 	if Input.is_action_just_pressed("jump"):
 		var local_x_direction = rigidBody.transform.basis.x

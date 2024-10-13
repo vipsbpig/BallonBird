@@ -1,6 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://d8820thlxuqb"]
+[gd_scene load_steps=7 format=3 uid="uid://d8820thlxuqb"]
 
 [ext_resource type="Script" path="res://Scripts/input_behaviour.gd" id="1_3mcgo"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_00qlv"]
+bounce = 0.6
 
 [sub_resource type="SphereMesh" id="SphereMesh_h1bja"]
 
@@ -15,6 +18,7 @@ axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 mass = 0.2
+physics_material_override = SubResource("PhysicsMaterial_00qlv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_h1bja")
@@ -33,5 +37,5 @@ skeleton = NodePath("../..")
 [node name="InputBehaviour" type="Node" parent="." node_paths=PackedStringArray("rigidBody")]
 script = ExtResource("1_3mcgo")
 rigidBody = NodePath("..")
-moveSpeed = 720.0
-jumpForce = 200.0
+moveSpeed = 180.0
+jumpForce = 40.0
