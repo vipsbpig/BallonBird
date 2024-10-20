@@ -20,6 +20,15 @@ config/icon="res://icon.svg"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 Global="*res://Scripts/global.gd"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=960
+window/size/resizable=false
+window/stretch/mode="viewport"
+window/stretch/scale=4.0
+window/stretch/scale_mode="integer"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
