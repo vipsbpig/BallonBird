@@ -22,6 +22,7 @@ var p2_hitBox : Area3D
 @export var p2_mat : StandardMaterial3D
 
 @export var attackSpeedThreshold : float
+@export var wind : Vector3
 
 # runtime
 var p1_health : float
@@ -39,8 +40,9 @@ func _ready() -> void:
 
 	# p1 initialization
 	p1_rigidBody = load(prefabPath).instantiate() as RigidBody3D
-	p1_rigidBody.position = p1_position.position
 	add_child(p1_rigidBody)
+	p1_rigidBody.position = p1_position.position
+	p1_rigidBody.constant_force = wind
 
 	p1_hitBox = p1_rigidBody.get_node(hitBoxPath) as Area3D
 
@@ -53,8 +55,9 @@ func _ready() -> void:
 
 	# p2 initialization
 	p2_rigidBody = load(prefabPath).instantiate() as RigidBody3D
-	p2_rigidBody.position = p2_position.position
 	add_child(p2_rigidBody)
+	p2_rigidBody.position = p2_position.position
+	p2_rigidBody.constant_force = wind
 
 	p2_hitBox = p2_rigidBody.get_node(hitBoxPath) as Area3D
 

@@ -60,6 +60,7 @@ p2_data = SubResource("Resource_qu0bc")
 p1_mat = ExtResource("3_b5jjg")
 p2_mat = ExtResource("4_1ek25")
 attackSpeedThreshold = 5.0
+wind = Vector3(0, 0.1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27782, 5.12624, 1)
