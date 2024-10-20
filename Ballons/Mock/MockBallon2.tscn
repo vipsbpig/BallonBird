@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://cto2ht8o722lu"]
+[gd_scene load_steps=14 format=3 uid="uid://cto2ht8o722lu"]
 
-[ext_resource type="Material" uid="uid://c20fo10ds06e6" path="res://Ballons/Mock/RedBird.tres" id="1_lhfth"]
+[ext_resource type="Material" path="res://Ballons/Mock/RedBird.tres" id="1_lhfth"]
 [ext_resource type="Script" path="res://Scripts/input_behaviour.gd" id="2_q010t"]
 [ext_resource type="Script" path="res://Scripts/hurt_box.gd" id="3_7ti32"]
 [ext_resource type="Script" path="res://Scripts/attack_behaviour.gd" id="4_3m41a"]
 [ext_resource type="Script" path="res://Scripts/health_component.gd" id="5_wybvu"]
+[ext_resource type="Script" path="res://Scripts/camera_component.gd" id="6_a54ww"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_00qlv"]
 bounce = 0.6
@@ -83,3 +84,7 @@ hurtBox = NodePath("../HurtBox")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("5_wybvu")
+
+[node name="CameraComponent" type="Node" parent="." node_paths=PackedStringArray("followTarget")]
+script = ExtResource("6_a54ww")
+followTarget = NodePath("..")

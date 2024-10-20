@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://d8820thlxuqb"]
+[gd_scene load_steps=14 format=3 uid="uid://d8820thlxuqb"]
 
-[ext_resource type="Material" uid="uid://djkmajce4r0m5" path="res://Ballons/Mock/BlueBird.tres" id="1_2o7av"]
+[ext_resource type="Material" path="res://Ballons/Mock/BlueBird.tres" id="1_2o7av"]
 [ext_resource type="Script" path="res://Scripts/input_behaviour.gd" id="1_3mcgo"]
 [ext_resource type="Script" path="res://Scripts/hurt_box.gd" id="2_5j6g1"]
 [ext_resource type="Script" path="res://Scripts/attack_behaviour.gd" id="2_8bssc"]
 [ext_resource type="Script" path="res://Scripts/health_component.gd" id="5_ybvq5"]
+[ext_resource type="Script" path="res://Scripts/camera_component.gd" id="6_rjx3l"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_00qlv"]
 bounce = 0.6
@@ -82,3 +83,7 @@ hurtBox = NodePath("../HurtBox")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("5_ybvq5")
+
+[node name="CameraComponent" type="Node" parent="." node_paths=PackedStringArray("followTarget")]
+script = ExtResource("6_rjx3l")
+followTarget = NodePath("..")
