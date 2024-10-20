@@ -33,6 +33,11 @@ window/stretch/scale_mode="integer"
 
 enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
+[global_group]
+
+p1=""
+p2=""
+
 [input]
 
 move_left={
