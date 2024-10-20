@@ -1,13 +1,33 @@
-[gd_scene load_steps=11 format=3 uid="uid://bat6am4i5o3cb"]
+[gd_scene load_steps=15 format=3 uid="uid://bat6am4i5o3cb"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ue1lb"]
 [ext_resource type="PackedScene" uid="uid://iu5r7md2ly71" path="res://Arena/Arena.tscn" id="2_muf8x"]
+[ext_resource type="Script" path="res://Scripts/bird_config.gd" id="2_occr3"]
+[ext_resource type="Material" uid="uid://djkmajce4r0m5" path="res://Ballons/Mock/BlueBird.tres" id="3_b5jjg"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_jpvp5"]
+[ext_resource type="Material" uid="uid://c20fo10ds06e6" path="res://Ballons/Mock/RedBird.tres" id="4_1ek25"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_b67g5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="5_dpqps"]
 [ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="5_w7o3c"]
-[ext_resource type="PackedScene" uid="uid://d8820thlxuqb" path="res://Ballons/Mock/MockBallon.tscn" id="6_0vunb"]
-[ext_resource type="PackedScene" uid="uid://cto2ht8o722lu" path="res://Ballons/Mock/MockBallon2.tscn" id="7_qhp0d"]
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="8_ylc3v"]
+
+[sub_resource type="Resource" id="Resource_pjcnc"]
+script = ExtResource("2_occr3")
+maxHealth = 1.0
+maxSpeed = 12.0
+rotateSpeed = 180.0
+rotateTime = 0.05
+jumpForce = 40.0
+rotaionDampForce = 5.0
+
+[sub_resource type="Resource" id="Resource_qu0bc"]
+script = ExtResource("2_occr3")
+maxHealth = 1.0
+maxSpeed = 12.0
+rotateSpeed = 180.0
+rotateTime = 0.05
+jumpForce = 40.0
+rotaionDampForce = 5.0
 
 [sub_resource type="Resource" id="Resource_i5y80"]
 script = ExtResource("4_b67g5")
@@ -29,6 +49,18 @@ far = 4000.0
 
 [node name="Game" type="Node3D"]
 
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("p1_position", "p2_position")]
+script = ExtResource("8_ylc3v")
+p1_position = NodePath("../P1Ref")
+p2_position = NodePath("../P2Ref")
+p1_group = "p1"
+p2_group = "p2"
+p1_data = SubResource("Resource_pjcnc")
+p2_data = SubResource("Resource_qu0bc")
+p1_mat = ExtResource("3_b5jjg")
+p2_mat = ExtResource("4_1ek25")
+attackSpeedThreshold = 5.0
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27782, 5.12624, 1)
 fov = 24.0
@@ -45,13 +77,13 @@ camera_3d_resource = SubResource("Resource_q6toe")
 
 [node name="CameraController" type="Node" parent="PhantomCamera3D" node_paths=PackedStringArray("pCam")]
 script = ExtResource("5_w7o3c")
-pCam = NodePath("..")
 distanc_min_max = Vector2(23, 35)
+pCam = NodePath("..")
 
 [node name="Arena" parent="." instance=ExtResource("2_muf8x")]
 
-[node name="Ballon" parent="." instance=ExtResource("6_0vunb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.42185, 0)
+[node name="P1Ref" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.50898, 5.26258, 0)
 
-[node name="Ballon2" parent="." instance=ExtResource("7_qhp0d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27782, 5.12624, 0)
+[node name="P2Ref" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.81249, 5.21065, 0)

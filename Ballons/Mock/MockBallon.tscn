@@ -1,10 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://d8820thlxuqb"]
+[gd_scene load_steps=12 format=3 uid="uid://d8820thlxuqb"]
 
-[ext_resource type="Material" path="res://Ballons/Mock/BlueBird.tres" id="1_2o7av"]
-[ext_resource type="Script" path="res://Scripts/input_behaviour.gd" id="1_3mcgo"]
-[ext_resource type="Script" path="res://Scripts/hurt_box.gd" id="2_5j6g1"]
-[ext_resource type="Script" path="res://Scripts/attack_behaviour.gd" id="2_8bssc"]
-[ext_resource type="Script" path="res://Scripts/health_component.gd" id="5_ybvq5"]
+[ext_resource type="Material" uid="uid://djkmajce4r0m5" path="res://Ballons/Mock/BlueBird.tres" id="1_2o7av"]
 [ext_resource type="Script" path="res://Scripts/camera_component.gd" id="6_rjx3l"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_00qlv"]
@@ -13,13 +9,17 @@ bounce = 0.6
 [sub_resource type="SphereMesh" id="SphereMesh_h1bja"]
 material = ExtResource("1_2o7av")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_f8134"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0sbyr"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_fs1t1"]
-height = 3.353
+[sub_resource type="SphereShape3D" id="SphereShape3D_f8134"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_nxd32"]
 material = ExtResource("1_2o7av")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jgvm0"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_fs1t1"]
+height = 3.353
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1doq2"]
 size = Vector3(0.757263, 0.252197, 1)
@@ -35,54 +35,36 @@ physics_material_override = SubResource("PhysicsMaterial_00qlv")
 gravity_scale = 0.0
 constant_force = Vector3(0, 0.1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="BodyMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_h1bja")
+surface_material_override/0 = SubResource("StandardMaterial3D_0sbyr")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="BodyCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_f8134")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="BeakMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-9.39795e-09, -0.364425, 0, 0.215, -1.59295e-08, 0, 0, 0, 0.215, 0.851526, 0, 0)
+mesh = SubResource("CylinderMesh_nxd32")
+surface_material_override/0 = SubResource("StandardMaterial3D_jgvm0")
+
+[node name="BeakCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(-9.39795e-09, -0.215, 0, 0.215, -9.39795e-09, 0, 0, 0, 0.215, 0.851526, 0, 0)
 shape = SubResource("CylinderShape3D_fs1t1")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D2"]
-transform = Transform3D(1, 0, 0, 0, 1.695, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("CylinderMesh_nxd32")
-skeleton = NodePath("../..")
 
 [node name="HitBox" type="Area3D" parent="."]
 collision_layer = 2
 collision_mask = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+[node name="HitboxCollision" type="CollisionShape3D" parent="HitBox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.83326, 0.0032959, 0)
 shape = SubResource("BoxShape3D_1doq2")
 
-[node name="HurtBox" type="Area3D" parent="." node_paths=PackedStringArray("healthComponent")]
+[node name="HurtBox" type="Area3D" parent="."]
 collision_layer = 4
 collision_mask = 0
-script = ExtResource("2_5j6g1")
-healthComponent = NodePath("../HealthComponent")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
+[node name="HurtBoxCollision" type="CollisionShape3D" parent="HurtBox"]
 shape = SubResource("BoxShape3D_6e0kp")
-
-[node name="InputBehaviour" type="Node" parent="." node_paths=PackedStringArray("rigidBody")]
-script = ExtResource("1_3mcgo")
-rigidBody = NodePath("..")
-maxSpeed = 15.0
-rotateSpeed = 180.0
-jumpForce = 40.0
-rotaionDampForce = 5.0
-
-[node name="AttackBehaviour" type="Node" parent="." node_paths=PackedStringArray("rigidBody", "hitBox", "hurtBox")]
-script = ExtResource("2_8bssc")
-rigidBody = NodePath("..")
-hitBox = NodePath("../HitBox")
-hurtBox = NodePath("../HurtBox")
-
-[node name="HealthComponent" type="Node" parent="."]
-script = ExtResource("5_ybvq5")
 
 [node name="CameraComponent" type="Node" parent="." node_paths=PackedStringArray("followTarget")]
 script = ExtResource("6_rjx3l")
