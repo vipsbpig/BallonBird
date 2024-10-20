@@ -3,6 +3,7 @@ extends Node
 
 @export var p1_position : Node3D
 @export var p2_position : Node3D
+@export var prefab : PackedScene
 
 # references
 var p1_rigidBody : RigidBody3D
@@ -31,7 +32,6 @@ var p2_health : float
 var p1_holdDuration : float
 var p2_holdDuration : float
 
-var prefabPath : String = "res://Ballons/Mock/MockBallon.tscn"
 var hitBoxPath : NodePath = ^"HitBox"
 
 var isFinished : bool = false
@@ -39,7 +39,7 @@ var isFinished : bool = false
 func _ready() -> void:
 
 	# p1 initialization
-	p1_rigidBody = load(prefabPath).instantiate() as RigidBody3D
+	p1_rigidBody = prefab.instantiate() as RigidBody3D
 	add_child(p1_rigidBody)
 	p1_rigidBody.position = p1_position.position
 	p1_rigidBody.constant_force = wind
@@ -54,7 +54,7 @@ func _ready() -> void:
 			child.set_surface_override_material(0, p1_mat)
 
 	# p2 initialization
-	p2_rigidBody = load(prefabPath).instantiate() as RigidBody3D
+	p2_rigidBody = prefab.instantiate() as RigidBody3D
 	add_child(p2_rigidBody)
 	p2_rigidBody.position = p2_position.position
 	p2_rigidBody.constant_force = wind

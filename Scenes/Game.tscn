@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bat6am4i5o3cb"]
+[gd_scene load_steps=16 format=3 uid="uid://bat6am4i5o3cb"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ue1lb"]
 [ext_resource type="PackedScene" uid="uid://iu5r7md2ly71" path="res://Arena/Arena.tscn" id="2_muf8x"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_b67g5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="5_dpqps"]
 [ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="5_w7o3c"]
+[ext_resource type="PackedScene" uid="uid://d8820thlxuqb" path="res://Ballons/Mock/MockBallon.tscn" id="6_0vunb"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="8_ylc3v"]
 
 [sub_resource type="Resource" id="Resource_pjcnc"]
@@ -53,6 +54,7 @@ far = 4000.0
 script = ExtResource("8_ylc3v")
 p1_position = NodePath("../P1Ref")
 p2_position = NodePath("../P2Ref")
+prefab = ExtResource("6_0vunb")
 p1_group = "p1"
 p2_group = "p2"
 p1_data = SubResource("Resource_pjcnc")
@@ -78,8 +80,8 @@ camera_3d_resource = SubResource("Resource_q6toe")
 
 [node name="CameraController" type="Node" parent="PhantomCamera3D" node_paths=PackedStringArray("pCam")]
 script = ExtResource("5_w7o3c")
-pCam = NodePath("..")
 distanc_min_max = Vector2(23, 40)
+pCam = NodePath("..")
 
 [node name="Arena" parent="." instance=ExtResource("2_muf8x")]
 
