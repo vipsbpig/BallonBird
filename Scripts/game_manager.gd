@@ -32,7 +32,7 @@ var p2_health : float
 var p1_holdDuration : float
 var p2_holdDuration : float
 
-var hitBoxPath : NodePath = ^"HitBox"
+const hitBoxPath : NodePath = ^"HitBox"
 
 var isFinished : bool = false
 

@@ -7,3 +7,4 @@ extends Resource
 @export var rotateTime : float = 0.05
 @export var jumpForce : float = 40
 @export var rotaionDampForce : float = 5
+@export var mesh : Mesh
