@@ -77,8 +77,8 @@ camera_3d_resource = SubResource("Resource_q6toe")
 
 [node name="CameraController" type="Node" parent="PhantomCamera3D" node_paths=PackedStringArray("pCam")]
 script = ExtResource("5_w7o3c")
-distanc_min_max = Vector2(23, 35)
 pCam = NodePath("..")
+distanc_min_max = Vector2(23, 40)
 
 [node name="Arena" parent="." instance=ExtResource("2_muf8x")]
 
