@@ -19,9 +19,6 @@ var p2_hitBox : Area3D
 @export var p1_data : BirdConfig
 @export var p2_data : BirdConfig
 
-@export var p1_mat : StandardMaterial3D
-@export var p2_mat : StandardMaterial3D
-
 @export var attackSpeedThreshold : float
 @export var wind : Vector3
 
@@ -33,6 +30,7 @@ var p1_holdDuration : float
 var p2_holdDuration : float
 
 const hitBoxPath : NodePath = ^"HitBox"
+const meshPath : NodePath = ^"Bird"
 
 var isFinished : bool = false
 
@@ -45,28 +43,26 @@ func _ready() -> void:
 	p1_rigidBody.constant_force = wind
 
 	p1_hitBox = p1_rigidBody.get_node(hitBoxPath) as Area3D
+	p1_rigidBody.get_node(meshPath).mesh = p1_data.mesh
 
 	p1_health = p1_data.maxHealth
 	p1_hitBox.area_entered.connect(_on_p1_area_entered)
 	p1_rigidBody.add_to_group(p1_group)
-	for child in p1_rigidBody.get_children():
-		if child is MeshInstance3D:
-			child.set_surface_override_material(0, p1_mat)
 
 	# p2 initialization
 	p2_rigidBody = prefab.instantiate() as RigidBody3D
+	# inverse
+	p2_rigidBody.rotation_degrees.y += 180
 	add_child(p2_rigidBody)
 	p2_rigidBody.position = p2_position.position
 	p2_rigidBody.constant_force = wind
 
 	p2_hitBox = p2_rigidBody.get_node(hitBoxPath) as Area3D
+	p2_rigidBody.get_node(meshPath).mesh = p2_data.mesh
 
 	p2_health = p2_data.maxHealth
 	p2_hitBox.area_entered.connect(_on_p2_area_entered)
 	p2_rigidBody.add_to_group(p2_group)
-	for child in p2_rigidBody.get_children():
-		if child is MeshInstance3D:
-			child.set_surface_override_material(0, p2_mat)
 
 func _on_p1_area_entered(other: Area3D) -> void:
 	if other.get_parent().is_in_group(p2_group):

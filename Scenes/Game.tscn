@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ue1lb"]
 [ext_resource type="Script" path="res://Scripts/bird_config.gd" id="2_occr3"]
-[ext_resource type="Material" uid="uid://djkmajce4r0m5" path="res://Ballons/Mock/BlueBird.tres" id="3_b5jjg"]
+[ext_resource type="ArrayMesh" uid="uid://cwjsxp4vier3j" path="res://Meshes/Birds/b1.res" id="3_21gb6"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_jpvp5"]
-[ext_resource type="Material" uid="uid://c20fo10ds06e6" path="res://Ballons/Mock/RedBird.tres" id="4_1ek25"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_b67g5"]
+[ext_resource type="ArrayMesh" uid="uid://1pvhfnoj6y0h" path="res://Meshes/Birds/b2.res" id="5_5uxn2"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="5_dpqps"]
 [ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="5_w7o3c"]
 [ext_resource type="PackedScene" uid="uid://d8820thlxuqb" path="res://Ballons/Mock/MockBallon.tscn" id="6_0vunb"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="8_ylc3v"]
-[ext_resource type="ArrayMesh" uid="uid://c8uetmj57lhar" path="res://Meshes/Boxes/map1.res" id="11_6ybsb"]
+[ext_resource type="ArrayMesh" uid="uid://c8uetmj57lhar" path="res://Meshes/Boxes/map1.res" id="11_6jxnk"]
 [ext_resource type="Environment" uid="uid://cbw5xswycm6in" path="res://DefaultEnvironment.tres" id="12_o5n53"]
 
 [sub_resource type="Resource" id="Resource_pjcnc"]
@@ -21,6 +21,7 @@ rotateSpeed = 180.0
 rotateTime = 0.05
 jumpForce = 40.0
 rotaionDampForce = 5.0
+mesh = ExtResource("3_21gb6")
 
 [sub_resource type="Resource" id="Resource_qu0bc"]
 script = ExtResource("2_occr3")
@@ -30,6 +31,7 @@ rotateSpeed = 180.0
 rotateTime = 0.05
 jumpForce = 40.0
 rotaionDampForce = 5.0
+mesh = ExtResource("5_5uxn2")
 
 [sub_resource type="Resource" id="Resource_i5y80"]
 script = ExtResource("4_b67g5")
@@ -66,8 +68,6 @@ p1_group = "p1"
 p2_group = "p2"
 p1_data = SubResource("Resource_pjcnc")
 p2_data = SubResource("Resource_qu0bc")
-p1_mat = ExtResource("3_b5jjg")
-p2_mat = ExtResource("4_1ek25")
 attackSpeedThreshold = 5.0
 wind = Vector3(0, 0.1, 0)
 
@@ -98,7 +98,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.81249, 5.21065, 0)
 
 [node name="map1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
-mesh = ExtResource("11_6ybsb")
+mesh = ExtResource("11_6jxnk")
 skeleton = NodePath("")
 
 [node name="Arena" type="StaticBody3D" parent="."]
@@ -123,5 +123,5 @@ shape = SubResource("BoxShape3D_j7fox")
 environment = ExtResource("12_o5n53")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.385004, 0.922915, 0, -0.922915, 0.385004, 0, 3.50095, 5.20668)
+transform = Transform3D(1, 0, 0, 0, 0.938493, 0.345298, 0, -0.345298, 0.938493, 0, 3.50095, 5.20668)
 shadow_enabled = true
