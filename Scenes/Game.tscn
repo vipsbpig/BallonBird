@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://bat6am4i5o3cb"]
+[gd_scene load_steps=19 format=3 uid="uid://bat6am4i5o3cb"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ue1lb"]
-[ext_resource type="PackedScene" uid="uid://iu5r7md2ly71" path="res://Arena/Arena.tscn" id="2_muf8x"]
 [ext_resource type="Script" path="res://Scripts/bird_config.gd" id="2_occr3"]
 [ext_resource type="Material" uid="uid://djkmajce4r0m5" path="res://Ballons/Mock/BlueBird.tres" id="3_b5jjg"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_jpvp5"]
@@ -11,6 +10,8 @@
 [ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="5_w7o3c"]
 [ext_resource type="PackedScene" uid="uid://d8820thlxuqb" path="res://Ballons/Mock/MockBallon.tscn" id="6_0vunb"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="8_ylc3v"]
+[ext_resource type="ArrayMesh" uid="uid://c8uetmj57lhar" path="res://Meshes/Boxes/map1.res" id="11_6ybsb"]
+[ext_resource type="Environment" uid="uid://cbw5xswycm6in" path="res://DefaultEnvironment.tres" id="12_o5n53"]
 
 [sub_resource type="Resource" id="Resource_pjcnc"]
 script = ExtResource("2_occr3")
@@ -48,6 +49,12 @@ frustum_offset = Vector2(0, 0)
 near = 0.05
 far = 4000.0
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_2otxk"]
+size = Vector3(26, 0.6, 16)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j7fox"]
+size = Vector3(0.6, 14, 16)
+
 [node name="Game" type="Node3D"]
 
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("p1_position", "p2_position")]
@@ -80,13 +87,41 @@ camera_3d_resource = SubResource("Resource_q6toe")
 
 [node name="CameraController" type="Node" parent="PhantomCamera3D" node_paths=PackedStringArray("pCam")]
 script = ExtResource("5_w7o3c")
-distanc_min_max = Vector2(23, 40)
 pCam = NodePath("..")
-
-[node name="Arena" parent="." instance=ExtResource("2_muf8x")]
+distanc_min_max = Vector2(23, 40)
 
 [node name="P1Ref" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.50898, 5.26258, 0)
 
 [node name="P2Ref" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.81249, 5.21065, 0)
+
+[node name="map1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
+mesh = ExtResource("11_6ybsb")
+skeleton = NodePath("")
+
+[node name="Arena" type="StaticBody3D" parent="."]
+
+[node name="Bottom" type="CollisionShape3D" parent="Arena"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04, 0)
+shape = SubResource("BoxShape3D_2otxk")
+
+[node name="Top" type="CollisionShape3D" parent="Arena"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.05, 0)
+shape = SubResource("BoxShape3D_2otxk")
+
+[node name="Left" type="CollisionShape3D" parent="Arena"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.65, 7.15, 0)
+shape = SubResource("BoxShape3D_j7fox")
+
+[node name="Right" type="CollisionShape3D" parent="Arena"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.65, 7.15, 0)
+shape = SubResource("BoxShape3D_j7fox")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("12_o5n53")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.385004, 0.922915, 0, -0.922915, 0.385004, 0, 3.50095, 5.20668)
+shadow_enabled = true
