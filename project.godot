@@ -33,6 +33,10 @@ window/stretch/scale_mode="integer"
 
 enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
+[filesystem]
+
+import/blender/enabled=false
+
 [global_group]
 
 p1=""
