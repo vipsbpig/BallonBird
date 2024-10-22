@@ -13,6 +13,8 @@ material = ExtResource("1_2o7av")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0sbyr"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_f8134"]
+margin = 0.0
+radius = 0.558275
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_nxd32"]
 material = ExtResource("1_2o7av")
@@ -21,6 +23,7 @@ material = ExtResource("1_2o7av")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_fs1t1"]
 height = 3.353
+radius = 1.24761
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1doq2"]
 size = Vector3(0.757263, 0.252197, 1)

@@ -81,13 +81,16 @@ func _process(delta: float) -> void:
 		Engine.time_scale = slomoSpeed
 	else:
 		Engine.time_scale = 1
+
 	if isFinished || p1_health > 0 && p2_health > 0:
 		return
+
 	if p1_health == 0:
 		print("p1 is defeated!")
 		isFinished = true
 		slomoTimer = slomoDuration
 		return
+
 	if p2_health == 0:
 		print("p2 is defeated!")
 		isFinished = true
@@ -128,7 +131,6 @@ func process_input(
 		left_input: String,
 		right_input: String,
 		jump_input: String) -> float:
-	var velocity : Vector3 = rigidBody.angular_velocity
 	var rotateDirection : int = 0
 	
 	if Input.is_action_pressed(left_input):
@@ -141,12 +143,10 @@ func process_input(
 
 	holdDuration -= delta
 
+	rigidBody.angular_damp = 1
+	var local_z_direction = rigidBody.transform.basis.z
 	if rotateDirection != 0 && holdDuration > 0:
-		velocity.z = player.rotateSpeed * rotateDirection * delta
-	else:
-		velocity.z = lerp(velocity.z, 0.0, player.rotaionDampForce * delta)
-
-	rigidBody.angular_velocity = velocity
+		rigidBody.apply_torque_impulse(local_z_direction * player.rotateSpeed * rotateDirection * delta)
 
 	if Input.is_action_just_pressed(jump_input):
 		var local_x_direction = rigidBody.transform.basis.x
