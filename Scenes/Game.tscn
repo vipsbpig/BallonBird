@@ -68,6 +68,8 @@ p1_group = "p1"
 p2_group = "p2"
 p1_data = SubResource("Resource_pjcnc")
 p2_data = SubResource("Resource_qu0bc")
+slomoDuration = 2.0
+slomoSpeed = 0.1
 attackSpeedThreshold = 5.0
 wind = Vector3(0, 0.1, 0)
 

@@ -19,6 +19,8 @@ var p2_hitBox : Area3D
 @export var p1_data : BirdConfig
 @export var p2_data : BirdConfig
 
+@export var slomoDuration : float
+@export var slomoSpeed : float
 @export var attackSpeedThreshold : float
 @export var wind : Vector3
 
@@ -33,6 +35,7 @@ const hitBoxPath : NodePath = ^"HitBox"
 const meshPath : NodePath = ^"Bird"
 
 var isFinished : bool = false
+var slomoTimer : float = 0
 
 func _ready() -> void:
 
@@ -72,16 +75,23 @@ func _on_p2_area_entered(other: Area3D) -> void:
 	if other.get_parent().is_in_group(p1_group):
 		p1_health -= 1
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	slomoTimer = max(0, slomoTimer - delta / Engine.time_scale)
+	if slomoTimer > 0:
+		Engine.time_scale = slomoSpeed
+	else:
+		Engine.time_scale = 1
 	if isFinished || p1_health > 0 && p2_health > 0:
 		return
 	if p1_health == 0:
 		print("p1 is defeated!")
 		isFinished = true
+		slomoTimer = slomoDuration
 		return
 	if p2_health == 0:
 		print("p2 is defeated!")
 		isFinished = true
+		slomoTimer = slomoDuration
 		return
 
 func _physics_process(delta: float) -> void:
