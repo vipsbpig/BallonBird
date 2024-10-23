@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://d8820thlxuqb"]
 
-[ext_resource type="Material" path="res://Ballons/Mock/BlueBird.tres" id="1_2o7av"]
+[ext_resource type="Material" uid="uid://djkmajce4r0m5" path="res://Ballons/Mock/BlueBird.tres" id="1_2o7av"]
 [ext_resource type="ArrayMesh" uid="uid://cwjsxp4vier3j" path="res://Meshes/Birds/b1.res" id="3_fwkqt"]
 [ext_resource type="Script" path="res://Scripts/camera_component.gd" id="6_rjx3l"]
 

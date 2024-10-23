@@ -1,37 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://bat6am4i5o3cb"]
+[gd_scene load_steps=12 format=3 uid="uid://bat6am4i5o3cb"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ue1lb"]
-[ext_resource type="Script" path="res://Scripts/bird_config.gd" id="2_occr3"]
-[ext_resource type="ArrayMesh" uid="uid://cwjsxp4vier3j" path="res://Meshes/Birds/b1.res" id="3_21gb6"]
+[ext_resource type="Resource" uid="uid://bmb2y80utuas" path="res://Datas/BallonDatas.tres" id="3_hn235"]
 [ext_resource type="Resource" uid="uid://dsemrrd0xg5vd" path="res://Datas/ArenaDatas.tres" id="3_j2lqo"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_jpvp5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_b67g5"]
-[ext_resource type="ArrayMesh" uid="uid://1pvhfnoj6y0h" path="res://Meshes/Birds/b2.res" id="5_5uxn2"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="5_dpqps"]
 [ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="5_w7o3c"]
-[ext_resource type="PackedScene" uid="uid://d8820thlxuqb" path="res://Ballons/Mock/MockBallon.tscn" id="6_0vunb"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="8_ylc3v"]
 [ext_resource type="Environment" uid="uid://cbw5xswycm6in" path="res://DefaultEnvironment.tres" id="12_o5n53"]
-
-[sub_resource type="Resource" id="Resource_pjcnc"]
-script = ExtResource("2_occr3")
-maxHealth = 1.0
-maxSpeed = 12.0
-rotateSpeed = 2.0
-rotateTime = 0.05
-jumpForce = 40.0
-rotaionDampForce = 5.0
-mesh = ExtResource("3_21gb6")
-
-[sub_resource type="Resource" id="Resource_qu0bc"]
-script = ExtResource("2_occr3")
-maxHealth = 1.0
-maxSpeed = 12.0
-rotateSpeed = 2.0
-rotateTime = 0.05
-jumpForce = 40.0
-rotaionDampForce = 5.0
-mesh = ExtResource("5_5uxn2")
 
 [sub_resource type="Resource" id="Resource_i5y80"]
 script = ExtResource("4_b67g5")
@@ -58,12 +35,10 @@ script = ExtResource("8_ylc3v")
 map_position = NodePath("../MapRef")
 p1_position = NodePath("../P1Ref")
 p2_position = NodePath("../P2Ref")
-prefab = ExtResource("6_0vunb")
 arena_datas = ExtResource("3_j2lqo")
 p1_group = "p1"
 p2_group = "p2"
-p1_data = SubResource("Resource_pjcnc")
-p2_data = SubResource("Resource_qu0bc")
+ballon_data = ExtResource("3_hn235")
 slomoDuration = 2.0
 slomoSpeed = 0.1
 attackSpeedThreshold = 5.0

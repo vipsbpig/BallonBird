@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5ksvafygxwxn"]
+
+[ext_resource type="ArrayMesh" uid="uid://1pvhfnoj6y0h" path="res://Meshes/Birds/b2.res" id="1_y5hq8"]
+[ext_resource type="Script" path="res://Scripts/camera_component.gd" id="2_i88k7"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_00qlv"]
+bounce = 0.6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4ie6b"]
+radius = 0.534816
+
+[node name="b2" type="RigidBody3D"]
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+mass = 0.2
+physics_material_override = SubResource("PhysicsMaterial_00qlv")
+gravity_scale = 0.0
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("1_y5hq8")
+
+[node name="Body" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_4ie6b")
+
+[node name="Beak" type="CollisionPolygon3D" parent="."]
+depth = 0.5
+polygon = PackedVector2Array(0.500682, 0.230194, 1.37127, 0.190536, 1.7661, 0.12746, 1.52798, -0.0589748, 1.29552, -0.18102, 0.499315, -0.192644, 0.49641, 0.00640664)
+
+[node name="HitBoxArea" type="Area3D" parent="."]
+
+[node name="HitBoxShape" type="CollisionPolygon3D" parent="HitBoxArea"]
+polygon = PackedVector2Array(0.500682, 0.230194, 1.37127, 0.190536, 1.7661, 0.12746, 1.52798, -0.0589748, 1.29552, -0.18102, 0.499315, -0.192644, 0.49641, 0.00640664)
+
+[node name="HurtBoxArea" type="Area3D" parent="."]
+
+[node name="HurtBoxShape" type="CollisionShape3D" parent="HurtBoxArea"]
+shape = SubResource("SphereShape3D_4ie6b")
+
+[node name="CameraComponent" type="Node" parent="." node_paths=PackedStringArray("followTarget")]
+script = ExtResource("2_i88k7")
+followTarget = NodePath("..")

@@ -4,7 +4,6 @@ extends Node
 @export var map_position : Node3D
 @export var p1_position : Node3D
 @export var p2_position : Node3D
-@export var prefab : PackedScene
 
 # references
 var p1_rigidBody : RigidBody3D
@@ -19,8 +18,7 @@ var p2_hitBox : Area3D
 @export var p1_group : String
 @export var p2_group : String
 
-@export var p1_data : BirdConfig
-@export var p2_data : BirdConfig
+@export var ballon_data : BallonDatas
 
 @export var slomoDuration : float
 @export var slomoSpeed : float
@@ -28,14 +26,16 @@ var p2_hitBox : Area3D
 @export var wind : Vector3
 
 # runtime
+var p1_data : BirdConfig
+var p2_data : BirdConfig
+
 var p1_health : float
 var p2_health : float
 
 var p1_holdDuration : float
 var p2_holdDuration : float
 
-const hitBoxPath : NodePath = ^"HitBox"
-const meshPath : NodePath = ^"Bird"
+const hitBoxPath : NodePath = ^"HitBoxArea"
 
 var isFinished : bool = false
 var slomoTimer : float = 0
@@ -48,20 +48,21 @@ func _ready() -> void:
 	map.global_position = map_position.global_position
 
 	# p1 initialization
-	p1_rigidBody = prefab.instantiate() as RigidBody3D
+	p1_data = ballon_data.Ballons[Global.p1_ballon_index]
+	p1_rigidBody = p1_data.asset.instantiate() as RigidBody3D
 	add_child(p1_rigidBody)
 	p1_rigidBody.position = p1_position.position
 	p1_rigidBody.constant_force = wind
 
 	p1_hitBox = p1_rigidBody.get_node(hitBoxPath) as Area3D
-	p1_rigidBody.get_node(meshPath).mesh = p1_data.mesh
 
 	p1_health = p1_data.maxHealth
 	p1_hitBox.area_entered.connect(_on_p1_area_entered)
 	p1_rigidBody.add_to_group(p1_group)
 
 	# p2 initialization
-	p2_rigidBody = prefab.instantiate() as RigidBody3D
+	p2_data = ballon_data.Ballons[Global.p2_ballon_index]
+	p2_rigidBody = p2_data.asset.instantiate() as RigidBody3D
 	# inverse
 	p2_rigidBody.rotation_degrees.y += 180
 	add_child(p2_rigidBody)
@@ -69,7 +70,6 @@ func _ready() -> void:
 	p2_rigidBody.constant_force = wind
 
 	p2_hitBox = p2_rigidBody.get_node(hitBoxPath) as Area3D
-	p2_rigidBody.get_node(meshPath).mesh = p2_data.mesh
 
 	p2_health = p2_data.maxHealth
 	p2_hitBox.area_entered.connect(_on_p2_area_entered)
@@ -127,8 +127,8 @@ func _physics_process(delta: float) -> void:
 		p2_rigidBody,
 		p2_data, delta,
 		p2_holdDuration,
-		"move_left2",
 		"move_right2",
+		"move_left2",
 		"jump2");
 	
 func process_input(
