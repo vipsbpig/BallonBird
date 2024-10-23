@@ -1,0 +1,271 @@
+[gd_scene load_steps=17 format=3 uid="uid://bfr2sqfj0r0uk"]
+
+[ext_resource type="Script" path="res://Scripts/Config/arena_selection.gd" id="1_8hv1c"]
+[ext_resource type="PackedScene" uid="uid://dnr2lxmrr6f4a" path="res://Scenes/UI/BallonSelection.tscn" id="2_6ywta"]
+[ext_resource type="Texture2D" uid="uid://bkv2eaaqds2bl" path="res://Sprites/map.png" id="3_q53yd"]
+[ext_resource type="PackedScene" uid="uid://iu5r7md2ly71" path="res://Arena/Arena.tscn" id="3_xc18n"]
+[ext_resource type="Texture2D" uid="uid://p32ps2a5t06p" path="res://Sprites/allwhite.png" id="4_ovh4c"]
+[ext_resource type="Texture2D" uid="uid://r7ebtv4n3afg" path="res://Sprites/TransBlack.png" id="6_wggu4"]
+
+[sub_resource type="Environment" id="Environment_f83vv"]
+background_mode = 1
+background_color = Color(0.00251652, 0.272897, 0.365076, 1)
+
+[sub_resource type="Shader" id="Shader_nikpi"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_mix;
+uniform sampler2D mask_texture; // 遮罩纹理
+uniform float mask_scale; // 遮罩缩放
+uniform float mask_value; // 遮罩值
+
+
+void fragment() {
+    vec2 center = vec2(0.5,0.5); // 中心点
+    vec2 scaled_uv = (UV - center) * mask_scale + center; // 以中心为基点缩放UV
+    vec4 mask_color = texture(mask_texture, scaled_uv);
+
+    if (mask_color.a > 0.5) {
+		COLOR.a = mask_value;
+    }
+    COLOR = texture(TEXTURE, UV) * COLOR; // 显示背景纹理
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vcvya"]
+shader = SubResource("Shader_nikpi")
+shader_parameter/mask_scale = 0.0
+shader_parameter/mask_value = 1.0
+shader_parameter/mask_texture = ExtResource("6_wggu4")
+
+[sub_resource type="Animation" id="Animation_3e5jh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/TextureRect:material:shader_parameter/mask_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/TextureRect:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/TextureRect:material:shader_parameter/mask_value")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_qie8f"]
+resource_name = "fadeIn"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/TextureRect:material:shader_parameter/mask_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.466667, 2.66667, 2.93333),
+"transitions": PackedFloat32Array(0.0743253, 0.329877, 1),
+"update": 0,
+"values": [100.0, 0.05, 0.01]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/TextureRect:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.933333, 1.16667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/TextureRect:material:shader_parameter/mask_value")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_x3gcb"]
+resource_name = "fadeOut"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/TextureRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.86667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_scene_change"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/TextureRect:material:shader_parameter/mask_value")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333, 0.166667, 1.13333, 1.76667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 0.0, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/TextureRect:material:shader_parameter/mask_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1, 1.43333),
+"transitions": PackedFloat32Array(2, 1.23114),
+"update": 0,
+"values": [0.0, 60.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vol5q"]
+_data = {
+"RESET": SubResource("Animation_3e5jh"),
+"fadeIn": SubResource("Animation_qie8f"),
+"fadeOut": SubResource("Animation_x3gcb")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_knmax"]
+viewport_path = NodePath("MapIndicator/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nq1ny"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_knmax")
+
+[sub_resource type="QuadMesh" id="QuadMesh_mofjw"]
+
+[node name="ArenaSelection" type="Node3D" node_paths=PackedStringArray("selectable_objects", "mapIndiactor", "animPlayer")]
+script = ExtResource("1_8hv1c")
+selectable_objects = [NodePath("Arenas/Arena"), NodePath("Arenas/Position/Arena2"), NodePath("Arenas/Arena3"), NodePath("Arenas/Position2/Arena4")]
+mapIndiactor = NodePath("MapIndicator")
+animPlayer = NodePath("Camera3D/CanvasLayer/Control/AnimationPlayer")
+ballonScene = ExtResource("2_6ywta")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_f83vv")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.577991, -0.100636, 18.435)
+fov = 28.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera3D"]
+
+[node name="Control" type="Control" parent="Camera3D/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Camera3D/CanvasLayer/Control"]
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_vcvya")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_ovh4c")
+expand_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D/CanvasLayer/Control"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_vol5q")
+}
+autoplay = "fadeIn"
+
+[node name="MapIndicator" type="Node3D" parent="."]
+
+[node name="ViewportQuad" type="MeshInstance3D" parent="MapIndicator"]
+transform = Transform3D(1.032, 0, 0, 0, 0.758, 0, 0, 0, 1, 0, 1.97397, 0)
+material_override = SubResource("StandardMaterial3D_nq1ny")
+mesh = SubResource("QuadMesh_mofjw")
+skeleton = NodePath("../..")
+
+[node name="SubViewport" type="SubViewport" parent="MapIndicator"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(1032, 753)
+size_2d_override_stretch = true
+
+[node name="TextureRect" type="TextureRect" parent="MapIndicator/SubViewport"]
+offset_right = 1032.0
+offset_bottom = 753.0
+texture = ExtResource("3_q53yd")
+
+[node name="Arenas" type="Node3D" parent="."]
+
+[node name="Arena" parent="Arenas" instance=ExtResource("3_xc18n")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -4.31975, 0, 0)
+
+[node name="Position" type="Node3D" parent="Arenas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.705505, 0)
+
+[node name="Arena2" parent="Arenas/Position" instance=ExtResource("3_xc18n")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -1.51591, 0, 0)
+
+[node name="Arena3" parent="Arenas" instance=ExtResource("3_xc18n")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 1.35717, 0, 0)
+
+[node name="Position2" type="Node3D" parent="Arenas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.705505, 0)
+
+[node name="Arena4" parent="Arenas/Position2" instance=ExtResource("3_xc18n")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 4.15579, 0, 0)

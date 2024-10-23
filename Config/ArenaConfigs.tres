@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ArenaConfigs" load_steps=3 format=3 uid="uid://dsemrrd0xg5vd"]
+
+[ext_resource type="PackedScene" uid="uid://iu5r7md2ly71" path="res://Arena/Arena.tscn" id="1_27y1d"]
+[ext_resource type="Script" path="res://Scripts/Config/arenas_config.gd" id="1_er0jo"]
+
+[resource]
+script = ExtResource("1_er0jo")
+Areas = Array[PackedScene]([ExtResource("1_27y1d")])
