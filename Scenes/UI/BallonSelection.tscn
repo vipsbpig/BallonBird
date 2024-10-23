@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dnr2lxmrr6f4a"]
+[gd_scene load_steps=27 format=3 uid="uid://dnr2lxmrr6f4a"]
 
 [ext_resource type="Texture2D" uid="uid://r7ebtv4n3afg" path="res://Sprites/TransBlack.png" id="1_hhysm"]
 [ext_resource type="Script" path="res://Scripts/Data/ballon_selection.gd" id="1_pphmk"]
@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://c7cfgdni6eyc5" path="res://Sprites/1P.png" id="5_jaxvk"]
 [ext_resource type="Texture2D" uid="uid://djjfykmddcyxn" path="res://Sprites/2P.png" id="6_bundc"]
 [ext_resource type="ArrayMesh" uid="uid://1pvhfnoj6y0h" path="res://Meshes/Birds/b2.res" id="6_lopfo"]
+[ext_resource type="ArrayMesh" uid="uid://ccr7u1wuhm7r1" path="res://Meshes/Birds/b3.res" id="8_nfntv"]
+[ext_resource type="ArrayMesh" uid="uid://djwt3vxk45hgx" path="res://Meshes/Birds/b4.res" id="9_gigrb"]
+[ext_resource type="ArrayMesh" uid="uid://db2wspi23o01r" path="res://Meshes/Birds/b5.res" id="10_3ga3o"]
+[ext_resource type="ArrayMesh" uid="uid://c5kyakljijevo" path="res://Meshes/Birds/b6.res" id="11_5wtfe"]
 
 [sub_resource type="Environment" id="Environment_f83vv"]
 background_mode = 1
@@ -204,7 +208,7 @@ size = Vector2(0.879, 0.631)
 
 [node name="BallonSelection" type="Node3D" node_paths=PackedStringArray("selectable_objects", "p1Indiactor", "p2Indiactor", "animPlayer")]
 script = ExtResource("1_pphmk")
-selectable_objects = [NodePath("Ballon/Position1/Bird1"), NodePath("Ballon/Position2/Bird2")]
+selectable_objects = [NodePath("Ballon/Position1/Bird1"), NodePath("Ballon/Position2/Bird2"), NodePath("Ballon/Position3/Bird3"), NodePath("Ballon/Position4/Bird4"), NodePath("Ballon/Position5/Bird5"), NodePath("Ballon/Position6/Bird6")]
 p1Indiactor = NodePath("P1Indicator")
 p2Indiactor = NodePath("P2Indicator")
 animPlayer = NodePath("Camera3D/CanvasLayer/Control/AnimationPlayer")
@@ -214,12 +218,12 @@ gameScene = ExtResource("2_0emut")
 environment = SubResource("Environment_f83vv")
 
 [node name="Background" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.335557, 0, 0, 0, 0.447507, 0, 0, 0, 1, 0, 1.03448, 0)
+transform = Transform3D(0.45073, 0, 0, 0, 0.60254, 0, 0, 0, 1, 0, 1.09192, 0)
 mesh = ExtResource("3_alof7")
 skeleton = NodePath("")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08356, 18.3363)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08356, 22.8803)
 fov = 28.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera3D"]
@@ -254,18 +258,46 @@ autoplay = "fadeIn"
 [node name="Ballon" type="Node3D" parent="."]
 
 [node name="Position1" type="Node3D" parent="Ballon"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.97134, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.84512, 2.5, 0)
 
 [node name="Bird1" type="MeshInstance3D" parent="Ballon/Position1"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 mesh = ExtResource("5_ctb88")
 
 [node name="Position2" type="Node3D" parent="Ballon"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88239, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.21895, -0.218282, 0)
 
 [node name="Bird2" type="MeshInstance3D" parent="Ballon/Position2"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 mesh = ExtResource("6_lopfo")
+
+[node name="Position3" type="Node3D" parent="Ballon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.541945, 2.5, 0)
+
+[node name="Bird3" type="MeshInstance3D" parent="Ballon/Position3"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("8_nfntv")
+
+[node name="Position4" type="Node3D" parent="Ballon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19929, -0.218282, 0)
+
+[node name="Bird4" type="MeshInstance3D" parent="Ballon/Position4"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.06267, -0.516976, 0)
+mesh = ExtResource("9_gigrb")
+
+[node name="Position5" type="Node3D" parent="Ballon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.57805, 2.5, 0)
+
+[node name="Bird5" type="MeshInstance3D" parent="Ballon/Position5"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.40733, -0.430813, 6.15162e-08)
+mesh = ExtResource("10_3ga3o")
+
+[node name="Position6" type="Node3D" parent="Ballon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.08961, -0.654327, 0)
+
+[node name="Bird6" type="MeshInstance3D" parent="Ballon/Position6"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("11_5wtfe")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
@@ -274,7 +306,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.126953, 0.11261, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="P1Indicator"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.920776, 0.892279, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.920776, 1.04657, 6.74439e-09)
 material_override = SubResource("StandardMaterial3D_d2tde")
 mesh = SubResource("PlaneMesh_w2jr0")
 
@@ -293,7 +325,7 @@ texture = ExtResource("5_jaxvk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.49011, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="P2Indicator"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.38333, 0.950105, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.38333, 1.08236, 5.7809e-09)
 material_override = SubResource("StandardMaterial3D_tfuhx")
 mesh = SubResource("PlaneMesh_ir6hl")
 
