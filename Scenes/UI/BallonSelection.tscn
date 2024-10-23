@@ -1,14 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://dnr2lxmrr6f4a"]
+[gd_scene load_steps=22 format=3 uid="uid://dnr2lxmrr6f4a"]
 
 [ext_resource type="Texture2D" uid="uid://r7ebtv4n3afg" path="res://Sprites/TransBlack.png" id="1_hhysm"]
-[ext_resource type="PackedScene" uid="uid://d8820thlxuqb" path="res://Ballons/Mock/MockBallon.tscn" id="2_2v5s1"]
+[ext_resource type="Script" path="res://Scripts/Config/ballon_selection.gd" id="1_pphmk"]
+[ext_resource type="PackedScene" uid="uid://bat6am4i5o3cb" path="res://Scenes/Game.tscn" id="2_0emut"]
 [ext_resource type="Texture2D" uid="uid://p32ps2a5t06p" path="res://Sprites/allwhite.png" id="2_sb7mj"]
+[ext_resource type="ArrayMesh" uid="uid://cwjsxp4vier3j" path="res://Meshes/Birds/b1.res" id="5_ctb88"]
+[ext_resource type="Texture2D" uid="uid://c7cfgdni6eyc5" path="res://Sprites/1P.png" id="5_jaxvk"]
+[ext_resource type="Texture2D" uid="uid://djjfykmddcyxn" path="res://Sprites/2P.png" id="6_bundc"]
+[ext_resource type="ArrayMesh" uid="uid://1pvhfnoj6y0h" path="res://Meshes/Birds/b2.res" id="6_lopfo"]
 
 [sub_resource type="Environment" id="Environment_f83vv"]
 background_mode = 1
 background_color = Color(0.00251652, 0.272897, 0.365076, 1)
 
-[sub_resource type="Shader" id="Shader_cf54b"]
+[sub_resource type="Shader" id="Shader_nikpi"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's CanvasItemMaterial.
 
 shader_type canvas_item;
@@ -29,8 +34,8 @@ void fragment() {
     COLOR = texture(TEXTURE, UV) * COLOR; // 显示背景纹理
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q1wwm"]
-shader = SubResource("Shader_cf54b")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ypi55"]
+shader = SubResource("Shader_nikpi")
 shader_parameter/mask_scale = 0.0
 shader_parameter/mask_value = 1.0
 shader_parameter/mask_texture = ExtResource("1_hhysm")
@@ -116,7 +121,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_x3gcb"]
 resource_name = "fadeOut"
-length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -136,7 +140,7 @@ tracks/1/path = NodePath("../..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1.86667),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -150,7 +154,7 @@ tracks/2/path = NodePath("Control/TextureRect:material:shader_parameter/mask_val
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.0333333, 0.166667, 1.13333, 1.76667),
+"times": PackedFloat32Array(0.0333333, 0.166667, 0.633333, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [1.0, 0.0, 0.0, 1.0]
@@ -162,10 +166,10 @@ tracks/3/path = NodePath("Control/TextureRect:material:shader_parameter/mask_sca
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.1, 1.43333),
+"times": PackedFloat32Array(0.1, 0.8),
 "transitions": PackedFloat32Array(2, 1.23114),
 "update": 0,
-"values": [0.0, 60.0]
+"values": [0.0, 75.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vol5q"]
@@ -175,7 +179,35 @@ _data = {
 "fadeOut": SubResource("Animation_x3gcb")
 }
 
-[node name="BallonSelection" type="Node3D"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_2m5uk"]
+viewport_path = NodePath("P1Indicator/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2tde"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_2m5uk")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_w2jr0"]
+size = Vector2(0.879, 0.631)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_33fw1"]
+viewport_path = NodePath("P2Indicator/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tfuhx"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_33fw1")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ir6hl"]
+size = Vector2(0.879, 0.631)
+
+[node name="BallonSelection" type="Node3D" node_paths=PackedStringArray("selectable_objects", "p1Indiactor", "p2Indiactor", "animPlayer")]
+script = ExtResource("1_pphmk")
+selectable_objects = [NodePath("Ballon/Position1/Bird1"), NodePath("Ballon/Position2/Bird2")]
+p1Indiactor = NodePath("P1Indicator")
+p2Indiactor = NodePath("P2Indicator")
+animPlayer = NodePath("Camera3D/CanvasLayer/Control/AnimationPlayer")
+gameScene = ExtResource("2_0emut")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_f83vv")
@@ -196,7 +228,7 @@ grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Camera3D/CanvasLayer/Control"]
 self_modulate = Color(0, 0, 0, 1)
-material = SubResource("ShaderMaterial_q1wwm")
+material = SubResource("ShaderMaterial_ypi55")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -215,7 +247,57 @@ autoplay = "fadeIn"
 
 [node name="Ballon" type="Node3D" parent="."]
 
-[node name="Mock" parent="Ballon" instance=ExtResource("2_2v5s1")]
+[node name="Position1" type="Node3D" parent="Ballon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+
+[node name="Bird1" type="MeshInstance3D" parent="Ballon/Position1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("5_ctb88")
+
+[node name="Position2" type="Node3D" parent="Ballon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Bird2" type="MeshInstance3D" parent="Ballon/Position2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("6_lopfo")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="P1Indicator" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.126953, 0.11261, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="P1Indicator"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.920776, 0.892279, 0)
+material_override = SubResource("StandardMaterial3D_d2tde")
+mesh = SubResource("PlaneMesh_w2jr0")
+
+[node name="SubViewport" type="SubViewport" parent="P1Indicator"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(1032, 753)
+size_2d_override_stretch = true
+
+[node name="TextureRect" type="TextureRect" parent="P1Indicator/SubViewport"]
+offset_right = 1032.0
+offset_bottom = 753.0
+texture = ExtResource("5_jaxvk")
+
+[node name="P2Indicator" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.49011, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="P2Indicator"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.38333, 0.950105, 0)
+material_override = SubResource("StandardMaterial3D_tfuhx")
+mesh = SubResource("PlaneMesh_ir6hl")
+
+[node name="SubViewport" type="SubViewport" parent="P2Indicator"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(1032, 753)
+size_2d_override_stretch = true
+
+[node name="TextureRect" type="TextureRect" parent="P2Indicator/SubViewport"]
+offset_right = 1032.0
+offset_bottom = 753.0
+texture = ExtResource("6_bundc")
