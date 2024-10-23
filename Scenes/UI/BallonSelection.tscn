@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://dnr2lxmrr6f4a"]
 
 [ext_resource type="Texture2D" uid="uid://r7ebtv4n3afg" path="res://Sprites/TransBlack.png" id="1_hhysm"]
-[ext_resource type="Script" path="res://Scripts/Config/ballon_selection.gd" id="1_pphmk"]
+[ext_resource type="Script" path="res://Scripts/Data/ballon_selection.gd" id="1_pphmk"]
 [ext_resource type="PackedScene" uid="uid://bat6am4i5o3cb" path="res://Scenes/Game.tscn" id="2_0emut"]
 [ext_resource type="Texture2D" uid="uid://p32ps2a5t06p" path="res://Sprites/allwhite.png" id="2_sb7mj"]
 [ext_resource type="ArrayMesh" uid="uid://cwjsxp4vier3j" path="res://Meshes/Birds/b1.res" id="5_ctb88"]

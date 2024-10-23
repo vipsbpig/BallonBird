@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BallonDatas" load_steps=2 format=3 uid="uid://bmb2y80utuas"]
+
+[ext_resource type="Script" path="res://Scripts/Data/ballon_datas.gd" id="1_njk87"]
+
+[resource]
+script = ExtResource("1_njk87")
+Ballons = Array[PackedScene]([])

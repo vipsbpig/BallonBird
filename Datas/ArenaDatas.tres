@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ArenaDatas" load_steps=4 format=3 uid="uid://dsemrrd0xg5vd"]
+
+[ext_resource type="PackedScene" uid="uid://d2e6vjlo2dff" path="res://Arena/map_1.tscn" id="1_dy277"]
+[ext_resource type="Script" path="res://Scripts/Data/arenas_datas.gd" id="1_er0jo"]
+[ext_resource type="PackedScene" uid="uid://cekmpfuepi5q5" path="res://Arena/map_2.tscn" id="2_mbvim"]
+
+[resource]
+script = ExtResource("1_er0jo")
+Arenas = Array[PackedScene]([ExtResource("1_dy277"), ExtResource("2_mbvim"), ExtResource("1_dy277"), ExtResource("1_dy277"), ExtResource("1_dy277")])

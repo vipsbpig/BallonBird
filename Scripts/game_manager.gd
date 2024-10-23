@@ -1,6 +1,7 @@
 class_name GameManager
 extends Node
 
+@export var map_position : Node3D
 @export var p1_position : Node3D
 @export var p2_position : Node3D
 @export var prefab : PackedScene
@@ -13,6 +14,8 @@ var p1_hitBox : Area3D
 var p2_hitBox : Area3D
 
 # config
+@export var arena_datas : ArenaDatas
+
 @export var p1_group : String
 @export var p2_group : String
 
@@ -38,6 +41,11 @@ var isFinished : bool = false
 var slomoTimer : float = 0
 
 func _ready() -> void:
+	# map initialization
+	var map_prefab = arena_datas.Arenas[Global.arena_index]
+	var map = map_prefab.instantiate() as Node3D
+	add_child(map)
+	map.global_position = map_position.global_position
 
 	# p1 initialization
 	p1_rigidBody = prefab.instantiate() as RigidBody3D
