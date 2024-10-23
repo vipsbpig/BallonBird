@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://dnr2lxmrr6f4a"]
+[gd_scene load_steps=23 format=3 uid="uid://dnr2lxmrr6f4a"]
 
 [ext_resource type="Texture2D" uid="uid://r7ebtv4n3afg" path="res://Sprites/TransBlack.png" id="1_hhysm"]
 [ext_resource type="Script" path="res://Scripts/Data/ballon_selection.gd" id="1_pphmk"]
 [ext_resource type="PackedScene" uid="uid://bat6am4i5o3cb" path="res://Scenes/Game.tscn" id="2_0emut"]
 [ext_resource type="Texture2D" uid="uid://p32ps2a5t06p" path="res://Sprites/allwhite.png" id="2_sb7mj"]
+[ext_resource type="ArrayMesh" uid="uid://cj6wu8uooii4c" path="res://Meshes/Boxes/map0.res" id="3_alof7"]
 [ext_resource type="ArrayMesh" uid="uid://cwjsxp4vier3j" path="res://Meshes/Birds/b1.res" id="5_ctb88"]
 [ext_resource type="Texture2D" uid="uid://c7cfgdni6eyc5" path="res://Sprites/1P.png" id="5_jaxvk"]
 [ext_resource type="Texture2D" uid="uid://djjfykmddcyxn" path="res://Sprites/2P.png" id="6_bundc"]
@@ -211,6 +212,11 @@ gameScene = ExtResource("2_0emut")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_f83vv")
+
+[node name="Background" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.335557, 0, 0, 0, 0.447507, 0, 0, 0, 1, 0, 1.03448, 0)
+mesh = ExtResource("3_alof7")
+skeleton = NodePath("")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08356, 18.3363)

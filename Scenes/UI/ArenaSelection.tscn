@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://bfr2sqfj0r0uk"]
+[gd_scene load_steps=22 format=3 uid="uid://bfr2sqfj0r0uk"]
 
 [ext_resource type="Script" path="res://Scripts/Data/arena_selection.gd" id="1_8hv1c"]
 [ext_resource type="PackedScene" uid="uid://dnr2lxmrr6f4a" path="res://Scenes/UI/BallonSelection.tscn" id="2_6ywta"]
 [ext_resource type="Texture2D" uid="uid://bkv2eaaqds2bl" path="res://Sprites/map.png" id="3_q53yd"]
 [ext_resource type="Texture2D" uid="uid://p32ps2a5t06p" path="res://Sprites/allwhite.png" id="4_ovh4c"]
+[ext_resource type="ArrayMesh" uid="uid://cj6wu8uooii4c" path="res://Meshes/Boxes/map0.res" id="5_ilfau"]
 [ext_resource type="ArrayMesh" uid="uid://np3ycyffqgoi" path="res://Meshes/Boxes/cube1.res" id="6_n1pmo"]
 [ext_resource type="Texture2D" uid="uid://r7ebtv4n3afg" path="res://Sprites/TransBlack.png" id="6_wggu4"]
 [ext_resource type="ArrayMesh" uid="uid://ge83l5qwfmyd" path="res://Meshes/Boxes/cube2.res" id="7_4jonv"]
@@ -234,6 +235,11 @@ libraries = {
 "": SubResource("AnimationLibrary_vol5q")
 }
 autoplay = "fadeIn"
+
+[node name="Background" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.821564, 0, 0, 0, 1.10297, 0, 0, 0, 1, 0, 0.173401, 0)
+mesh = ExtResource("5_ilfau")
+skeleton = NodePath("")
 
 [node name="MapIndicator" type="Node3D" parent="."]
 
