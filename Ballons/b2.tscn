@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5ksvafygxwxn"]
+[gd_scene load_steps=8 format=3 uid="uid://co1yqus7iijbf"]
 
 [ext_resource type="PackedScene" uid="uid://7ec06etbdtp3" path="res://Meshes/B2.glb" id="1_w4r2w"]
 [ext_resource type="Script" path="res://Scripts/camera_component.gd" id="2_i88k7"]
@@ -8,6 +8,22 @@ bounce = 0.6
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ie6b"]
 radius = 0.534816
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g3vvm"]
+direction = Vector3(0, 1, 0)
+spread = 180.0
+flatness = 0.931
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b2ncu"]
+shading_mode = 0
+albedo_color = Color(0.940636, 0.940636, 0.940636, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_fj8th"]
+material = SubResource("StandardMaterial3D_b2ncu")
 
 [node name="b2" type="RigidBody3D"]
 axis_lock_linear_z = true
@@ -30,7 +46,6 @@ bones/3/position = Vector3(0.337012, 0.476545, -0.153881)
 bones/3/rotation = Quaternion(0.404249, 0.191265, -0.808499, 0.382531)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/rotation = Quaternion(0.236878, -1.22166e-07, -0.177659, 0.955158)
-bones/4/scale = Vector3(1, 1, 1)
 
 [node name="Body" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_4ie6b")
@@ -52,5 +67,14 @@ shape = SubResource("SphereShape3D_4ie6b")
 [node name="CameraComponent" type="Node" parent="." node_paths=PackedStringArray("followTarget")]
 script = ExtResource("2_i88k7")
 followTarget = NodePath("..")
+
+[node name="JumpParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56652, -0.00527674, 0)
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_g3vvm")
+draw_pass_1 = SubResource("SphereMesh_fj8th")
 
 [editable path="Mesh"]

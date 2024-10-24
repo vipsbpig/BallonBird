@@ -40,6 +40,7 @@ var p2_holdDuration : float
 
 const hitBoxPath : NodePath = ^"HitBoxArea"
 const animPlayerPath : NodePath = ^"Mesh/AnimationPlayer"
+const jumpParticlePath : NodePath = ^"JumpParticles"
 
 var isFinished : bool = false
 var slomoTimer : float = 0
@@ -169,5 +170,8 @@ func process_input(
 	if Input.is_action_just_pressed(jump_input):
 		var local_x_direction = rigidBody.transform.basis.x
 		rigidBody.apply_force(local_x_direction * player.jumpForce)
+		var particle = rigidBody.get_node(jumpParticlePath) as GPUParticles3D
+		particle.emitting = true	
+		particle.restart()
 
 	return holdDuration

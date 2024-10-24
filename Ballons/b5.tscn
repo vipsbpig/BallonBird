@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://h2k01ybc6dco"]
+[gd_scene load_steps=8 format=3 uid="uid://h2k01ybc6dco"]
 
 [ext_resource type="PackedScene" uid="uid://uti1p784dysw" path="res://Meshes/B5.glb" id="1_w2e6r"]
 [ext_resource type="Script" path="res://Scripts/camera_component.gd" id="2_vlkxj"]
@@ -8,6 +8,22 @@ bounce = 0.6
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ie6b"]
 radius = 0.252275
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wx4hl"]
+direction = Vector3(0, 1, 0)
+spread = 180.0
+flatness = 0.931
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8yqwm"]
+shading_mode = 0
+albedo_color = Color(0.940636, 0.940636, 0.940636, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_w4f31"]
+material = SubResource("StandardMaterial3D_8yqwm")
 
 [node name="b5" type="RigidBody3D"]
 axis_lock_linear_z = true
@@ -40,5 +56,14 @@ shape = SubResource("SphereShape3D_4ie6b")
 [node name="CameraComponent" type="Node" parent="." node_paths=PackedStringArray("followTarget")]
 script = ExtResource("2_vlkxj")
 followTarget = NodePath("..")
+
+[node name="JumpParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.278333, -0.00527674, 0)
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_wx4hl")
+draw_pass_1 = SubResource("SphereMesh_w4f31")
 
 [editable path="Mesh"]
