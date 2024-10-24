@@ -1,10 +1,14 @@
 class_name BirdConfig
 extends Resource
 
-@export var maxHealth : float = 1
-@export var maxSpeed : float = 12
-@export var rotateSpeed : float = 180
-@export var rotateTime : float = 0.05
-@export var jumpForce : float = 40
-@export var rotaionDampForce : float = 5
+@export var torque : float = 2
+@export var angular_damp : float = 1
+@export var accel_time : float = 0.05
+
+@export var jump_force : float = 40
+@export var linear_damp : float = 0.1
+@export var rotate_time : float = 0.05
+
+@export var mass : float = 0.4
+
 @export var asset : PackedScene

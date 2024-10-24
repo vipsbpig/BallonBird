@@ -44,6 +44,7 @@ var p2_holdDuration : float
 const hitBoxPath : NodePath = ^"HitBoxArea"
 const animPlayerPath : NodePath = ^"Mesh/AnimationPlayer"
 const jumpParticlePath : NodePath = ^"JumpParticles"
+const maxHealth : int = 1
 
 var isFinished : bool = false
 var slomoTimer : float = 0
@@ -61,13 +62,14 @@ func _ready() -> void:
 	add_child(p1_rigidBody)
 	p1_rigidBody.position = p1_position.position
 	p1_rigidBody.constant_force = wind
+	p1_rigidBody.mass = p1_data.mass
 
 	p1_hitBox = p1_rigidBody.get_node(hitBoxPath) as Area3D
 	
 	p1_player = p1_rigidBody.get_node(animPlayerPath) as AnimationPlayer
 	p1_player.play(fly_anim)
 
-	p1_health = p1_data.maxHealth
+	p1_health = maxHealth
 	p1_hitBox.area_entered.connect(_on_p1_area_entered)
 	p1_rigidBody.add_to_group(p1_group)
 
@@ -79,13 +81,14 @@ func _ready() -> void:
 	add_child(p2_rigidBody)
 	p2_rigidBody.position = p2_position.position
 	p2_rigidBody.constant_force = wind
+	p2_rigidBody.mass = p2_data.mass
 
 	p2_hitBox = p2_rigidBody.get_node(hitBoxPath) as Area3D
 	
 	p2_player = p2_rigidBody.get_node(animPlayerPath) as AnimationPlayer
 	p2_player.play("Fly1")
 
-	p2_health = p2_data.maxHealth
+	p2_health = maxHealth
 	p2_hitBox.area_entered.connect(_on_p2_area_entered)
 	p2_rigidBody.add_to_group(p2_group)
 
@@ -138,14 +141,14 @@ func _physics_process(delta: float) -> void:
 		p1_holdDuration,
 		"move_left",
 		"move_right",
-		"jump");
+		"jump")
 	p2_holdDuration = process_input(
 		p2_rigidBody,
 		p2_data, delta,
 		p2_holdDuration,
 		"move_right2",
 		"move_left2",
-		"jump2");
+		"jump2")
 	
 func process_input(
 		rigidBody: RigidBody3D,
@@ -162,21 +165,24 @@ func process_input(
 	elif Input.is_action_pressed(right_input):
 		rotateDirection = -1
 
-	if Input.is_action_just_pressed(left_input) || Input.is_action_just_pressed(right_input):
-		holdDuration = player.rotateTime
+	if Input.is_action_just_pressed(left_input) || Input.is_action_just_pressed(right_input) || Input.is_action_just_pressed(jump_input):
+		holdDuration = player.rotate_time
 
 	holdDuration -= delta
 
-	rigidBody.angular_damp = 1
-	var local_z_direction = rigidBody.transform.basis.z
-	if rotateDirection != 0 && holdDuration > 0:
-		rigidBody.apply_torque_impulse(local_z_direction * player.rotateSpeed * rotateDirection * delta)
+	rigidBody.linear_damp = player.linear_damp
+	rigidBody.angular_damp = player.angular_damp
 
-	if Input.is_action_just_pressed(jump_input):
-		var local_x_direction = rigidBody.transform.basis.x
-		rigidBody.apply_force(local_x_direction * player.jumpForce)
+	var local_x_direction = rigidBody.transform.basis.x
+	var local_z_direction = rigidBody.transform.basis.z
+
+	if rotateDirection != 0 && holdDuration > 0:
+		rigidBody.apply_torque_impulse(local_z_direction * player.torque * rotateDirection * delta)
+
+	if Input.is_action_just_pressed(jump_input) && holdDuration > 0:
+		rigidBody.apply_force(local_x_direction * player.jump_force)
 		var particle = rigidBody.get_node(jumpParticlePath) as GPUParticles3D
-		particle.emitting = true	
+		particle.emitting = true
 		particle.restart()
 
 	return holdDuration
