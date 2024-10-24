@@ -21,6 +21,9 @@ var p2_player : AnimationPlayer
 @export var p1_group : String
 @export var p2_group : String
 
+@export var fly_anim : String
+@export var death_anim : String
+
 @export var ballon_data : BallonDatas
 
 @export var slomoDuration : float
@@ -62,7 +65,7 @@ func _ready() -> void:
 	p1_hitBox = p1_rigidBody.get_node(hitBoxPath) as Area3D
 	
 	p1_player = p1_rigidBody.get_node(animPlayerPath) as AnimationPlayer
-	p1_player.play("Fly1")
+	p1_player.play(fly_anim)
 
 	p1_health = p1_data.maxHealth
 	p1_hitBox.area_entered.connect(_on_p1_area_entered)
@@ -107,12 +110,14 @@ func _process(delta: float) -> void:
 	if p1_health == 0:
 		print("p1 is defeated!")
 		isFinished = true
+		p1_player.play(death_anim)
 		slomoTimer = slomoDuration
 		return
 
 	if p2_health == 0:
 		print("p2 is defeated!")
 		isFinished = true
+		p2_player.play(death_anim)
 		slomoTimer = slomoDuration
 		return
 
