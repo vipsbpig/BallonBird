@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b5ksvafygxwxn"]
 
-[ext_resource type="ArrayMesh" uid="uid://1pvhfnoj6y0h" path="res://Meshes/Birds/b2.res" id="1_y5hq8"]
+[ext_resource type="PackedScene" uid="uid://7ec06etbdtp3" path="res://Meshes/B2.glb" id="1_w4r2w"]
 [ext_resource type="Script" path="res://Scripts/camera_component.gd" id="2_i88k7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_00qlv"]
@@ -17,9 +17,20 @@ mass = 0.2
 physics_material_override = SubResource("PhysicsMaterial_00qlv")
 gravity_scale = 0.0
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="Mesh" parent="." instance=ExtResource("1_w4r2w")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-mesh = ExtResource("1_y5hq8")
+
+[node name="Skeleton3D" parent="Mesh/B2" index="0"]
+bones/0/position = Vector3(0, 0.0908502, 0)
+bones/1/position = Vector3(-0.336022, 0.476545, -0.153881)
+bones/1/rotation = Quaternion(-1.9424e-07, -4.86034e-08, 0.903929, 0.427682)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/rotation = Quaternion(-4.69615e-08, -8.36918e-09, 0.296097, 0.955158)
+bones/3/position = Vector3(0.337012, 0.476545, -0.153881)
+bones/3/rotation = Quaternion(0.404249, 0.191265, -0.808499, 0.382531)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/rotation = Quaternion(0.236878, -1.22166e-07, -0.177659, 0.955158)
+bones/4/scale = Vector3(1, 1, 1)
 
 [node name="Body" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_4ie6b")
@@ -41,3 +52,5 @@ shape = SubResource("SphereShape3D_4ie6b")
 [node name="CameraComponent" type="Node" parent="." node_paths=PackedStringArray("followTarget")]
 script = ExtResource("2_i88k7")
 followTarget = NodePath("..")
+
+[editable path="Mesh"]

@@ -12,6 +12,9 @@ var p2_rigidBody : RigidBody3D
 var p1_hitBox : Area3D
 var p2_hitBox : Area3D
 
+var p1_player : AnimationPlayer
+var p2_player : AnimationPlayer
+
 # config
 @export var arena_datas : ArenaDatas
 
@@ -36,6 +39,7 @@ var p1_holdDuration : float
 var p2_holdDuration : float
 
 const hitBoxPath : NodePath = ^"HitBoxArea"
+const animPlayerPath : NodePath = ^"Mesh/AnimationPlayer"
 
 var isFinished : bool = false
 var slomoTimer : float = 0
@@ -55,6 +59,9 @@ func _ready() -> void:
 	p1_rigidBody.constant_force = wind
 
 	p1_hitBox = p1_rigidBody.get_node(hitBoxPath) as Area3D
+	
+	p1_player = p1_rigidBody.get_node(animPlayerPath) as AnimationPlayer
+	p1_player.play("Fly1")
 
 	p1_health = p1_data.maxHealth
 	p1_hitBox.area_entered.connect(_on_p1_area_entered)
@@ -70,6 +77,9 @@ func _ready() -> void:
 	p2_rigidBody.constant_force = wind
 
 	p2_hitBox = p2_rigidBody.get_node(hitBoxPath) as Area3D
+	
+	p2_player = p2_rigidBody.get_node(animPlayerPath) as AnimationPlayer
+	p2_player.play("Fly1")
 
 	p2_health = p2_data.maxHealth
 	p2_hitBox.area_entered.connect(_on_p2_area_entered)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ds3djm1n7hcjy"]
 
-[ext_resource type="ArrayMesh" uid="uid://d67wj37lvk3s" path="res://Meshes/Birds/b6.res" id="1_j57m5"]
+[ext_resource type="PackedScene" uid="uid://blyevi11brton" path="res://Meshes/B6.glb" id="1_ed6h0"]
 [ext_resource type="Script" path="res://Scripts/camera_component.gd" id="2_q0xrx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_00qlv"]
@@ -17,9 +17,8 @@ mass = 0.2
 physics_material_override = SubResource("PhysicsMaterial_00qlv")
 gravity_scale = 0.0
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="Mesh" parent="." instance=ExtResource("1_ed6h0")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-mesh = ExtResource("1_j57m5")
 
 [node name="Body" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_4ie6b")
@@ -41,3 +40,5 @@ shape = SubResource("SphereShape3D_4ie6b")
 [node name="CameraComponent" type="Node" parent="." node_paths=PackedStringArray("followTarget")]
 script = ExtResource("2_q0xrx")
 followTarget = NodePath("..")
+
+[editable path="Mesh"]
