@@ -44,11 +44,15 @@ depth = 0.5
 polygon = PackedVector2Array(0.529875, 0.0987542, 0.878703, 0.102633, 1.3168, -0.0401939, 1.60995, -0.241023, 1.73479, -0.49657, 1.60226, -0.330427, 1.29283, -0.141366, 0.871229, -0.0686757, 0.527909, -0.0955151)
 
 [node name="HitBoxArea" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 4
 
 [node name="HitBoxShape" type="CollisionPolygon3D" parent="HitBoxArea"]
 polygon = PackedVector2Array(0.529875, 0.0987542, 0.878703, 0.102633, 1.3168, -0.0401939, 1.60995, -0.241023, 1.73479, -0.49657, 1.60226, -0.330427, 1.29283, -0.141366, 0.871229, -0.0686757, 0.527909, -0.0955151)
 
 [node name="HurtBoxArea" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 0
 
 [node name="HurtBoxShape" type="CollisionShape3D" parent="HurtBoxArea"]
 shape = SubResource("SphereShape3D_4ie6b")
