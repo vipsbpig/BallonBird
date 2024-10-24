@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byp8c2gl86dqi"
-path.s3tc="res://.godot/imported/cube3_cube3.jpg-432e3f3a6b23121cbf8171b26f05651c.s3tc.ctex"
+uid="uid://cmioakxyockqt"
+path.s3tc="res://.godot/imported/MAP2_map2_export.jpg-132d731c00660109036d729e2b0d2e16.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "cb477c3ae75200a2535b3f7921483a72"
+"md5": "2a98ccd57c811d24b700b1cb7aceca3a"
 }
 
 [deps]
 
-source_file="res://Meshes/cube3_cube3.jpg"
-dest_files=["res://.godot/imported/cube3_cube3.jpg-432e3f3a6b23121cbf8171b26f05651c.s3tc.ctex"]
+source_file="res://Meshes/MAP2_map2_export.jpg"
+dest_files=["res://.godot/imported/MAP2_map2_export.jpg-132d731c00660109036d729e2b0d2e16.s3tc.ctex"]
 
 [params]
 
