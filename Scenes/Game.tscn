@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bat6am4i5o3cb"]
+[gd_scene load_steps=16 format=3 uid="uid://bat6am4i5o3cb"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ue1lb"]
 [ext_resource type="Resource" uid="uid://bmb2y80utuas" path="res://Datas/BallonDatas.tres" id="3_hn235"]
@@ -8,6 +8,10 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="5_dpqps"]
 [ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="5_w7o3c"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="8_ylc3v"]
+[ext_resource type="Texture2D" uid="uid://c7cfgdni6eyc5" path="res://Sprites/1P.png" id="10_44opg"]
+[ext_resource type="Script" path="res://Scripts/UI_player_score.gd" id="11_e1sfh"]
+[ext_resource type="Texture2D" uid="uid://djjfykmddcyxn" path="res://Sprites/2P.png" id="11_soblu"]
+[ext_resource type="Texture2D" uid="uid://cgeas3s0p1cin" path="res://Sprites/win.png" id="11_umy3t"]
 [ext_resource type="Environment" uid="uid://cbw5xswycm6in" path="res://DefaultEnvironment.tres" id="12_o5n53"]
 
 [sub_resource type="Resource" id="Resource_i5y80"]
@@ -29,6 +33,107 @@ near = 0.05
 far = 4000.0
 
 [node name="Game" type="Node3D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameUI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="1p" type="TextureRect" parent="CanvasLayer/GameUI"]
+layout_mode = 1
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 89.0
+offset_bottom = 65.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("10_44opg")
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("11_e1sfh")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/GameUI/1p"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 24.0
+offset_right = 467.0
+offset_bottom = 85.0
+theme_override_constants/separation = 10
+
+[node name="Win" type="TextureRect" parent="CanvasLayer/GameUI/1p/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture = ExtResource("11_umy3t")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Win2" type="TextureRect" parent="CanvasLayer/GameUI/1p/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture = ExtResource("11_umy3t")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Win3" type="TextureRect" parent="CanvasLayer/GameUI/1p/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture = ExtResource("11_umy3t")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="2p" type="TextureRect" parent="CanvasLayer/GameUI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -82.0
+offset_top = 4.0
+offset_right = -7.0
+offset_bottom = 58.0
+grow_horizontal = 0
+scale = Vector2(0.3, 0.3)
+pivot_offset = Vector2(74, -3)
+texture = ExtResource("11_soblu")
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("11_e1sfh")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/GameUI/2p"]
+layout_mode = 0
+offset_left = -373.0
+offset_top = 22.0
+offset_right = -8.0
+offset_bottom = 83.0
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="Win" type="TextureRect" parent="CanvasLayer/GameUI/2p/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_direction = 2
+layout_mode = 2
+texture = ExtResource("11_umy3t")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Win2" type="TextureRect" parent="CanvasLayer/GameUI/2p/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_direction = 2
+layout_mode = 2
+texture = ExtResource("11_umy3t")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Win3" type="TextureRect" parent="CanvasLayer/GameUI/2p/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_direction = 2
+layout_mode = 2
+texture = ExtResource("11_umy3t")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("map_position", "p1_position", "p2_position")]
 script = ExtResource("8_ylc3v")
@@ -80,3 +185,6 @@ environment = ExtResource("12_o5n53")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.938493, 0.345298, 0, -0.345298, 0.938493, 0, 3.50095, 5.20668)
 shadow_enabled = true
+
+[connection signal="p1_score_change" from="GameManager" to="CanvasLayer/GameUI/1p" method="SetScore"]
+[connection signal="p2_score_change" from="GameManager" to="CanvasLayer/GameUI/2p" method="SetScore"]

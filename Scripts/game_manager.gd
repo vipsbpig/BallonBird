@@ -49,12 +49,30 @@ const maxHealth : int = 1
 var isFinished : bool = false
 var slomoTimer : float = 0
 
+var p1_score : int = 0 : set = set_p1_score
+var p2_score : int = 0 : set = set_p2_score
+
+signal p1_score_change(score: int)
+signal p2_score_change(score: int)
+
+func set_p1_score(newscore: int):
+	p1_score = newscore
+	p1_score_change.emit(p1_score)
+
+func set_p2_score(newscore: int):
+	p2_score = newscore
+	p2_score_change.emit(p2_score)
+	
 func _ready() -> void:
 	# map initialization
 	var map_prefab = arena_datas.Arenas[Global.arena_index]
 	var map = map_prefab.instantiate() as Node3D
 	add_child(map)
 	map.global_position = map_position.global_position
+	
+	# score reset
+	p1_score = 0
+	p2_score = 0
 
 	# p1 initialization
 	p1_data = ballon_data.Ballons[Global.p1_ballon_index]
@@ -99,12 +117,31 @@ func _on_p1_area_entered(other: Area3D) -> void:
 func _on_p2_area_entered(other: Area3D) -> void:
 	if other.get_parent().is_in_group(p1_group):
 		p1_health -= 1
+		
+func _reset_players() -> void:
+	print("reset_players")
+	isFinished = false
+	p1_rigidBody.position = p1_position.position
+	p2_rigidBody.position = p2_position.position
+	p1_rigidBody.linear_velocity = Vector3.ZERO
+	p2_rigidBody.linear_velocity = Vector3.ZERO
+	p1_health = maxHealth
+	p2_health = maxHealth
+	p1_rigidBody.rotation_degrees.y = 0
+	p2_rigidBody.rotation_degrees.y = 180
+	p1_player.play("Fly1")
+	p2_player.play("Fly1")
 
 func _process(delta: float) -> void:
 	slomoTimer = max(0, slomoTimer - delta / Engine.time_scale)
-	if slomoTimer > 0:
+	if slomoTimer > 0 && isFinished:
 		Engine.time_scale = slomoSpeed
 	else:
+		if isFinished :
+			if (p1_score >= 2|| p2_score>=2):
+				_switch_to_arena_selection()
+			else:
+				_reset_players()		
 		Engine.time_scale = 1
 
 	if isFinished || p1_health > 0 && p2_health > 0:
@@ -115,6 +152,7 @@ func _process(delta: float) -> void:
 		isFinished = true
 		p1_player.play(death_anim)
 		slomoTimer = slomoDuration
+		p2_score = p2_score + 1
 		return
 
 	if p2_health == 0:
@@ -122,6 +160,7 @@ func _process(delta: float) -> void:
 		isFinished = true
 		p2_player.play(death_anim)
 		slomoTimer = slomoDuration
+		p1_score = p1_score + 1
 		return
 
 func _physics_process(delta: float) -> void:
@@ -186,3 +225,6 @@ func process_input(
 		particle.restart()
 
 	return holdDuration
+
+func _switch_to_arena_selection():
+	get_tree().change_scene_to_file("res://Scenes/UI/ArenaSelection.tscn")

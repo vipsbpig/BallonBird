@@ -9,10 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://c7cfgdni6eyc5" path="res://Sprites/1P.png" id="5_jaxvk"]
 [ext_resource type="Texture2D" uid="uid://djjfykmddcyxn" path="res://Sprites/2P.png" id="6_bundc"]
 [ext_resource type="ArrayMesh" uid="uid://1pvhfnoj6y0h" path="res://Meshes/Birds/b2.res" id="6_lopfo"]
-[ext_resource type="ArrayMesh" uid="uid://ccr7u1wuhm7r1" path="res://Meshes/Birds/b3.res" id="8_nfntv"]
-[ext_resource type="ArrayMesh" uid="uid://djwt3vxk45hgx" path="res://Meshes/Birds/b4.res" id="9_gigrb"]
-[ext_resource type="ArrayMesh" uid="uid://db2wspi23o01r" path="res://Meshes/Birds/b5.res" id="10_3ga3o"]
-[ext_resource type="ArrayMesh" uid="uid://c5kyakljijevo" path="res://Meshes/Birds/b6.res" id="11_5wtfe"]
+[ext_resource type="ArrayMesh" uid="uid://dnr6aocfbtpve" path="res://Meshes/Birds/b3.res" id="8_nfntv"]
+[ext_resource type="ArrayMesh" uid="uid://cq5atb561i0ok" path="res://Meshes/Birds/b4.res" id="9_gigrb"]
+[ext_resource type="ArrayMesh" uid="uid://bomy1snvrp2gl" path="res://Meshes/Birds/b5.res" id="10_3ga3o"]
+[ext_resource type="ArrayMesh" uid="uid://d67wj37lvk3s" path="res://Meshes/Birds/b6.res" id="11_5wtfe"]
 
 [sub_resource type="Environment" id="Environment_f83vv"]
 background_mode = 1
