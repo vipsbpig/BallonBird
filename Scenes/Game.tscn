@@ -1,17 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://bat6am4i5o3cb"]
+[gd_scene load_steps=18 format=3 uid="uid://bat6am4i5o3cb"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ue1lb"]
+[ext_resource type="Texture2D" uid="uid://cwcxfcwcg6i1d" path="res://Sprites/egg.png" id="3_g0osj"]
 [ext_resource type="Resource" uid="uid://bmb2y80utuas" path="res://Datas/BallonDatas.tres" id="3_hn235"]
 [ext_resource type="Resource" uid="uid://dsemrrd0xg5vd" path="res://Datas/ArenaDatas.tres" id="3_j2lqo"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_jpvp5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_b67g5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="5_dpqps"]
+[ext_resource type="Texture2D" uid="uid://ddlae6cb0rcns" path="res://Sprites/key_KB1.png" id="5_hcfov"]
 [ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="5_w7o3c"]
+[ext_resource type="Texture2D" uid="uid://xg4o1avsasf8" path="res://Sprites/key_KB2.png" id="6_v06w7"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="8_ylc3v"]
 [ext_resource type="Texture2D" uid="uid://c7cfgdni6eyc5" path="res://Sprites/1P.png" id="10_44opg"]
 [ext_resource type="Script" path="res://Scripts/UI_player_score.gd" id="11_e1sfh"]
 [ext_resource type="Texture2D" uid="uid://djjfykmddcyxn" path="res://Sprites/2P.png" id="11_soblu"]
-[ext_resource type="Texture2D" uid="uid://cgeas3s0p1cin" path="res://Sprites/win.png" id="11_umy3t"]
 [ext_resource type="Environment" uid="uid://cbw5xswycm6in" path="res://DefaultEnvironment.tres" id="12_o5n53"]
 
 [sub_resource type="Resource" id="Resource_i5y80"]
@@ -35,6 +37,7 @@ far = 4000.0
 [node name="Game" type="Node3D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_scale = 4.0
 
 [node name="GameUI" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -67,21 +70,21 @@ theme_override_constants/separation = 10
 [node name="Win" type="TextureRect" parent="CanvasLayer/GameUI/1p/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-texture = ExtResource("11_umy3t")
+texture = ExtResource("3_g0osj")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="Win2" type="TextureRect" parent="CanvasLayer/GameUI/1p/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-texture = ExtResource("11_umy3t")
+texture = ExtResource("3_g0osj")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="Win3" type="TextureRect" parent="CanvasLayer/GameUI/1p/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-texture = ExtResource("11_umy3t")
+texture = ExtResource("3_g0osj")
 expand_mode = 1
 stretch_mode = 4
 
@@ -115,7 +118,7 @@ alignment = 2
 custom_minimum_size = Vector2(100, 0)
 layout_direction = 2
 layout_mode = 2
-texture = ExtResource("11_umy3t")
+texture = ExtResource("3_g0osj")
 expand_mode = 1
 stretch_mode = 4
 
@@ -123,7 +126,7 @@ stretch_mode = 4
 custom_minimum_size = Vector2(100, 0)
 layout_direction = 2
 layout_mode = 2
-texture = ExtResource("11_umy3t")
+texture = ExtResource("3_g0osj")
 expand_mode = 1
 stretch_mode = 4
 
@@ -131,7 +134,34 @@ stretch_mode = 4
 custom_minimum_size = Vector2(100, 0)
 layout_direction = 2
 layout_mode = 2
-texture = ExtResource("11_umy3t")
+texture = ExtResource("3_g0osj")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="1p_control" type="TextureRect" parent="CanvasLayer/GameUI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+offset_right = 32.0
+grow_vertical = 0
+texture = ExtResource("5_hcfov")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="2p_control" type="TextureRect" parent="CanvasLayer/GameUI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("6_v06w7")
 expand_mode = 1
 stretch_mode = 4
 
