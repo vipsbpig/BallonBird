@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://d2e6vjlo2dff" path="res://Arena/map_1.tscn" id="1_dy277"]
 [ext_resource type="Script" path="res://Scripts/Data/arenas_datas.gd" id="1_er0jo"]
 [ext_resource type="PackedScene" uid="uid://cekmpfuepi5q5" path="res://Arena/map_2.tscn" id="2_mbvim"]
-[ext_resource type="PackedScene" uid="uid://dqmj8cgeikd3e" path="res://Arena/map_3.tscn" id="3_18kh6"]
-[ext_resource type="PackedScene" uid="uid://c7kcbniuqu1jp" path="res://Arena/map_4.tscn" id="4_my08o"]
-[ext_resource type="PackedScene" uid="uid://broqeq28j243c" path="res://Arena/map_5.tscn" id="5_evd1v"]
+[ext_resource type="PackedScene" path="res://Arena/map_3.tscn" id="3_18kh6"]
+[ext_resource type="PackedScene" path="res://Arena/map_4.tscn" id="4_my08o"]
+[ext_resource type="PackedScene" path="res://Arena/map_5.tscn" id="5_evd1v"]
 
 [resource]
 script = ExtResource("1_er0jo")

@@ -271,4 +271,4 @@ func process_input(
 	return holdDuration
 
 func _switch_to_arena_selection():
-	get_tree().change_scene_to_file("res://Scenes/UI/ArenaSelection.tscn")
+	get_tree().change_scene_to_file("res://Scenes/UI/BallonSelection.tscn")

@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://Scripts/bird_config.gd" id="1_7jha5"]
 [ext_resource type="Script" path="res://Scripts/Data/ballon_datas.gd" id="1_njk87"]
-[ext_resource type="Resource" uid="uid://bdudpsb2yvhh3" path="res://Datas/b1_data.tres" id="2_jjuhp"]
-[ext_resource type="Resource" uid="uid://dr1lid6afagfm" path="res://Datas/b2_data.tres" id="3_ea6lv"]
-[ext_resource type="Resource" uid="uid://d0fmr7prctfwl" path="res://Datas/b3_data.tres" id="4_6o54s"]
-[ext_resource type="Resource" uid="uid://6fe4c1g50lhf" path="res://Datas/b4_data.tres" id="5_i71rc"]
-[ext_resource type="Resource" uid="uid://bdxnrx1yuqgt8" path="res://Datas/b5_data.tres" id="6_prcgj"]
-[ext_resource type="Resource" uid="uid://c0hoh4mueqk3r" path="res://Datas/b6_data.tres" id="7_6vj1h"]
+[ext_resource type="Resource" path="res://Datas/b1_data.tres" id="2_jjuhp"]
+[ext_resource type="Resource" path="res://Datas/b2_data.tres" id="3_ea6lv"]
+[ext_resource type="Resource" path="res://Datas/b3_data.tres" id="4_6o54s"]
+[ext_resource type="Resource" uid="uid://b7slbuu0xxgbp" path="res://Datas/b4_data.tres" id="5_i71rc"]
+[ext_resource type="Resource" uid="uid://b4t034kgpbtmj" path="res://Datas/b5_data.tres" id="6_prcgj"]
+[ext_resource type="Resource" path="res://Datas/b6_data.tres" id="7_6vj1h"]
 
 [resource]
 script = ExtResource("1_njk87")
