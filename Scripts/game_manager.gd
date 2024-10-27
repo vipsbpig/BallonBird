@@ -1,19 +1,15 @@
 class_name GameManager
 extends Node
 
+# paths
+const hitBoxPath : NodePath = ^"HitBoxArea"
+const animPlayerPath : NodePath = ^"Mesh/AnimationPlayer"
+const jumpParticlePath : NodePath = ^"JumpParticles"
+const maxHealth : int = 1
+
 @export var map_position : Node3D
 @export var p1_position : Node3D
 @export var p2_position : Node3D
-
-# references
-var p1_rigidBody : RigidBody3D
-var p2_rigidBody : RigidBody3D
-
-var p1_hitBox : Area3D
-var p2_hitBox : Area3D
-
-var p1_player : AnimationPlayer
-var p2_player : AnimationPlayer
 
 # config
 @export var arena_datas : ArenaDatas
@@ -23,15 +19,25 @@ var p2_player : AnimationPlayer
 
 @export var fly_anim : String
 @export var death_anim : String
+@export var bump_anim : String
 
 @export var ballon_data : BallonDatas
-
 @export var slomoDuration : float
+@export var deathDuration : float
 @export var slomoSpeed : float
 @export var attackSpeedThreshold : float
 @export var wind : Vector3
 
-# runtime
+# player runtime data
+var p1_rigidBody : RigidBody3D
+var p2_rigidBody : RigidBody3D
+
+var p1_hitBox : Area3D
+var p2_hitBox : Area3D
+
+var p1_player : AnimationPlayer
+var p2_player : AnimationPlayer
+
 var p1_data : BirdConfig
 var p2_data : BirdConfig
 
@@ -41,17 +47,15 @@ var p2_health : float
 var p1_holdDuration : float
 var p2_holdDuration : float
 
-const hitBoxPath : NodePath = ^"HitBoxArea"
-const animPlayerPath : NodePath = ^"Mesh/AnimationPlayer"
-const jumpParticlePath : NodePath = ^"JumpParticles"
-const maxHealth : int = 1
-
-var isFinished : bool = false
-var slomoTimer : float = 0
-
 var p1_score : int = 0 : set = set_p1_score
 var p2_score : int = 0 : set = set_p2_score
 
+# global runtime data
+var isFinished : bool = false
+var slomoTimer : float = 0
+var deathTimer : float = 0
+
+# signals
 signal p1_score_change(score: int)
 signal p2_score_change(score: int)
 
@@ -62,6 +66,22 @@ func set_p1_score(newscore: int):
 func set_p2_score(newscore: int):
 	p2_score = newscore
 	p2_score_change.emit(p2_score)
+
+func _on_p1_area_entered(other: Area3D) -> void:
+	if other.get_parent().is_in_group(p2_group):
+		p2_health -= 1
+
+func _on_p2_area_entered(other: Area3D) -> void:
+	if other.get_parent().is_in_group(p1_group):
+		p1_health -= 1
+
+func _on_p1_body_entered(body: Node) -> void:
+	if p1_health > 0:
+		p1_player.play(bump_anim)
+	
+func _on_p2_body_entered(body: Node) -> void:
+	if p1_health > 0:
+		p2_player.play(bump_anim)
 	
 func _ready() -> void:
 	# map initialization
@@ -78,89 +98,83 @@ func _ready() -> void:
 	p1_data = ballon_data.Ballons[Global.p1_ballon_index]
 	p1_rigidBody = p1_data.asset.instantiate() as RigidBody3D
 	add_child(p1_rigidBody)
-	p1_rigidBody.position = p1_position.position
-	p1_rigidBody.constant_force = wind
-	p1_rigidBody.mass = p1_data.mass
-
-	p1_hitBox = p1_rigidBody.get_node(hitBoxPath) as Area3D
-	
-	p1_player = p1_rigidBody.get_node(animPlayerPath) as AnimationPlayer
-	p1_player.play(fly_anim)
-
-	p1_health = maxHealth
-	p1_hitBox.area_entered.connect(_on_p1_area_entered)
 	p1_rigidBody.add_to_group(p1_group)
+	p1_hitBox = p1_rigidBody.get_node(hitBoxPath) as Area3D
+	p1_hitBox.area_entered.connect(_on_p1_area_entered)
+	p1_player = p1_rigidBody.get_node(animPlayerPath) as AnimationPlayer
 
 	# p2 initialization
 	p2_data = ballon_data.Ballons[Global.p2_ballon_index]
 	p2_rigidBody = p2_data.asset.instantiate() as RigidBody3D
+	add_child(p2_rigidBody)
+	p2_rigidBody.add_to_group(p2_group)
+	p2_hitBox = p2_rigidBody.get_node(hitBoxPath) as Area3D
+	p2_hitBox.area_entered.connect(_on_p2_area_entered)
+	p2_player = p2_rigidBody.get_node(animPlayerPath) as AnimationPlayer
 	# inverse
 	p2_rigidBody.rotation_degrees.y += 180
-	add_child(p2_rigidBody)
-	p2_rigidBody.position = p2_position.position
-	p2_rigidBody.constant_force = wind
-	p2_rigidBody.mass = p2_data.mass
 
-	p2_hitBox = p2_rigidBody.get_node(hitBoxPath) as Area3D
-	
-	p2_player = p2_rigidBody.get_node(animPlayerPath) as AnimationPlayer
-	p2_player.play("Fly1")
+	_reset_players()
+	# setup bump anim
+	p1_rigidBody.body_entered.connect(_on_p1_body_entered)
+	p2_rigidBody.body_entered.connect(_on_p2_body_entered)
 
-	p2_health = maxHealth
-	p2_hitBox.area_entered.connect(_on_p2_area_entered)
-	p2_rigidBody.add_to_group(p2_group)
-
-func _on_p1_area_entered(other: Area3D) -> void:
-	if other.get_parent().is_in_group(p2_group):
-		p2_health -= 1
-
-func _on_p2_area_entered(other: Area3D) -> void:
-	if other.get_parent().is_in_group(p1_group):
-		p1_health -= 1
-		
 func _reset_players() -> void:
-	print("reset_players")
 	isFinished = false
-	p1_rigidBody.position = p1_position.position
-	p2_rigidBody.position = p2_position.position
-	p1_rigidBody.linear_velocity = Vector3.ZERO
-	p2_rigidBody.linear_velocity = Vector3.ZERO
+	_reset_player(p1_rigidBody, p1_data, p1_position.position)
+	_reset_player(p2_rigidBody, p2_data, p2_position.position)
 	p1_health = maxHealth
 	p2_health = maxHealth
-	p1_rigidBody.rotation_degrees.y = 0
-	p2_rigidBody.rotation_degrees.y = 180
-	p1_player.play("Fly1")
-	p2_player.play("Fly1")
+
+func _reset_player(rigidBody: RigidBody3D, data: BirdConfig, position: Vector3) -> void:
+	rigidBody.position = position
+	rigidBody.rotation.z = 0
+	rigidBody.linear_velocity = Vector3.ZERO
+	rigidBody.angular_velocity = Vector3.ZERO
+	rigidBody.gravity_scale = 0
+	rigidBody.mass = data.mass
+	rigidBody.constant_force = wind
+
+	rigidBody.contact_monitor = true
+	rigidBody.max_contacts_reported = 2
+
+func _data_driven_anim(player: AnimationPlayer, health: int) -> void:
+	if health > 0:
+		player.play(fly_anim)
 
 func _process(delta: float) -> void:
-	slomoTimer = max(0, slomoTimer - delta / Engine.time_scale)
-	if slomoTimer > 0 && isFinished:
-		Engine.time_scale = slomoSpeed
-	else:
-		if isFinished :
-			if (p1_score >= 2|| p2_score>=2):
-				_switch_to_arena_selection()
-			else:
-				_reset_players()		
-		Engine.time_scale = 1
+	_data_driven_anim(p1_player, p1_health)
+	_data_driven_anim(p2_player, p2_health)
 
+	slomoTimer = max(0, slomoTimer - delta / Engine.time_scale)
+	deathTimer = max(0, deathTimer - delta / Engine.time_scale)
+
+	if deathTimer == 0 && isFinished:
+		if p1_score >= 2 || p2_score >= 2:
+			_switch_to_arena_selection()
+		else:
+			_reset_players()
+
+	Engine.time_scale = slomoSpeed if slomoTimer > 0 else 1
 	if isFinished || p1_health > 0 && p2_health > 0:
 		return
 
 	if p1_health == 0:
-		print("p1 is defeated!")
-		isFinished = true
 		p1_player.play(death_anim)
-		slomoTimer = slomoDuration
+		p1_rigidBody.gravity_scale = 1
 		p2_score = p2_score + 1
+		isFinished = true
+		slomoTimer = slomoDuration
+		deathTimer = deathDuration
 		return
 
 	if p2_health == 0:
-		print("p2 is defeated!")
-		isFinished = true
 		p2_player.play(death_anim)
-		slomoTimer = slomoDuration
+		p2_rigidBody.gravity_scale = 1
 		p1_score = p1_score + 1
+		isFinished = true
+		slomoTimer = slomoDuration
+		deathTimer = deathDuration
 		return
 
 func _physics_process(delta: float) -> void:
@@ -168,13 +182,10 @@ func _physics_process(delta: float) -> void:
 	if isFinished:
 		return
 
-	# if the linear velocity of each player is slower than threshold, it shouldn't attack
-	p1_hitBox.monitoring = p1_rigidBody.linear_velocity.length() >= attackSpeedThreshold
-	p2_hitBox.monitoring = p2_rigidBody.linear_velocity.length() >= attackSpeedThreshold
-
 	# process input for each player
 	p1_holdDuration = process_input(
 		p1_rigidBody,
+		p1_hitBox,
 		p1_data,
 		delta,
 		p1_holdDuration,
@@ -183,7 +194,9 @@ func _physics_process(delta: float) -> void:
 		"jump")
 	p2_holdDuration = process_input(
 		p2_rigidBody,
-		p2_data, delta,
+		p2_hitBox,
+		p2_data,
+		delta,
 		p2_holdDuration,
 		"move_right2",
 		"move_left2",
@@ -191,12 +204,14 @@ func _physics_process(delta: float) -> void:
 	
 func process_input(
 		rigidBody: RigidBody3D,
+		hitBox: Area3D,
 		player: BirdConfig,
 		delta: float,
 		holdDuration: float,
 		left_input: String,
 		right_input: String,
 		jump_input: String) -> float:
+	hitBox.monitoring = rigidBody.linear_velocity.length() >= attackSpeedThreshold
 	var rotateDirection : int = 0
 	
 	if Input.is_action_pressed(left_input):
