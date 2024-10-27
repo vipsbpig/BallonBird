@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b64t4uk0qhucf"]
+
+[ext_resource type="PackedScene" uid="uid://cpgk07vimsowh" path="res://Meshes/logo.glb" id="1_322hc"]
+[ext_resource type="PackedScene" uid="uid://ce46tpa5xqv2w" path="res://Meshes/MAP0.glb" id="1_b2i6x"]
+[ext_resource type="Script" path="res://Scripts/Data/title.gd" id="1_dehu6"]
+[ext_resource type="PackedScene" uid="uid://dnr2lxmrr6f4a" path="res://Scenes/UI/BallonSelection.tscn" id="2_omgbb"]
+
+[node name="Title" type="Node3D" node_paths=PackedStringArray("title_animPlayer")]
+script = ExtResource("1_dehu6")
+title_animPlayer = NodePath("logo/AnimationPlayer")
+ballonScene = ExtResource("2_omgbb")
+
+[node name="MAP0" parent="." instance=ExtResource("1_b2i6x")]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+
+[node name="logo" parent="." instance=ExtResource("1_322hc")]
+
+[node name="logo" parent="logo" index="0"]
+transform = Transform3D(0.0014258, 0, 0, 0, 0.0014258, 0, 0, 0, 0.0014258, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 33)
+fov = 35.0
+
+[editable path="logo"]
