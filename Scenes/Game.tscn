@@ -135,7 +135,7 @@ texture = ExtResource("11_umy3t")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("map_position", "p1_position", "p2_position")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("map_position", "p1_position", "p2_position", "canvas")]
 script = ExtResource("8_ylc3v")
 map_position = NodePath("../MapRef")
 p1_position = NodePath("../P1Ref")
@@ -143,15 +143,17 @@ p2_position = NodePath("../P2Ref")
 arena_datas = ExtResource("3_j2lqo")
 p1_group = "p1"
 p2_group = "p2"
-fly_anim = "Fly1"
+fly_anim = "Fly2"
 death_anim = "death"
 bump_anim = "Bump"
+dash_anim = "Dash"
 ballon_data = ExtResource("3_hn235")
 slomoDuration = 1.4
 deathDuration = 6.0
 slomoSpeed = 0.1
 attackSpeedThreshold = 5.0
 wind = Vector3(0, 0.1, 0)
+canvas = NodePath("../CanvasLayer/GameUI")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27782, 5.12624, 1)

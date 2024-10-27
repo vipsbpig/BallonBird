@@ -20,13 +20,17 @@ const maxHealth : int = 1
 @export var fly_anim : String
 @export var death_anim : String
 @export var bump_anim : String
+@export var dash_anim : String
 
 @export var ballon_data : BallonDatas
 @export var slomoDuration : float
 @export var deathDuration : float
 @export var slomoSpeed : float
 @export var attackSpeedThreshold : float
+@export var redLineSpeed : float = 140
 @export var wind : Vector3
+
+@export var canvas : CanvasItem
 
 # player runtime data
 var p1_rigidBody : RigidBody3D
@@ -55,6 +59,9 @@ var isFinished : bool = false
 var slomoTimer : float = 0
 var deathTimer : float = 0
 
+var hit_position : Vector2
+var line_direction : Vector2
+
 # signals
 signal p1_score_change(score: int)
 signal p2_score_change(score: int)
@@ -69,10 +76,16 @@ func set_p2_score(newscore: int):
 
 func _on_p1_area_entered(other: Area3D) -> void:
 	if other.get_parent().is_in_group(p2_group):
+		hit_position = get_viewport().get_camera_3d().unproject_position(other.get_parent().position)
+		var hit_normal = other.position - p1_rigidBody.position
+		line_direction = Vector2(hit_normal.y, -hit_normal.x)
 		p2_health -= 1
 
 func _on_p2_area_entered(other: Area3D) -> void:
 	if other.get_parent().is_in_group(p1_group):
+		hit_position = get_viewport().get_camera_3d().unproject_position(other.get_parent().position)
+		var hit_normal = other.position - p2_rigidBody.position
+		line_direction = Vector2(hit_normal.y, -hit_normal.x)
 		p1_health -= 1
 
 func _on_p1_body_entered(body: Node) -> void:
@@ -80,7 +93,7 @@ func _on_p1_body_entered(body: Node) -> void:
 		p1_player.play(bump_anim)
 	
 func _on_p2_body_entered(body: Node) -> void:
-	if p1_health > 0:
+	if p2_health > 0:
 		p2_player.play(bump_anim)
 	
 func _ready() -> void:
@@ -118,11 +131,14 @@ func _ready() -> void:
 	# setup bump anim
 	p1_rigidBody.body_entered.connect(_on_p1_body_entered)
 	p2_rigidBody.body_entered.connect(_on_p2_body_entered)
+	canvas.draw.connect(_draw)
 
 func _reset_players() -> void:
 	isFinished = false
 	_reset_player(p1_rigidBody, p1_data, p1_position.position)
 	_reset_player(p2_rigidBody, p2_data, p2_position.position)
+	p1_player.stop()
+	p2_player.stop()
 	p1_health = maxHealth
 	p2_health = maxHealth
 
@@ -139,15 +155,23 @@ func _reset_player(rigidBody: RigidBody3D, data: BirdConfig, position: Vector3) 
 	rigidBody.max_contacts_reported = 2
 
 func _data_driven_anim(player: AnimationPlayer, health: int) -> void:
-	if health > 0:
+	if health > 0 && player.current_animation != dash_anim:
 		player.play(fly_anim)
 
-func _process(delta: float) -> void:
-	_data_driven_anim(p1_player, p1_health)
-	_data_driven_anim(p2_player, p2_health)
+func _draw() -> void:
+	if isFinished && slomoTimer > 0:
+		canvas.draw_line(
+			hit_position + line_direction * (slomoDuration - slomoTimer) * redLineSpeed,
+			hit_position - line_direction * (slomoDuration - slomoTimer) * redLineSpeed,
+			Color.RED,
+			4)
 
+func _process(delta: float) -> void:
 	slomoTimer = max(0, slomoTimer - delta / Engine.time_scale)
 	deathTimer = max(0, deathTimer - delta / Engine.time_scale)
+
+	if isFinished:
+		canvas.queue_redraw()
 
 	if deathTimer == 0 && isFinished:
 		if p1_score >= 2 || p2_score >= 2:
@@ -186,6 +210,7 @@ func _physics_process(delta: float) -> void:
 	p1_holdDuration = process_input(
 		p1_rigidBody,
 		p1_hitBox,
+		p1_player,
 		p1_data,
 		delta,
 		p1_holdDuration,
@@ -195,6 +220,7 @@ func _physics_process(delta: float) -> void:
 	p2_holdDuration = process_input(
 		p2_rigidBody,
 		p2_hitBox,
+		p2_player,
 		p2_data,
 		delta,
 		p2_holdDuration,
@@ -205,6 +231,7 @@ func _physics_process(delta: float) -> void:
 func process_input(
 		rigidBody: RigidBody3D,
 		hitBox: Area3D,
+		animPlayer: AnimationPlayer,
 		player: BirdConfig,
 		delta: float,
 		holdDuration: float,
@@ -231,10 +258,12 @@ func process_input(
 	var local_z_direction = rigidBody.transform.basis.z
 
 	if rotateDirection != 0 && holdDuration > 0:
+		animPlayer.play(fly_anim)
 		rigidBody.apply_torque_impulse(local_z_direction * player.torque * rotateDirection * delta)
 
 	if Input.is_action_just_pressed(jump_input) && holdDuration > 0:
 		rigidBody.apply_force(local_x_direction * player.jump_force)
+		animPlayer.play(dash_anim)
 		var particle = rigidBody.get_node(jumpParticlePath) as GPUParticles3D
 		particle.emitting = true
 		particle.restart()
