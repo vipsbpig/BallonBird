@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7kcbniuqu1jp"]
+
+[ext_resource type="PackedScene" uid="uid://cple5eujtq1ev" path="res://Meshes/MAP4.glb" id="1_kyt1l"]
+[ext_resource type="PackedScene" uid="uid://bajxi67c3ddal" path="res://Arena/Collision.tscn" id="2_j5nui"]
+
+[node name="map_4" type="Node3D"]
+
+[node name="MAP4" parent="." instance=ExtResource("1_kyt1l")]
+
+[node name="Collision" parent="." instance=ExtResource("2_j5nui")]

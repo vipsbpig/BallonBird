@@ -1,33 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2e6vjlo2dff"]
+[gd_scene load_steps=3 format=3 uid="uid://d2e6vjlo2dff"]
 
-[ext_resource type="ArrayMesh" uid="uid://c8uetmj57lhar" path="res://Meshes/Boxes/map1.res" id="1_4xmt6"]
+[ext_resource type="PackedScene" uid="uid://np2bnnjrrds8" path="res://Meshes/MAP1.glb" id="1_30xj3"]
+[ext_resource type="PackedScene" uid="uid://bajxi67c3ddal" path="res://Arena/Collision.tscn" id="2_gvunk"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2otxk"]
-size = Vector3(26, 0.6, 16)
+[node name="map_1" type="Node3D"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_j7fox"]
-size = Vector3(0.6, 14, 16)
+[node name="MAP1" parent="." instance=ExtResource("1_30xj3")]
 
-[node name="map1" type="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
-mesh = ExtResource("1_4xmt6")
-skeleton = NodePath("")
-
-[node name="Arena" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7, 0)
-
-[node name="Bottom" type="CollisionShape3D" parent="Arena"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04, 0)
-shape = SubResource("BoxShape3D_2otxk")
-
-[node name="Top" type="CollisionShape3D" parent="Arena"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.05, 0)
-shape = SubResource("BoxShape3D_2otxk")
-
-[node name="Left" type="CollisionShape3D" parent="Arena"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.65, 7.15, 0)
-shape = SubResource("BoxShape3D_j7fox")
-
-[node name="Right" type="CollisionShape3D" parent="Arena"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.65, 7.15, 0)
-shape = SubResource("BoxShape3D_j7fox")
+[node name="Collision" parent="." instance=ExtResource("2_gvunk")]
