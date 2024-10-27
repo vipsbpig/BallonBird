@@ -22,6 +22,7 @@ func _ready():
 		tween.tween_property(obj,"position:y", 0.5, 0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 		tween.tween_property(obj,"position:y", 0, 0.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 		tween.set_loops(-1)
+		(obj.get_node(animPlayerPath) as AnimationPlayer).play("Fly1")
 		selection_tweens.append(tween)
 	# 确保选中第一个对象
 	update_selection()
@@ -56,9 +57,7 @@ func update_selection():
 	for i in range(selectable_objects.size()):
 		if (i == p1_current_index && !p1_is_confirm) || (i == p2_current_index && !p2_is_confirm):
 			start_floating_animation(selection_tweens[i])
-			(selectable_objects[i].get_node(animPlayerPath) as AnimationPlayer).play("Fly1")
 		else:
-			(selectable_objects[i].get_node(animPlayerPath) as AnimationPlayer).stop(false)
 			stop_floating_animation(selection_tweens[i],selectable_objects[i])
 			
 func start_floating_animation(tween: Tween):

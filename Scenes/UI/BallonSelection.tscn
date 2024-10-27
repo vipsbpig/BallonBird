@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://r7ebtv4n3afg" path="res://Sprites/TransBlack.png" id="1_hhysm"]
 [ext_resource type="Script" path="res://Scripts/Data/ballon_selection.gd" id="1_pphmk"]
-[ext_resource type="PackedScene" uid="uid://bat6am4i5o3cb" path="res://Scenes/Game.tscn" id="2_0emut"]
+[ext_resource type="PackedScene" uid="uid://bfr2sqfj0r0uk" path="res://Scenes/UI/ArenaSelection.tscn" id="2_22wsy"]
 [ext_resource type="Texture2D" uid="uid://p32ps2a5t06p" path="res://Sprites/allwhite.png" id="2_sb7mj"]
 [ext_resource type="ArrayMesh" uid="uid://cj6wu8uooii4c" path="res://Meshes/Boxes/map0.res" id="3_alof7"]
 [ext_resource type="Texture2D" uid="uid://c7cfgdni6eyc5" path="res://Sprites/1P.png" id="5_jaxvk"]
@@ -212,19 +212,19 @@ selectable_objects = [NodePath("Ballon/Position1/Bird1"), NodePath("Ballon/Posit
 p1Indiactor = NodePath("P1Indicator")
 p2Indiactor = NodePath("P2Indicator")
 animPlayer = NodePath("Camera3D/CanvasLayer/Control/AnimationPlayer")
-gameScene = ExtResource("2_0emut")
+gameScene = ExtResource("2_22wsy")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_f83vv")
 
 [node name="Background" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.45073, 0, 0, 0, 0.60254, 0, 0, 0, 1, 0, 1.09192, 0)
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 mesh = ExtResource("3_alof7")
 skeleton = NodePath("")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08356, 22.8803)
-fov = 28.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 33)
+fov = 35.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera3D"]
 
