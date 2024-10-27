@@ -193,7 +193,6 @@ transparency = 1
 albedo_texture = SubResource("ViewportTexture_2m5uk")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_w2jr0"]
-size = Vector2(0.879, 0.631)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_33fw1"]
 viewport_path = NodePath("P2Indicator/SubViewport")
@@ -204,7 +203,6 @@ transparency = 1
 albedo_texture = SubResource("ViewportTexture_33fw1")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ir6hl"]
-size = Vector2(0.879, 0.631)
 
 [node name="BallonSelection" type="Node3D" node_paths=PackedStringArray("selectable_objects", "p1Indiactor", "p2Indiactor", "animPlayer")]
 script = ExtResource("1_pphmk")
@@ -259,37 +257,37 @@ autoplay = "fadeIn"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.84512, 2.5, 0)
 
 [node name="Bird1" parent="Ballon/Position1" instance=ExtResource("6_3h6o0")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-6.99382e-08, 0, 1.6, 0, 1.6, 0, -1.6, 0, -6.99382e-08, -4.16896, 1.16768, 0)
 
 [node name="Position2" type="Node3D" parent="Ballon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.21895, -0.218282, 0)
 
 [node name="Bird2" parent="Ballon/Position2" instance=ExtResource("7_2i3d5")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-6.99382e-08, 0, 1.6, 0, 1.6, 0, -1.6, 0, -6.99382e-08, 3.18383, 2.25099, 0)
 
 [node name="Position3" type="Node3D" parent="Ballon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.541945, 2.5, 0)
 
 [node name="Bird3" parent="Ballon/Position3" instance=ExtResource("8_44ql3")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-6.99382e-08, 0, 1.6, 0, 1.6, 0, -1.6, 0, -6.99382e-08, 7.42218, 1.13563, 0)
 
 [node name="Position4" type="Node3D" parent="Ballon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19929, -0.218282, 0)
 
 [node name="Bird4" parent="Ballon/Position4" instance=ExtResource("9_kpm14")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.06267, -0.516976, 0)
+transform = Transform3D(-6.99382e-08, 0, 1.6, 0, 1.6, 0, -1.6, 0, -6.99382e-08, -1.2278, -2.8288, 0)
 
 [node name="Position5" type="Node3D" parent="Ballon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.57805, 2.5, 0)
 
 [node name="Bird5" parent="Ballon/Position5" instance=ExtResource("10_axrpo")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.40733, -0.430813, 6.15162e-08)
+transform = Transform3D(-6.99382e-08, 0, 1.6, 0, 1.6, 0, -1.6, 0, -6.99382e-08, 3.31772, -3.71604, 6.15162e-08)
 
 [node name="Position6" type="Node3D" parent="Ballon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.08961, -0.654327, 0)
 
 [node name="Bird6" parent="Ballon/Position6" instance=ExtResource("11_utl0f")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-6.99382e-08, 0, 1.6, 0, 1.6, 0, -1.6, 0, -6.99382e-08, -10.5249, -0.811168, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
