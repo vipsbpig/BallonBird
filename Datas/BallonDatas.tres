@@ -11,4 +11,4 @@
 
 [resource]
 script = ExtResource("1_njk87")
-Ballons = Array[ExtResource("1_7jha5")]([ExtResource("2_jjuhp"), ExtResource("3_ea6lv"), ExtResource("4_6o54s"), ExtResource("5_i71rc"), ExtResource("6_prcgj"), ExtResource("7_6vj1h")])
+Ballons = Array[ExtResource("1_7jha5")]([ExtResource("2_jjuhp"), ExtResource("3_ea6lv"), ExtResource("4_6o54s"), ExtResource("7_6vj1h"), ExtResource("5_i71rc"), ExtResource("6_prcgj")])

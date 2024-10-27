@@ -9,4 +9,4 @@
 
 [resource]
 script = ExtResource("1_er0jo")
-Arenas = Array[PackedScene]([ExtResource("1_dy277"), ExtResource("2_mbvim"), ExtResource("3_18kh6"), ExtResource("4_my08o"), ExtResource("5_evd1v")])
+Arenas = Array[PackedScene]([ExtResource("1_dy277"), ExtResource("3_18kh6"), ExtResource("5_evd1v"), ExtResource("2_mbvim"), ExtResource("4_my08o")])
