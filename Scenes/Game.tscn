@@ -26,7 +26,7 @@ cull_mask = 1048575
 h_offset = 0.0
 v_offset = 0.0
 projection = 0
-fov = 24.0
+fov = 35.0
 size = 1.0
 frustum_offset = Vector2(0, 0)
 near = 0.05
@@ -157,7 +157,7 @@ canvas = NodePath("../CanvasLayer/GameUI")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27782, 5.12624, 1)
-fov = 24.0
+fov = 35.0
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("1_ue1lb")
@@ -172,7 +172,7 @@ camera_3d_resource = SubResource("Resource_q6toe")
 [node name="CameraController" type="Node" parent="PhantomCamera3D" node_paths=PackedStringArray("pCam")]
 script = ExtResource("5_w7o3c")
 pCam = NodePath("..")
-distanc_min_max = Vector2(23, 40)
+distanc_min_max = Vector2(15, 30)
 
 [node name="P1Ref" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.50898, 5.26258, 0)

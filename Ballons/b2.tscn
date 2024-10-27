@@ -37,15 +37,7 @@ gravity_scale = 0.0
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Mesh/B2" index="0"]
-bones/0/position = Vector3(0, 0.0908502, 0)
-bones/1/position = Vector3(-0.336022, 0.476545, -0.153881)
-bones/1/rotation = Quaternion(-1.9424e-07, -4.86034e-08, 0.903929, 0.427682)
 bones/1/scale = Vector3(1, 1, 1)
-bones/2/rotation = Quaternion(-4.69615e-08, -8.36918e-09, 0.296097, 0.955158)
-bones/3/position = Vector3(0.337012, 0.476545, -0.153881)
-bones/3/rotation = Quaternion(0.404249, 0.191265, -0.808499, 0.382531)
-bones/3/scale = Vector3(1, 1, 1)
-bones/4/rotation = Quaternion(0.236878, -1.22166e-07, -0.177659, 0.955158)
 
 [node name="Body" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_4ie6b")

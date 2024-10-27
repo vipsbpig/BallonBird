@@ -4,13 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://bat6am4i5o3cb" path="res://Scenes/Game.tscn" id="2_wpjur"]
 [ext_resource type="Texture2D" uid="uid://bkv2eaaqds2bl" path="res://Sprites/map.png" id="3_q53yd"]
 [ext_resource type="Texture2D" uid="uid://p32ps2a5t06p" path="res://Sprites/allwhite.png" id="4_ovh4c"]
-[ext_resource type="ArrayMesh" uid="uid://cj6wu8uooii4c" path="res://Meshes/Boxes/map0.res" id="5_ilfau"]
-[ext_resource type="ArrayMesh" uid="uid://np3ycyffqgoi" path="res://Meshes/Boxes/cube1.res" id="6_n1pmo"]
+[ext_resource type="PackedScene" uid="uid://ce46tpa5xqv2w" path="res://Meshes/MAP0.glb" id="5_3nfel"]
 [ext_resource type="Texture2D" uid="uid://r7ebtv4n3afg" path="res://Sprites/TransBlack.png" id="6_wggu4"]
-[ext_resource type="ArrayMesh" uid="uid://ge83l5qwfmyd" path="res://Meshes/Boxes/cube2.res" id="7_4jonv"]
-[ext_resource type="ArrayMesh" uid="uid://68fb3k8pwk47" path="res://Meshes/Boxes/cube3.res" id="8_pswpu"]
-[ext_resource type="ArrayMesh" uid="uid://dpdvp1gxh63wc" path="res://Meshes/Boxes/cube4.res" id="9_n2a8k"]
-[ext_resource type="ArrayMesh" uid="uid://cahmat668s1oo" path="res://Meshes/Boxes/cube5.res" id="10_y8bkp"]
+[ext_resource type="PackedScene" uid="uid://cyl20ov2k0tob" path="res://Meshes/cube1.glb" id="7_hb7go"]
+[ext_resource type="PackedScene" uid="uid://icmmbvof77j0" path="res://Meshes/cube2.glb" id="8_wh07m"]
+[ext_resource type="PackedScene" uid="uid://dn2bw3cvc28m7" path="res://Meshes/cube3.glb" id="9_1j8bj"]
+[ext_resource type="PackedScene" uid="uid://gjx108snvrfc" path="res://Meshes/cube4.glb" id="10_exftx"]
+[ext_resource type="PackedScene" uid="uid://xtrb8y7re88x" path="res://Meshes/cube5.glb" id="11_ncu0f"]
 
 [sub_resource type="Environment" id="Environment_f83vv"]
 background_mode = 1
@@ -195,7 +195,7 @@ albedo_texture = SubResource("ViewportTexture_knmax")
 
 [node name="ArenaSelection" type="Node3D" node_paths=PackedStringArray("selectable_objects", "mapIndiactor", "animPlayer")]
 script = ExtResource("1_8hv1c")
-selectable_objects = [NodePath("Arenas/Contianer1/Arena1"), NodePath("Arenas/Contianer2/Arena2"), NodePath("Arenas/Contianer3/Arena3"), NodePath("Arenas/Contianer4/Arena4"), NodePath("Arenas/Contianer5/Arena5")]
+selectable_objects = [NodePath("Arenas/cube1"), NodePath("Arenas/cube2"), NodePath("Arenas/cube3"), NodePath("Arenas/cube4"), NodePath("Arenas/cube5")]
 mapIndiactor = NodePath("MapIndicator")
 animPlayer = NodePath("Camera3D/CanvasLayer/Control/AnimationPlayer")
 ballonScene = ExtResource("2_wpjur")
@@ -236,10 +236,8 @@ libraries = {
 }
 autoplay = "fadeIn"
 
-[node name="Background" type="MeshInstance3D" parent="."]
+[node name="MAP0" parent="." instance=ExtResource("5_3nfel")]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
-mesh = ExtResource("5_ilfau")
-skeleton = NodePath("")
 
 [node name="MapIndicator" type="Node3D" parent="."]
 
@@ -262,42 +260,17 @@ texture = ExtResource("3_q53yd")
 
 [node name="Arenas" type="Node3D" parent="."]
 
-[node name="Contianer1" type="Node3D" parent="Arenas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.68088, 0, 0)
+[node name="cube1" parent="Arenas" instance=ExtResource("7_hb7go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.79746, 1.33154, 0)
 
-[node name="Arena1" type="MeshInstance3D" parent="Arenas/Contianer1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.11658, 1.33154, 0)
-mesh = ExtResource("6_n1pmo")
-skeleton = NodePath("../..")
+[node name="cube2" parent="Arenas" instance=ExtResource("8_wh07m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.91754, -2.66846, 0)
 
-[node name="Contianer2" type="Node3D" parent="Arenas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.199036, -4, 0)
+[node name="cube3" parent="Arenas" instance=ExtResource("9_1j8bj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24413, 1.33154, 0)
 
-[node name="Arena2" type="MeshInstance3D" parent="Arenas/Contianer2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.11658, 1.33154, 0)
-mesh = ExtResource("7_4jonv")
-skeleton = NodePath("../..")
+[node name="cube4" parent="Arenas" instance=ExtResource("10_exftx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.88342, -2.66846, 0)
 
-[node name="Contianer3" type="Node3D" parent="Arenas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.87245, 0, 0)
-
-[node name="Arena3" type="MeshInstance3D" parent="Arenas/Contianer3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.11658, 1.33154, 0)
-mesh = ExtResource("8_pswpu")
-skeleton = NodePath("../..")
-
-[node name="Contianer4" type="Node3D" parent="Arenas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -4, 0)
-
-[node name="Arena4" type="MeshInstance3D" parent="Arenas/Contianer4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.11658, 1.33154, 0)
-mesh = ExtResource("9_n2a8k")
-skeleton = NodePath("../..")
-
-[node name="Contianer5" type="Node3D" parent="Arenas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
-
-[node name="Arena5" type="MeshInstance3D" parent="Arenas/Contianer5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.11658, 1.33154, 0)
-mesh = ExtResource("10_y8bkp")
-skeleton = NodePath("../..")
+[node name="cube5" parent="Arenas" instance=ExtResource("11_ncu0f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.88342, 1.33154, 0)

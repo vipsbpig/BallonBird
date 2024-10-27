@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/Data/ballon_selection.gd" id="1_pphmk"]
 [ext_resource type="PackedScene" uid="uid://bfr2sqfj0r0uk" path="res://Scenes/UI/ArenaSelection.tscn" id="2_22wsy"]
 [ext_resource type="Texture2D" uid="uid://p32ps2a5t06p" path="res://Sprites/allwhite.png" id="2_sb7mj"]
-[ext_resource type="ArrayMesh" uid="uid://cj6wu8uooii4c" path="res://Meshes/Boxes/map0.res" id="3_alof7"]
+[ext_resource type="PackedScene" uid="uid://ce46tpa5xqv2w" path="res://Meshes/MAP0.glb" id="3_uln6e"]
 [ext_resource type="Texture2D" uid="uid://c7cfgdni6eyc5" path="res://Sprites/1P.png" id="5_jaxvk"]
 [ext_resource type="PackedScene" uid="uid://b4g2nxr1eodvy" path="res://Meshes/B1.glb" id="6_3h6o0"]
 [ext_resource type="Texture2D" uid="uid://djjfykmddcyxn" path="res://Sprites/2P.png" id="6_bundc"]
@@ -214,13 +214,11 @@ p2Indiactor = NodePath("P2Indicator")
 animPlayer = NodePath("Camera3D/CanvasLayer/Control/AnimationPlayer")
 gameScene = ExtResource("2_22wsy")
 
+[node name="MAP0" parent="." instance=ExtResource("3_uln6e")]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_f83vv")
-
-[node name="Background" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
-mesh = ExtResource("3_alof7")
-skeleton = NodePath("")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 33)
