@@ -1,10 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://bfr2sqfj0r0uk"]
+[gd_scene load_steps=24 format=3 uid="uid://bfr2sqfj0r0uk"]
 
 [ext_resource type="Script" path="res://Scripts/Data/arena_selection.gd" id="1_8hv1c"]
 [ext_resource type="PackedScene" uid="uid://bat6am4i5o3cb" path="res://Scenes/Game.tscn" id="2_wpjur"]
 [ext_resource type="Texture2D" uid="uid://bkv2eaaqds2bl" path="res://Sprites/map.png" id="3_q53yd"]
 [ext_resource type="Texture2D" uid="uid://p32ps2a5t06p" path="res://Sprites/allwhite.png" id="4_ovh4c"]
 [ext_resource type="PackedScene" uid="uid://ce46tpa5xqv2w" path="res://Meshes/MAP0.glb" id="5_3nfel"]
+[ext_resource type="Texture2D" uid="uid://ddlae6cb0rcns" path="res://Sprites/key_KB1.png" id="5_yhdog"]
+[ext_resource type="Texture2D" uid="uid://xg4o1avsasf8" path="res://Sprites/key_KB2.png" id="6_26bwj"]
 [ext_resource type="Texture2D" uid="uid://r7ebtv4n3afg" path="res://Sprites/TransBlack.png" id="6_wggu4"]
 [ext_resource type="PackedScene" uid="uid://cyl20ov2k0tob" path="res://Meshes/cube1.glb" id="7_hb7go"]
 [ext_resource type="PackedScene" uid="uid://icmmbvof77j0" path="res://Meshes/cube2.glb" id="8_wh07m"]
@@ -228,6 +230,38 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_ovh4c")
 expand_mode = 1
+
+[node name="1p_control" type="TextureRect" parent="Camera3D/CanvasLayer/Control/TextureRect"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -48.0
+offset_right = 56.0
+grow_vertical = 0
+texture = ExtResource("5_yhdog")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="2p_control" type="TextureRect" parent="Camera3D/CanvasLayer/Control/TextureRect"]
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -48.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("6_26bwj")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D/CanvasLayer/Control"]
 root_node = NodePath("../..")
