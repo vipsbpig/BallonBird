@@ -197,7 +197,7 @@ albedo_texture = SubResource("ViewportTexture_knmax")
 
 [node name="ArenaSelection" type="Node3D" node_paths=PackedStringArray("selectable_objects", "mapIndiactor", "animPlayer")]
 script = ExtResource("1_8hv1c")
-selectable_objects = [NodePath("Arenas/cube1/Cube1"), NodePath("Arenas/cube3/Cube3"), NodePath("Arenas/cube5/Cube5"), NodePath("Arenas/cube2/Cube2"), NodePath("Arenas/cube4/Cube4")]
+selectable_objects = [NodePath("Arenas/cube1/Cube1"), NodePath("Arenas/cube2/Cube2"), NodePath("Arenas/cube3/Cube3"), NodePath("Arenas/cube4/Cube4"), NodePath("Arenas/cube5/Cube5")]
 mapIndiactor = NodePath("MapIndicator")
 animPlayer = NodePath("Camera3D/CanvasLayer/Control/AnimationPlayer")
 ballonScene = ExtResource("2_wpjur")
