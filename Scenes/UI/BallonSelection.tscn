@@ -5,14 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://bat6am4i5o3cb" path="res://Scenes/Game.tscn" id="2_0emut"]
 [ext_resource type="Texture2D" uid="uid://p32ps2a5t06p" path="res://Sprites/allwhite.png" id="2_sb7mj"]
 [ext_resource type="ArrayMesh" uid="uid://cj6wu8uooii4c" path="res://Meshes/Boxes/map0.res" id="3_alof7"]
-[ext_resource type="ArrayMesh" uid="uid://cwjsxp4vier3j" path="res://Meshes/Birds/b1.res" id="5_ctb88"]
 [ext_resource type="Texture2D" uid="uid://c7cfgdni6eyc5" path="res://Sprites/1P.png" id="5_jaxvk"]
+[ext_resource type="PackedScene" uid="uid://b4g2nxr1eodvy" path="res://Meshes/B1.glb" id="6_3h6o0"]
 [ext_resource type="Texture2D" uid="uid://djjfykmddcyxn" path="res://Sprites/2P.png" id="6_bundc"]
-[ext_resource type="ArrayMesh" uid="uid://1pvhfnoj6y0h" path="res://Meshes/Birds/b2.res" id="6_lopfo"]
-[ext_resource type="ArrayMesh" uid="uid://dnr6aocfbtpve" path="res://Meshes/Birds/b3.res" id="8_nfntv"]
-[ext_resource type="ArrayMesh" uid="uid://cq5atb561i0ok" path="res://Meshes/Birds/b4.res" id="9_gigrb"]
-[ext_resource type="ArrayMesh" uid="uid://bomy1snvrp2gl" path="res://Meshes/Birds/b5.res" id="10_3ga3o"]
-[ext_resource type="ArrayMesh" uid="uid://d67wj37lvk3s" path="res://Meshes/Birds/b6.res" id="11_5wtfe"]
+[ext_resource type="PackedScene" uid="uid://7ec06etbdtp3" path="res://Meshes/B2.glb" id="7_2i3d5"]
+[ext_resource type="PackedScene" uid="uid://c7vxqedx1nll5" path="res://Meshes/B3.glb" id="8_44ql3"]
+[ext_resource type="PackedScene" uid="uid://blwfv663s1vfs" path="res://Meshes/B4.glb" id="9_kpm14"]
+[ext_resource type="PackedScene" uid="uid://uti1p784dysw" path="res://Meshes/B5.glb" id="10_axrpo"]
+[ext_resource type="PackedScene" uid="uid://blyevi11brton" path="res://Meshes/B6.glb" id="11_utl0f"]
 
 [sub_resource type="Environment" id="Environment_f83vv"]
 background_mode = 1
@@ -260,44 +260,38 @@ autoplay = "fadeIn"
 [node name="Position1" type="Node3D" parent="Ballon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.84512, 2.5, 0)
 
-[node name="Bird1" type="MeshInstance3D" parent="Ballon/Position1"]
+[node name="Bird1" parent="Ballon/Position1" instance=ExtResource("6_3h6o0")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-mesh = ExtResource("5_ctb88")
 
 [node name="Position2" type="Node3D" parent="Ballon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.21895, -0.218282, 0)
 
-[node name="Bird2" type="MeshInstance3D" parent="Ballon/Position2"]
+[node name="Bird2" parent="Ballon/Position2" instance=ExtResource("7_2i3d5")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-mesh = ExtResource("6_lopfo")
 
 [node name="Position3" type="Node3D" parent="Ballon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.541945, 2.5, 0)
 
-[node name="Bird3" type="MeshInstance3D" parent="Ballon/Position3"]
+[node name="Bird3" parent="Ballon/Position3" instance=ExtResource("8_44ql3")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-mesh = ExtResource("8_nfntv")
 
 [node name="Position4" type="Node3D" parent="Ballon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19929, -0.218282, 0)
 
-[node name="Bird4" type="MeshInstance3D" parent="Ballon/Position4"]
+[node name="Bird4" parent="Ballon/Position4" instance=ExtResource("9_kpm14")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.06267, -0.516976, 0)
-mesh = ExtResource("9_gigrb")
 
 [node name="Position5" type="Node3D" parent="Ballon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.57805, 2.5, 0)
 
-[node name="Bird5" type="MeshInstance3D" parent="Ballon/Position5"]
+[node name="Bird5" parent="Ballon/Position5" instance=ExtResource("10_axrpo")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.40733, -0.430813, 6.15162e-08)
-mesh = ExtResource("10_3ga3o")
 
 [node name="Position6" type="Node3D" parent="Ballon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.08961, -0.654327, 0)
 
-[node name="Bird6" type="MeshInstance3D" parent="Ballon/Position6"]
+[node name="Bird6" parent="Ballon/Position6" instance=ExtResource("11_utl0f")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-mesh = ExtResource("11_5wtfe")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)

@@ -6,6 +6,8 @@ extends Node3D
 @export var animPlayer : AnimationPlayer
 @export var gameScene : PackedScene
 
+const animPlayerPath : NodePath = ^"AnimationPlayer"
+
 var selection_tweens : Array[Tween]
 
 var p1_current_index: int = 0
@@ -54,7 +56,9 @@ func update_selection():
 	for i in range(selectable_objects.size()):
 		if (i == p1_current_index && !p1_is_confirm) || (i == p2_current_index && !p2_is_confirm):
 			start_floating_animation(selection_tweens[i])
+			(selectable_objects[i].get_node(animPlayerPath) as AnimationPlayer).play("Fly1")
 		else:
+			(selectable_objects[i].get_node(animPlayerPath) as AnimationPlayer).stop(false)
 			stop_floating_animation(selection_tweens[i],selectable_objects[i])
 			
 func start_floating_animation(tween: Tween):
@@ -68,15 +72,19 @@ func stop_floating_animation(tween: Tween, obj : Node3D):
 func confirm_p1_selection():
 	# 处理确认选定的逻辑
 	var selected_object = selectable_objects[p1_current_index]
+	(selected_object.get_node(animPlayerPath) as AnimationPlayer).play("Fly2")
+	(selected_object.get_node(animPlayerPath) as AnimationPlayer).queue("Fly1")
 	print("Selected p1 object:", selected_object.name)
 	Global.p1_ballon_index = p1_current_index
 	p1_is_confirm = true
-	if p1_current_index!=p2_current_index:
+	if p1_current_index != p2_current_index:
 		stop_floating_animation(selection_tweens[p1_current_index],selectable_objects[p1_current_index])
 
 func confirm_p2_selection():
 	# 处理确认选定的逻辑
 	var selected_object = selectable_objects[p2_current_index]
+	(selected_object.get_node(animPlayerPath) as AnimationPlayer).play("Fly2")
+	(selected_object.get_node(animPlayerPath) as AnimationPlayer).queue("Fly1")
 	print("Selected p2 object:", selected_object.name)
 	Global.p2_ballon_index = p2_current_index
 	p2_is_confirm = true
