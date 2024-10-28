@@ -155,8 +155,6 @@ func _ready() -> void:
 	p2_rigidBody.body_entered.connect(_on_p2_body_entered)
 	canvas.draw.connect(_draw)
 
-	ready_go_player.queue("Prompt")
-
 func _reset_players() -> void:
 	isFinished = false
 	_reset_player(p1_rigidBody, p1_data, p1_position.position)
@@ -165,6 +163,7 @@ func _reset_players() -> void:
 	p2_player.stop()
 	p1_health = maxHealth
 	p2_health = maxHealth
+	ready_go_player.queue("Prompt")
 
 func _reset_player(rigidBody: RigidBody3D, data: BirdConfig, position: Vector3) -> void:
 	rigidBody.position = position
@@ -205,12 +204,11 @@ func _process(delta: float) -> void:
 	if isFinished:
 		canvas.queue_redraw()
 
-	if deathTimer == 0 && isFinished:
-		if p1_score >= 2 || p2_score >= 2:
-			if winTimer == 0:
-				_win()
-		else:
-			_reset_players()
+	if winTimer == 0 && (p1_score >= 2 || p2_score >= 2):
+		_win()
+
+	if deathTimer == 0 && isFinished && p1_score < 2 && p2_score < 2:
+		_reset_players()
 
 	Engine.time_scale = slomoSpeed if slomoTimer > 0 else 1
 	if isFinished || p1_health > 0 && p2_health > 0:
