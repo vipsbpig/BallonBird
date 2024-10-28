@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_mhdpn")
-torque = 25.0
+torque = 30.0
 angular_damp = 1.0
 accel_time = 0.05
 jump_force = 40.0

@@ -1,10 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqmj8cgeikd3e"]
+[gd_scene load_steps=4 format=3 uid="uid://dqmj8cgeikd3e"]
 
 [ext_resource type="PackedScene" uid="uid://ddjkackeslxnk" path="res://Meshes/MAP3.glb" id="1_cee62"]
 [ext_resource type="PackedScene" uid="uid://bajxi67c3ddal" path="res://Arena/Collision.tscn" id="2_oorub"]
+[ext_resource type="MeshLibrary" uid="uid://orjkayvhkegd" path="res://Arena/MeshLib.meshlib" id="3_pnvu4"]
 
 [node name="map_3" type="Node3D"]
 
 [node name="MAP3" parent="." instance=ExtResource("1_cee62")]
 
 [node name="Collision" parent="." instance=ExtResource("2_oorub")]
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("3_pnvu4")
+cell_size = Vector3(0.8, 0.8, 2)
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(393209, 0, 0, 458746, 0, 0, 524283, 0, 0, 458744, 0, 0, 524279, 0, 0, 327686, 0, 0, 393223, 0, 0, 458760, 0, 0, 393221, 0, 0, 458756, 0, 0, -327691, 0, 0, -393226, 0, 0, -458761, 0, 0, -393228, 0, 0, -458765, 0, 0, -458758, 0, 0, -393221, 0, 0, -327684, 0, 0, -393219, 0, 0, -458754, 0, 0, -524287, 0, 0, -458750, 0, 0, -393213, 0, 0, -458748, 0, 0, -524283, 0, 0, -524280, 0, 0, -458743, 0, 0, -393206, 0, 0, -458741, 0, 0, -524276, 0, 0)
+}

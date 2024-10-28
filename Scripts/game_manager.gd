@@ -101,6 +101,9 @@ func _on_p1_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int,
 	if p1_health == 0:
 		return
 
+	if body is GridMap:
+		return
+
 	var rb = p1_rigidBody
 	var other_shape = body.shape_owner_get_owner(body.shape_find_owner(body_shape_index))
 	var local_shape = rb.shape_owner_get_owner(rb.shape_find_owner(local_shape_index))
@@ -153,6 +156,9 @@ func _on_p1_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int,
 
 func _on_p2_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
 	if p2_health == 0:
+		return
+
+	if body is GridMap:
 		return
 
 	var rb = p2_rigidBody
