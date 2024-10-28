@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/mus_map4.ogg-a538f24aab7877c836f5a76348bd7045
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0
