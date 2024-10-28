@@ -183,7 +183,7 @@ func _on_p2_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int,
 
 	if local_shape.name == "Beak" && other_shape.name == "Body" && other_shape.get_parent().is_in_group(p1_group):
 		var momentum = rb.linear_velocity.length() * rb.mass
-		var inertia = rb.angular_velocity.length() * rb.inertia
+		var inertia = abs(rb.angular_velocity.z * rb.inertia.z)
 		print("p2: momentum: %f; inertia: %f" % [momentum, inertia])
 		if momentum > attackMomentum || inertia > attackInertia:
 			_play_vfx(killVfx, contact_point)
