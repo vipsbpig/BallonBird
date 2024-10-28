@@ -33,7 +33,7 @@ tracks/1/keys = PackedFloat32Array(0, 1, 0.0014258, 0.0014258, 0.0014258, 0.0333
 tracks/2/type = "audio"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/path = NodePath("SFX")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -74,21 +74,21 @@ transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 [node name="MAP0" parent="." instance=ExtResource("1_b2i6x")]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
 [node name="logo" parent="." instance=ExtResource("1_322hc")]
 
 [node name="logo" parent="logo" index="0"]
-transform = Transform3D(0.994855, -0.0146761, -1.97187e-09, 0.0146761, 0.994855, -1.45438e-11, 1.97187e-09, -1.45437e-11, 0.994963, 0, 0, 0)
+transform = Transform3D(0.0014258, 0, 0, 0, 0.0014258, 0, 0, 0, 0.0014258, 0, 0, 0)
 
 [node name="AnimationPlayer" parent="logo" index="1"]
 libraries = {
 "": SubResource("AnimationLibrary_b44cq")
 }
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="logo"]
+[node name="SFX" type="AudioStreamPlayer" parent="logo"]
 stream = ExtResource("12_unti4")
-
-[node name="AudioListener2D" type="AudioListener2D" parent="logo"]
-current = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 33)

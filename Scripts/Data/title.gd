@@ -5,6 +5,8 @@ extends Node3D
 
 func _ready():
 	title_animPlayer.play("logoAction")
+	var stream = load("res://Audio/music/mus_main.ogg")
+	Global.play_bgm(stream)
 
 func _process(delta: float):
 	if Input.is_action_pressed("jump") || Input.is_action_pressed("jump2"):
