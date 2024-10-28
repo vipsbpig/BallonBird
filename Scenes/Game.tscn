@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bat6am4i5o3cb"]
+[gd_scene load_steps=42 format=3 uid="uid://bat6am4i5o3cb"]
 
 [ext_resource type="PackedScene" uid="uid://blbt3ecamsolc" path="res://Vfx/blood.tscn" id="1_qw5es"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ue1lb"]
@@ -11,15 +11,17 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_jpvp5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_b67g5"]
 [ext_resource type="PackedScene" uid="uid://bx4ur154wmv6j" path="res://Vfx/wall.tscn" id="4_cewwj"]
-[ext_resource type="PackedScene" uid="uid://bifdj66at2hr7" path="res://Scenes/UI/InputHints.tscn" id="4_ml7ao"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/InputHints.tscn" id="4_ml7ao"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="5_dpqps"]
 [ext_resource type="Texture2D" uid="uid://bstliyq7p8jj" path="res://Sprites/ready.png" id="5_q207w"]
 [ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="5_w7o3c"]
 [ext_resource type="Texture2D" uid="uid://co1m3kb0q2u8l" path="res://Sprites/go.png" id="6_yjmqd"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="8_ylc3v"]
 [ext_resource type="PackedScene" uid="uid://dtrfjuac03r0r" path="res://Scenes/Win.tscn" id="10_yb2en"]
+[ext_resource type="AudioStream" uid="uid://orjsnnsvw60a" path="res://Audio/audio assets/ui_confirm_3.ogg" id="11_87gso"]
 [ext_resource type="Script" path="res://Scripts/UI_player_score.gd" id="11_e1sfh"]
 [ext_resource type="Environment" uid="uid://cbw5xswycm6in" path="res://DefaultEnvironment.tres" id="12_o5n53"]
+[ext_resource type="AudioStream" uid="uid://s0tti8nliya8" path="res://Audio/audio assets/ui_confirm_4.ogg" id="12_r2bsx"]
 [ext_resource type="AudioStream" uid="uid://dek50tc28wkwd" path="res://Audio/audio assets/sfx_fart_01.ogg" id="14_odmn7"]
 [ext_resource type="AudioStream" uid="uid://c0jf3xs8i6b2r" path="res://Audio/audio assets/sfx_fart_02.ogg" id="15_y1siq"]
 [ext_resource type="AudioStream" uid="uid://c6bk71up3s6ae" path="res://Audio/audio assets/sfx_fart_03.ogg" id="16_t7msw"]
@@ -138,6 +140,25 @@ tracks/3/keys = {
 "update": 1,
 "values": [false, true, false]
 }
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimationPlayer/UISFX")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("11_87gso")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("12_r2bsx")
+}],
+"times": PackedFloat32Array(0.166667, 2.16667)
+}
+tracks/4/use_blend = true
 
 [sub_resource type="Animation" id="Animation_82nmo"]
 length = 0.001
@@ -417,6 +438,8 @@ libraries = {
 "": SubResource("AnimationLibrary_id4bw")
 }
 
+[node name="UISFX" type="AudioStreamPlayer" parent="CanvasLayer/GameUI/Prompt/AnimationPlayer"]
+
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("map_position", "p1_position", "p2_position", "ready_go_player", "win_player", "win_bird_position", "audio_player1", "audio_player2", "killVfx", "hitBeakVfx", "bumpVfx", "p1WallVfx", "p2WallVfx")]
 script = ExtResource("8_ylc3v")
 map_position = NodePath("../MapRef")
@@ -458,6 +481,9 @@ script = ExtResource("1_ue1lb")
 
 [node name="Win" parent="Camera3D" instance=ExtResource("10_yb2en")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+
+[node name="Bird" parent="Camera3D/Win" index="2"]
+transform = Transform3D(1.91421, 0.125002, -0.565846, -0.38382, 1.73662, -0.914791, 0.434154, 0.984142, 1.68611, -6, 3, 1)
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27782, 5.12624, 1)
