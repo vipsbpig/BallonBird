@@ -1,7 +1,7 @@
 class_name BirdConfig
 extends Resource
 
-@export var torque : float = 2
+@export var torque : float = 20
 @export var angular_damp : float = 1
 @export var accel_time : float = 0.05
 
@@ -10,5 +10,6 @@ extends Resource
 @export var rotate_time : float = 0.05
 
 @export var mass : float = 0.4
+@export var inertia : float = 1.5
 
 @export var asset : PackedScene
