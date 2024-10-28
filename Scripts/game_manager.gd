@@ -16,6 +16,7 @@ const maxHealth : int = 1
 @export var win_bird_position : Node3D
 @export var audio_player1 : AudioStreamPlayer
 @export var audio_player2 : AudioStreamPlayer
+@export var generic_player : AudioStreamPlayer
 
 @export_category("particles")
 @export var killVfx : GPUParticles3D
@@ -52,13 +53,13 @@ const maxHealth : int = 1
 @export_category("sfx")
 @export var farts : Array[AudioStream]
 @export var flaps : Array[AudioStream]
+@export var swords : Array[AudioStream]
+@export var impacts : Array[AudioStream]
+@export var kill_sound : AudioStream
 
 # player runtime data
 var p1_rigidBody : RigidBody3D
 var p2_rigidBody : RigidBody3D
-
-# var p1_hitBox : Area3D
-# var p2_hitBox : Area3D
 
 var p1_player : AnimationPlayer
 var p2_player : AnimationPlayer
@@ -117,6 +118,8 @@ func _on_p1_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int,
 		p1_player.play(bump_anim)
 
 	if body.name == "Collision":
+		audio_player1.stream = impacts[random.randi_range(0, impacts.size() - 1)]
+		audio_player1.play()
 		_play_vfx(p1WallVfx, contact_point)
 		return
 
@@ -126,16 +129,23 @@ func _on_p1_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int,
 	if local_shape.name == "Beak" && other_shape.name == "Body" && other_shape.get_parent().is_in_group(p2_group):
 		print("p1: momentum is %f" % (rb.linear_velocity.length() * rb.mass))
 		if rb.linear_velocity.length() * rb.mass > attackMomentum:
+			generic_player.stream = kill_sound
+			generic_player.play()
 			killVfx.global_position = contact_point
 			_play_vfx(killVfx, contact_point)
 			p2_health -= 1
 		else:
+			generic_player.stream = impacts[random.randi_range(0, impacts.size() - 1)]
+			generic_player.play()
 			_play_vfx(bumpVfx, contact_point)
 	elif local_shape.name == "Beak" && other_shape.name == "Beak":
 		print("beak colliding!")
+		generic_player.stream = swords[random.randi_range(0, swords.size() - 1)]
+		generic_player.play()
 		_play_vfx(hitBeakVfx, contact_point)
 	elif local_shape.name == "Body" && other_shape.name == "Body":
-		print("bumping")
+		generic_player.stream = impacts[random.randi_range(0, impacts.size() - 1)]
+		generic_player.play()
 		_play_vfx(bumpVfx, contact_point)
 
 func _on_p2_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
@@ -160,6 +170,8 @@ func _on_p2_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int,
 		p2_player.play(bump_anim)
 
 	if body.name == "Collision":
+		audio_player2.stream = impacts[random.randi_range(0, impacts.size() - 1)]
+		audio_player2.play()
 		_play_vfx(p2WallVfx, contact_point)
 		return
 
@@ -172,6 +184,8 @@ func _on_p2_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int,
 			_play_vfx(killVfx, contact_point)
 			p1_health -= 1
 		else:
+			generic_player.stream = impacts[random.randi_range(0, impacts.size() - 1)]
+			generic_player.play()
 			_play_vfx(bumpVfx, contact_point)
 
 func _play_vfx(p: GPUParticles3D, position: Vector3) -> void:
@@ -293,8 +307,6 @@ func _process(delta: float) -> void:
 		return
 
 func _physics_process(delta: float) -> void:
-	print("p1: momentum is %f" % (p1_rigidBody.linear_velocity.length() * p1_rigidBody.mass))
-	print("p2: momentum is %f" % (p2_rigidBody.linear_velocity.length() * p2_rigidBody.mass))
 	if ready_go_player.is_playing():
 		return
 
