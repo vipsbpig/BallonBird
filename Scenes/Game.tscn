@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bat6am4i5o3cb"]
+[gd_scene load_steps=16 format=3 uid="uid://bat6am4i5o3cb"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ue1lb"]
 [ext_resource type="Texture2D" uid="uid://co0sdejt3j1f0" path="res://Sprites/egg_broken.png" id="3_5ymw0"]
@@ -7,10 +7,9 @@
 [ext_resource type="Resource" uid="uid://dsemrrd0xg5vd" path="res://Datas/ArenaDatas.tres" id="3_j2lqo"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_jpvp5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_b67g5"]
+[ext_resource type="PackedScene" uid="uid://bifdj66at2hr7" path="res://Scenes/UI/InputHints.tscn" id="4_ml7ao"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="5_dpqps"]
-[ext_resource type="Texture2D" uid="uid://ddlae6cb0rcns" path="res://Sprites/key_KB1.png" id="5_hcfov"]
 [ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="5_w7o3c"]
-[ext_resource type="Texture2D" uid="uid://xg4o1avsasf8" path="res://Sprites/key_KB2.png" id="6_v06w7"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="8_ylc3v"]
 [ext_resource type="Script" path="res://Scripts/UI_player_score.gd" id="11_e1sfh"]
 [ext_resource type="Environment" uid="uid://cbw5xswycm6in" path="res://DefaultEnvironment.tres" id="12_o5n53"]
@@ -112,35 +111,7 @@ texture = ExtResource("3_g0osj")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="1p_control" type="TextureRect" parent="CanvasLayer/GameUI"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -107.0
-offset_right = 56.0
-offset_bottom = -59.0
-grow_vertical = 0
-texture = ExtResource("5_hcfov")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="2p_control" type="TextureRect" parent="CanvasLayer/GameUI"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -56.0
-offset_top = -48.0
-offset_right = -8.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = ExtResource("6_v06w7")
-expand_mode = 1
-stretch_mode = 4
+[node name="InputHints" parent="CanvasLayer/GameUI" instance=ExtResource("4_ml7ao")]
 
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("map_position", "p1_position", "p2_position", "canvas")]
 script = ExtResource("8_ylc3v")

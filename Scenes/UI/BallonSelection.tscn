@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dnr2lxmrr6f4a"]
+[gd_scene load_steps=28 format=3 uid="uid://dnr2lxmrr6f4a"]
 
 [ext_resource type="Texture2D" uid="uid://r7ebtv4n3afg" path="res://Sprites/TransBlack.png" id="1_hhysm"]
 [ext_resource type="Script" path="res://Scripts/Data/ballon_selection.gd" id="1_pphmk"]
@@ -8,13 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://c7cfgdni6eyc5" path="res://Sprites/1P.png" id="5_jaxvk"]
 [ext_resource type="PackedScene" uid="uid://b4g2nxr1eodvy" path="res://Meshes/B1.glb" id="6_3h6o0"]
 [ext_resource type="Texture2D" uid="uid://djjfykmddcyxn" path="res://Sprites/2P.png" id="6_bundc"]
+[ext_resource type="PackedScene" uid="uid://bifdj66at2hr7" path="res://Scenes/UI/InputHints.tscn" id="6_u4f7i"]
 [ext_resource type="PackedScene" uid="uid://7ec06etbdtp3" path="res://Meshes/B2.glb" id="7_2i3d5"]
 [ext_resource type="PackedScene" uid="uid://c7vxqedx1nll5" path="res://Meshes/B3.glb" id="8_44ql3"]
 [ext_resource type="PackedScene" uid="uid://blwfv663s1vfs" path="res://Meshes/B4.glb" id="9_kpm14"]
 [ext_resource type="PackedScene" uid="uid://uti1p784dysw" path="res://Meshes/B5.glb" id="10_axrpo"]
 [ext_resource type="PackedScene" uid="uid://blyevi11brton" path="res://Meshes/B6.glb" id="11_utl0f"]
-[ext_resource type="Texture2D" uid="uid://ddlae6cb0rcns" path="res://Sprites/key_KB1.png" id="14_ipdc1"]
-[ext_resource type="Texture2D" uid="uid://xg4o1avsasf8" path="res://Sprites/key_KB2.png" id="15_qg6y4"]
 
 [sub_resource type="Environment" id="Environment_f83vv"]
 background_mode = 1
@@ -246,36 +245,7 @@ grow_vertical = 2
 texture = ExtResource("2_sb7mj")
 expand_mode = 1
 
-[node name="1p_control" type="TextureRect" parent="Camera3D/CanvasLayer/Control"]
-z_index = -1
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -48.0
-offset_right = 56.0
-grow_vertical = 0
-texture = ExtResource("14_ipdc1")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="2p_control" type="TextureRect" parent="Camera3D/CanvasLayer/Control"]
-z_index = -1
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -56.0
-offset_top = -48.0
-offset_right = -8.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = ExtResource("15_qg6y4")
-expand_mode = 1
-stretch_mode = 4
+[node name="InputHints" parent="Camera3D/CanvasLayer/Control" instance=ExtResource("6_u4f7i")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D/CanvasLayer/Control"]
 root_node = NodePath("../..")
