@@ -342,6 +342,9 @@ func process_input(
 
 	if Input.is_action_just_pressed(left_input) || Input.is_action_just_pressed(right_input) || Input.is_action_just_pressed(jump_input):
 		holdDuration = player.rotate_time
+		var sound_path = "res://Audio/audio assets/sfx_flap_0%d.ogg" % randi_range(1,5)
+		Global.play_sfx(load(sound_path), rigidBody.position)
+
 
 	holdDuration -= delta
 
@@ -358,6 +361,8 @@ func process_input(
 		rigidBody.apply_torque_impulse(local_z_direction * player.torque * rotateDirection * delta)
 
 	if Input.is_action_just_pressed(jump_input) && holdDuration > 0:
+		var sound_path = "res://Audio/audio assets/sfx_fart_0%d.ogg" % randi_range(1,5)
+		Global.play_sfx(load(sound_path), rigidBody.position)
 		rigidBody.apply_force(local_x_direction * player.jump_force)
 		animPlayer.play(dash_anim)
 		audio_player.stream = farts[random.randi_range(0, farts.size() - 1)]
