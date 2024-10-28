@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://dtrfjuac03r0r"]
+[gd_scene load_steps=18 format=3 uid="uid://dtrfjuac03r0r"]
 
 [ext_resource type="Texture2D" uid="uid://cgeas3s0p1cin" path="res://Sprites/win.png" id="1_l42eb"]
+[ext_resource type="AudioStream" uid="uid://sfwk1y3hduuw" path="res://Audio/audio assets/sfx_bling.ogg" id="3_sl23a"]
 [ext_resource type="Texture2D" uid="uid://1u2hp7083tea" path="res://Sources/flame2.png" id="3_td7rw"]
 
 [sub_resource type="Curve" id="Curve_ddkr3"]
@@ -212,6 +213,21 @@ tracks/5/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/6/type = "audio"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AudioStreamPlayer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_sl23a")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/6/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aoprs"]
 _data = {
@@ -235,10 +251,12 @@ process_material = SubResource("ParticleProcessMaterial_45xey")
 draw_pass_1 = SubResource("QuadMesh_hk1xh")
 
 [node name="Bird" type="Node3D" parent="."]
-transform = Transform3D(1.91421, 0.125002, -0.565846, -0.38382, 1.73662, -0.914792, 0.434154, 0.984144, 1.68611, -6, 3, 1)
+transform = Transform3D(1.91421, 0.125002, -0.565846, -0.38382, 1.73662, -0.914792, 0.434154, 0.984142, 1.68611, -6, 3, 1)
 visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_aoprs")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
