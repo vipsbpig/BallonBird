@@ -1,14 +1,15 @@
 [gd_resource type="Resource" script_class="BirdConfig" load_steps=3 format=3 uid="uid://c0hoh4mueqk3r"]
 
-[ext_resource type="PackedScene" uid="uid://ds3djm1n7hcjy" path="res://Ballons/b6.tscn" id="1_ggb4e"]
+[ext_resource type="PackedScene" uid="uid://ve47ltmcidb" path="res://Ballons/b6.tscn" id="1_ggb4e"]
 [ext_resource type="Script" path="res://Scripts/bird_config.gd" id="2_4fkmn"]
 
 [resource]
 script = ExtResource("2_4fkmn")
-maxHealth = 1.0
-maxSpeed = 12.0
-rotateSpeed = 2.0
-rotateTime = 0.05
-jumpForce = 40.0
-rotaionDampForce = 5.0
+torque = 2.0
+angular_damp = 1.0
+accel_time = 0.05
+jump_force = 40.0
+linear_damp = 0.1
+rotate_time = 0.07
+mass = 0.8
 asset = ExtResource("1_ggb4e")

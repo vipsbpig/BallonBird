@@ -43,7 +43,7 @@ const maxHealth : int = 1
 
 @export_category("parameters")
 @export var slomoSpeed : float
-@export var attackSpeedThreshold : float
+@export var attackMomentum : float = 3
 @export var redLineSpeed : float = 140
 @export var wind : Vector3
 
@@ -51,8 +51,8 @@ const maxHealth : int = 1
 var p1_rigidBody : RigidBody3D
 var p2_rigidBody : RigidBody3D
 
-var p1_hitBox : Area3D
-var p2_hitBox : Area3D
+# var p1_hitBox : Area3D
+# var p2_hitBox : Area3D
 
 var p1_player : AnimationPlayer
 var p2_player : AnimationPlayer
@@ -94,55 +94,94 @@ func _on_p1_area_entered(other: Area3D) -> void:
 	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(p1_rigidBody.get_rid())
 	var contact_point = state.get_contact_collider_position(0)
 	if other.get_parent().is_in_group(p2_group):
-		killVfx.global_position = contact_point
-		_play_vfx(killVfx)
+		_play_vfx(killVfx, contact_point)
 		p2_health -= 1
 
 func _on_p2_area_entered(other: Area3D) -> void:
 	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(p2_rigidBody.get_rid())
 	var contact_point = state.get_contact_collider_position(0)
 	if other.get_parent().is_in_group(p1_group):
-		killVfx.global_position = contact_point
-		_play_vfx(killVfx)
+		_play_vfx(killVfx, contact_point)
 		p1_health -= 1
 
 func _on_p1_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(p1_rigidBody.get_rid())
-	var contact_point = state.get_contact_collider_position(0)
-
-	if body.name == "Collision":
-		p1WallVfx.global_position = contact_point
-		_play_vfx(p1WallVfx)
+	if p1_health == 0:
 		return
 
-	if body is RigidBody3D:
-		if local_shape_index == 1 || local_shape_index == 2:
-			if body_shape_index == 0 || body_shape_index == 3:
-				print("%s is hitting %s" % [name, body.name])
-				bumpVfx.global_position = contact_point
-				_play_vfx(bumpVfx)
-			elif body_shape_index == 1 || body_shape_index == 2:
-				print("beak colliding!")
-				hitBeakVfx.global_position = contact_point
-				_play_vfx(hitBeakVfx)
-		elif local_shape_index == 0 || local_shape_index == 3:
-			if body_shape_index == 0 || body_shape_index == 3:
-				print("bumping")
-				bumpVfx.global_position = contact_point
-				_play_vfx(bumpVfx)
-			elif body_shape_index == 1 || body_shape_index == 2:
-				print("%s is hit by %s" % [name, body.name])
-				bumpVfx.global_position = contact_point
-				_play_vfx(bumpVfx)
+	var rb = p1_rigidBody
+	var other_shape = body.shape_owner_get_owner(body.shape_find_owner(body_shape_index))
+	var local_shape = rb.shape_owner_get_owner(rb.shape_find_owner(local_shape_index))
+
+	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(rb.get_rid())
+	var num_contacts = state.get_contact_count()
+	var index = 0
+	for n in num_contacts:
+		var rid: RID = state.get_contact_collider(n)
+		var shape_index = state.get_contact_collider_shape(n)
+		if rid == body_rid && shape_index == body_shape_index:
+			index = n
+	var contact_point = state.get_contact_collider_position(index)
+
+	if local_shape.name == "Body":
+		p1_player.play(bump_anim)
+
+	if body.name == "Collision":
+		_play_vfx(p1WallVfx, contact_point)
+		return
+
+	if p2_health == 0:
+		return
+
+	if local_shape.name == "Beak" && other_shape.name == "Body" && other_shape.get_parent().is_in_group(p2_group):
+		print("p1: momentum is %f" % (rb.linear_velocity.length() * rb.mass))
+		if rb.linear_velocity.length() * rb.mass > attackMomentum:
+			killVfx.global_position = contact_point
+			_play_vfx(killVfx, contact_point)
+			p2_health -= 1
+		else:
+			_play_vfx(bumpVfx, contact_point)
+	elif local_shape.name == "Beak" && other_shape.name == "Beak":
+		print("beak colliding!")
+		_play_vfx(hitBeakVfx, contact_point)
+	elif local_shape.name == "Body" && other_shape.name == "Body":
+		print("bumping")
+		_play_vfx(bumpVfx, contact_point)
 
 func _on_p2_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(p1_rigidBody.get_rid())
-	var contact_point = state.get_contact_collider_position(0)
+	if p2_health == 0:
+		return
+
+	var rb = p2_rigidBody
+	var other_shape = body.shape_owner_get_owner(body.shape_find_owner(body_shape_index))
+	var local_shape = rb.shape_owner_get_owner(rb.shape_find_owner(local_shape_index))
+
+	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(rb.get_rid())
+	var num_contacts = state.get_contact_count()
+	var index = 0
+	for n in num_contacts:
+		var rid: RID = state.get_contact_collider(n)
+		var shape_index = state.get_contact_collider_shape(n)
+		if rid == body_rid && shape_index == body_shape_index:
+			index = n
+	var contact_point = state.get_contact_collider_position(index)
+
+	if local_shape.name == "Body":
+		p2_player.play(bump_anim)
 
 	if body.name == "Collision":
-		p2WallVfx.global_position = contact_point
-		_play_vfx(p2WallVfx)
+		_play_vfx(p2WallVfx, contact_point)
 		return
+
+	if p1_health == 0:
+		return
+
+	if local_shape.name == "Beak" && other_shape.name == "Body" && other_shape.get_parent().is_in_group(p1_group):
+		print("p2: momentum is %f" % (rb.linear_velocity.length() * rb.mass))
+		if rb.linear_velocity.length() * rb.mass > attackMomentum:
+			_play_vfx(killVfx, contact_point)
+			p1_health -= 1
+		else:
+			_play_vfx(bumpVfx, contact_point)
 
 func _on_p1_body_entered(body: Node) -> void:
 	if p1_health > 0:
@@ -152,7 +191,8 @@ func _on_p2_body_entered(body: Node) -> void:
 	if p2_health > 0:
 		p2_player.play(bump_anim)
 
-func _play_vfx(p : GPUParticles3D) -> void:
+func _play_vfx(p: GPUParticles3D, position: Vector3) -> void:
+	p.global_position = position
 	p.emitting = true
 	for child in p.get_children():
 		if child is GPUParticles3D:
@@ -187,8 +227,8 @@ func _ready() -> void:
 	add_child(p1_rigidBody)
 	p1_rigidBody.add_to_group(p1_group)
 	p1_rigidBody.body_shape_entered.connect(_on_p1_body_shape_entered)
-	p1_hitBox = p1_rigidBody.get_node(hitBoxPath) as Area3D
-	p1_hitBox.area_entered.connect(_on_p1_area_entered)
+	# p1_hitBox = p1_rigidBody.get_node(hitBoxPath) as Area3D
+	# p1_hitBox.area_entered.connect(_on_p1_area_entered)
 	p1_player = p1_rigidBody.get_node(animPlayerPath) as AnimationPlayer
 
 	# p2 initialization
@@ -197,8 +237,8 @@ func _ready() -> void:
 	add_child(p2_rigidBody)
 	p2_rigidBody.add_to_group(p2_group)
 	p2_rigidBody.body_shape_entered.connect(_on_p2_body_shape_entered)
-	p2_hitBox = p2_rigidBody.get_node(hitBoxPath) as Area3D
-	p2_hitBox.area_entered.connect(_on_p2_area_entered)
+	# p2_hitBox = p2_rigidBody.get_node(hitBoxPath) as Area3D
+	# p2_hitBox.area_entered.connect(_on_p2_area_entered)
 	p2_player = p2_rigidBody.get_node(animPlayerPath) as AnimationPlayer
 	# inverse
 	p2_rigidBody.rotation_degrees.y += 180
@@ -240,20 +280,20 @@ func _process(delta: float) -> void:
 	var prevWinTimer : float = winTimer
 	winTimer = max(0, winTimer - delta / Engine.time_scale)
 
-	if prevWinTimer > 0 && winTimer == 0:
-		_switch_to_arena_selection()
-
 	if ready_go_player.is_playing():
 		return
 
+	if deathTimer == 0 && isFinished && p1_score < 2 && p2_score < 2:
+		_reset_players()
+		
 	if winTimer == 0 && (p1_score >= 2 || p2_score >= 2):
 		_win()
 
-	if deathTimer == 0 && isFinished && p1_score < 2 && p2_score < 2:
-		_reset_players()
+	if prevWinTimer > 0 && winTimer == 0:
+		_switch_to_arena_selection()
 
-	Engine.time_scale = slomoSpeed if slomoTimer > 0 && slomoTimer < slomoDuration - 0.2 else 1
-	if isFinished || p1_health > 0 && p2_health > 0:
+	Engine.time_scale = slomoSpeed if slomoTimer > 0 && slomoTimer < slomoDuration - 0.1 else 1
+	if isFinished:
 		return
 
 	if p1_health == 0:
@@ -285,7 +325,7 @@ func _physics_process(delta: float) -> void:
 	# process input for each player
 	p1_holdDuration = process_input(
 		p1_rigidBody,
-		p1_hitBox,
+		# p1_hitBox,
 		p1_player,
 		p1_data,
 		delta,
@@ -295,7 +335,7 @@ func _physics_process(delta: float) -> void:
 		"jump")
 	p2_holdDuration = process_input(
 		p2_rigidBody,
-		p2_hitBox,
+		# p2_hitBox,
 		p2_player,
 		p2_data,
 		delta,
@@ -306,7 +346,7 @@ func _physics_process(delta: float) -> void:
 	
 func process_input(
 		rigidBody: RigidBody3D,
-		hitBox: Area3D,
+		# hitBox: Area3D,
 		animPlayer: AnimationPlayer,
 		player: BirdConfig,
 		delta: float,
@@ -314,7 +354,6 @@ func process_input(
 		left_input: String,
 		right_input: String,
 		jump_input: String) -> float:
-	hitBox.monitoring = rigidBody.linear_velocity.length() >= attackSpeedThreshold
 	var rotateDirection : int = 0
 	
 	if Input.is_action_pressed(left_input):

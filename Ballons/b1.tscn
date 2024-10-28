@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://uike57x1wqhi"]
+[gd_scene load_steps=8 format=3 uid="uid://uike57x1wqhi"]
 
 [ext_resource type="PackedScene" uid="uid://b4g2nxr1eodvy" path="res://Meshes/B1.glb" id="1_eb0wq"]
 [ext_resource type="Script" path="res://Scripts/camera_component.gd" id="2_j3d0s"]
@@ -7,8 +7,6 @@
 bounce = 0.6
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_uy7jx"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_ony45"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lh0nc"]
 direction = Vector3(0, 1, 0)
@@ -46,20 +44,6 @@ shape = SubResource("SphereShape3D_uy7jx")
 [node name="Beak" type="CollisionPolygon3D" parent="."]
 depth = 0.5
 polygon = PackedVector2Array(0.451661, 0.339457, 1.50046, 0.187603, 1.93138, -0.104947, 2.01638, -0.403426, 1.90766, -0.332265, 1.61116, -0.322382, 0.452822, -0.365869)
-
-[node name="HitBoxArea" type="Area3D" parent="."]
-collision_layer = 2
-collision_mask = 4
-
-[node name="HitBoxShape" type="CollisionPolygon3D" parent="HitBoxArea"]
-polygon = PackedVector2Array(0.451661, 0.339457, 1.50046, 0.187603, 1.93138, -0.104947, 2.01638, -0.403426, 1.90766, -0.332265, 1.61116, -0.322382, 0.452822, -0.365869)
-
-[node name="HurtBoxArea" type="Area3D" parent="."]
-collision_layer = 4
-collision_mask = 0
-
-[node name="HurtBoxShape" type="CollisionShape3D" parent="HurtBoxArea"]
-shape = SubResource("SphereShape3D_ony45")
 
 [node name="CameraComponent" type="Node" parent="." node_paths=PackedStringArray("followTarget")]
 script = ExtResource("2_j3d0s")

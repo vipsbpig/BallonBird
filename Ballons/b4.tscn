@@ -46,20 +46,6 @@ shape = SubResource("SphereShape3D_4ie6b")
 depth = 0.5
 polygon = PackedVector2Array(0.467003, 0.306181, 0.594813, 0.286069, 0.917362, 0.0313114, 0.970588, -0.108755, 0.742279, -0.230614, 0.600811, -0.275435, 0.490158, -0.276836)
 
-[node name="HitBoxArea" type="Area3D" parent="."]
-collision_layer = 2
-collision_mask = 4
-
-[node name="HitBoxShape" type="CollisionPolygon3D" parent="HitBoxArea"]
-polygon = PackedVector2Array(0.467003, 0.306181, 0.594813, 0.286069, 0.917362, 0.0313114, 0.970588, -0.108755, 0.742279, -0.230614, 0.600811, -0.275435, 0.490158, -0.276836)
-
-[node name="HurtBoxArea" type="Area3D" parent="."]
-collision_layer = 4
-collision_mask = 0
-
-[node name="HurtBoxShape" type="CollisionShape3D" parent="HurtBoxArea"]
-shape = SubResource("SphereShape3D_4ie6b")
-
 [node name="CameraComponent" type="Node" parent="." node_paths=PackedStringArray("followTarget")]
 script = ExtResource("2_h2jhx")
 followTarget = NodePath("..")

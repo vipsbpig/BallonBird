@@ -428,7 +428,7 @@ slomoDuration = 1.4
 deathDuration = 5.0
 winDuration = 7.0
 slomoSpeed = 0.1
-attackSpeedThreshold = 5.0
+attackMomentum = 1.5
 wind = Vector3(0, 0.1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
