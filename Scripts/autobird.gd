@@ -8,6 +8,7 @@ const animPlayerPath : NodePath = ^"Mesh/AnimationPlayer"
 @export var height : Vector2
 @export var speedRange : Vector2
 @export var angularSpeedRange : Vector2
+@export var scale : float = 1.5
 
 var rng = RandomNumberGenerator.new()
 
@@ -20,3 +21,6 @@ func _ready():
 		bird.angular_velocity = Vector3(0, 0, rng.randf_range(angularSpeedRange.x, angularSpeedRange.y))
 		bird.physics_material_override.friction = 0
 		bird.physics_material_override.bounce = 1
+		for child in bird.get_children():
+			if child is Node3D:
+				child.scale *= scale
