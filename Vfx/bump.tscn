@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvpsopg6uhdeu"]
+
+[sub_resource type="Curve" id="Curve_7ohx0"]
+_data = [Vector2(0, 0.65644), 0.0, 3.12758, 0, 0, Vector2(0.242424, 1), -0.0459941, -0.0459941, 0, 0, Vector2(1, 0.000911355), -4.23143, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_v53n0"]
+curve = SubResource("Curve_7ohx0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_42pre"]
+particle_flag_align_y = true
+emission_shape_scale = Vector3(0.1, 0.7, 1)
+emission_shape = 2
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.6
+scale_curve = SubResource("CurveTexture_v53n0")
+color = Color(0.923411, 0.912414, 0.911983, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uu223"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_xgndp"]
+material = SubResource("StandardMaterial3D_uu223")
+radius = 0.4
+height = 0.8
+radial_segments = 8
+rings = 4
+
+[node name="bump" type="GPUParticles3D"]
+emitting = false
+amount = 6
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.92
+process_material = SubResource("ParticleProcessMaterial_42pre")
+draw_pass_1 = SubResource("SphereMesh_xgndp")

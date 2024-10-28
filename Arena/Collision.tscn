@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bajxi67c3ddal"]
+[gd_scene load_steps=4 format=3 uid="uid://bajxi67c3ddal"]
+
+[ext_resource type="PackedScene" uid="uid://bx4ur154wmv6j" path="res://Vfx/wall.tscn" id="2_c26ee"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2otxk"]
 size = Vector3(26.5, 0.8, 16)
@@ -7,6 +9,8 @@ size = Vector3(26.5, 0.8, 16)
 size = Vector3(0.9, 20, 16)
 
 [node name="Collision" type="StaticBody3D"]
+
+[node name="wall" parent="." instance=ExtResource("2_c26ee")]
 
 [node name="Bottom" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.6, 0)

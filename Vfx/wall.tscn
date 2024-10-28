@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://bx4ur154wmv6j"]
+
+[sub_resource type="Curve" id="Curve_j0c06"]
+_data = [Vector2(0, 1), 0.0, -0.330802, 0, 0, Vector2(1, 0), -2.10817, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mkup8"]
+curve = SubResource("Curve_j0c06")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i8gfe"]
+particle_flag_align_y = true
+emission_shape = 6
+emission_ring_axis = Vector3(90, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 0.5
+emission_ring_inner_radius = 0.4
+direction = Vector3(5, 0, 0)
+spread = 90.0
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+scale_min = 0.05
+scale_max = 0.35
+scale_curve = SubResource("CurveTexture_mkup8")
+color = Color(0.923411, 0.912414, 0.911983, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uu223"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_xgndp"]
+material = SubResource("StandardMaterial3D_uu223")
+radius = 0.4
+height = 0.8
+radial_segments = 8
+rings = 4
+
+[node name="wall" type="GPUParticles3D"]
+emitting = false
+amount = 30
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_i8gfe")
+draw_pass_1 = SubResource("SphereMesh_xgndp")

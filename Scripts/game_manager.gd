@@ -15,6 +15,13 @@ const maxHealth : int = 1
 @export var win_player : AnimationPlayer
 @export var win_bird_position : Node3D
 
+@export_category("particles")
+@export var killVfx : GPUParticles3D
+@export var hitBeakVfx : GPUParticles3D
+@export var bumpVfx : GPUParticles3D
+@export var p1WallVfx : GPUParticles3D
+@export var p2WallVfx : GPUParticles3D
+
 @export_category("data")
 @export var arena_datas : ArenaDatas
 @export var ballon_data : BallonDatas
@@ -84,18 +91,58 @@ func set_p2_score(newscore: int):
 	p2_score_change.emit(p2_score)
 
 func _on_p1_area_entered(other: Area3D) -> void:
+	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(p1_rigidBody.get_rid())
+	var contact_point = state.get_contact_collider_position(0)
 	if other.get_parent().is_in_group(p2_group):
-		hit_position = get_viewport().get_camera_3d().unproject_position(other.get_parent().position)
-		var hit_normal = other.position - p1_rigidBody.position
-		line_direction = Vector2(hit_normal.y, -hit_normal.x)
+		killVfx.global_position = contact_point
+		_play_vfx(killVfx)
 		p2_health -= 1
 
 func _on_p2_area_entered(other: Area3D) -> void:
+	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(p2_rigidBody.get_rid())
+	var contact_point = state.get_contact_collider_position(0)
 	if other.get_parent().is_in_group(p1_group):
-		hit_position = get_viewport().get_camera_3d().unproject_position(other.get_parent().position)
-		var hit_normal = other.position - p2_rigidBody.position
-		line_direction = Vector2(hit_normal.y, -hit_normal.x)
+		killVfx.global_position = contact_point
+		_play_vfx(killVfx)
 		p1_health -= 1
+
+func _on_p1_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(p1_rigidBody.get_rid())
+	var contact_point = state.get_contact_collider_position(0)
+
+	if body.name == "Collision":
+		p1WallVfx.global_position = contact_point
+		_play_vfx(p1WallVfx)
+		return
+
+	if body is RigidBody3D:
+		if local_shape_index == 1 || local_shape_index == 2:
+			if body_shape_index == 0 || body_shape_index == 3:
+				print("%s is hitting %s" % [name, body.name])
+				bumpVfx.global_position = contact_point
+				_play_vfx(bumpVfx)
+			elif body_shape_index == 1 || body_shape_index == 2:
+				print("beak colliding!")
+				hitBeakVfx.global_position = contact_point
+				_play_vfx(hitBeakVfx)
+		elif local_shape_index == 0 || local_shape_index == 3:
+			if body_shape_index == 0 || body_shape_index == 3:
+				print("bumping")
+				bumpVfx.global_position = contact_point
+				_play_vfx(bumpVfx)
+			elif body_shape_index == 1 || body_shape_index == 2:
+				print("%s is hit by %s" % [name, body.name])
+				bumpVfx.global_position = contact_point
+				_play_vfx(bumpVfx)
+
+func _on_p2_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(p1_rigidBody.get_rid())
+	var contact_point = state.get_contact_collider_position(0)
+
+	if body.name == "Collision":
+		p2WallVfx.global_position = contact_point
+		_play_vfx(p2WallVfx)
+		return
 
 func _on_p1_body_entered(body: Node) -> void:
 	if p1_health > 0:
@@ -104,6 +151,12 @@ func _on_p1_body_entered(body: Node) -> void:
 func _on_p2_body_entered(body: Node) -> void:
 	if p2_health > 0:
 		p2_player.play(bump_anim)
+
+func _play_vfx(p : GPUParticles3D) -> void:
+	p.emitting = true
+	for child in p.get_children():
+		if child is GPUParticles3D:
+			child.emitting = true
 
 func _win() -> void:
 	winTimer = winDuration
@@ -133,6 +186,7 @@ func _ready() -> void:
 	p1_rigidBody = p1_data.asset.instantiate() as RigidBody3D
 	add_child(p1_rigidBody)
 	p1_rigidBody.add_to_group(p1_group)
+	p1_rigidBody.body_shape_entered.connect(_on_p1_body_shape_entered)
 	p1_hitBox = p1_rigidBody.get_node(hitBoxPath) as Area3D
 	p1_hitBox.area_entered.connect(_on_p1_area_entered)
 	p1_player = p1_rigidBody.get_node(animPlayerPath) as AnimationPlayer
@@ -142,6 +196,7 @@ func _ready() -> void:
 	p2_rigidBody = p2_data.asset.instantiate() as RigidBody3D
 	add_child(p2_rigidBody)
 	p2_rigidBody.add_to_group(p2_group)
+	p2_rigidBody.body_shape_entered.connect(_on_p2_body_shape_entered)
 	p2_hitBox = p2_rigidBody.get_node(hitBoxPath) as Area3D
 	p2_hitBox.area_entered.connect(_on_p2_area_entered)
 	p2_player = p2_rigidBody.get_node(animPlayerPath) as AnimationPlayer
@@ -197,7 +252,7 @@ func _process(delta: float) -> void:
 	if deathTimer == 0 && isFinished && p1_score < 2 && p2_score < 2:
 		_reset_players()
 
-	Engine.time_scale = slomoSpeed if slomoTimer > 0 else 1
+	Engine.time_scale = slomoSpeed if slomoTimer > 0 && slomoTimer < slomoDuration - 0.2 else 1
 	if isFinished || p1_health > 0 && p2_health > 0:
 		return
 

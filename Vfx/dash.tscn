@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=3 uid="uid://joyyocusmqum"]
+
+[sub_resource type="Curve" id="Curve_r5cxq"]
+_data = [Vector2(0, 1), 0.0, 0.10089, 0, 0, Vector2(0.558081, 0.897327), -0.521263, -0.521263, 0, 0, Vector2(1, 0.000911355), -4.23143, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ileuk"]
+curve = SubResource("Curve_r5cxq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_db68u"]
+direction = Vector3(-8, 0, 0)
+spread = 10.0
+initial_velocity_min = 1.5
+initial_velocity_max = 3.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_ileuk")
+color = Color(0.923411, 0.912414, 0.911983, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uu223"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_xgndp"]
+material = SubResource("StandardMaterial3D_uu223")
+radius = 0.4
+height = 0.8
+radial_segments = 8
+rings = 4
+
+[sub_resource type="Curve" id="Curve_okhjv"]
+_data = [Vector2(0, 0.269441), 0.0, 5.47327, 0, 0, Vector2(0.0555556, 0.451094), 0.0, 0.0, 0, 0, Vector2(0.406566, 1), -0.312758, -0.312758, 0, 0, Vector2(1, 0), -5.66786, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_wgg27"]
+curve = SubResource("Curve_okhjv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8dtii"]
+emission_shape_offset = Vector3(0, -0.05, 0)
+emission_shape_scale = Vector3(3, 3, 3)
+emission_shape = 6
+emission_ring_axis = Vector3(90, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 0.2
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.5
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_curve = SubResource("CurveTexture_wgg27")
+color = Color(0.923411, 0.912414, 0.911983, 1)
+
+[node name="dash" type="GPUParticles3D"]
+visible = false
+lifetime = 0.6
+speed_scale = 1.5
+explosiveness = 0.58
+trail_enabled = true
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_db68u")
+draw_pass_1 = SubResource("SphereMesh_xgndp")
+
+[node name="dash2" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.57665, 0, 0)
+amount = 10
+lifetime = 0.8
+speed_scale = 1.2
+explosiveness = 0.81
+process_material = SubResource("ParticleProcessMaterial_8dtii")
+draw_pass_1 = SubResource("SphereMesh_xgndp")
