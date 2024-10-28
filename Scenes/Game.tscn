@@ -392,8 +392,8 @@ p1_position = NodePath("../P1Ref")
 p2_position = NodePath("../P2Ref")
 canvas = NodePath("../CanvasLayer/GameUI")
 ready_go_player = NodePath("../CanvasLayer/GameUI/Prompt/AnimationPlayer")
-win_player = NodePath("../Win/AnimationPlayer")
-win_bird_position = NodePath("../Win/Bird")
+win_player = NodePath("../Camera3D/Win/AnimationPlayer")
+win_bird_position = NodePath("../Camera3D/Win/Bird")
 arena_datas = ExtResource("3_j2lqo")
 ballon_data = ExtResource("3_hn235")
 p1_group = "p1"
@@ -409,14 +409,15 @@ slomoSpeed = 0.1
 attackSpeedThreshold = 5.0
 wind = Vector3(0, 0.1, 0)
 
-[node name="Win" parent="." instance=ExtResource("10_yb2en")]
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27782, 5.12624, 1)
 fov = 35.0
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("1_ue1lb")
+
+[node name="Win" parent="Camera3D" instance=ExtResource("10_yb2en")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27782, 5.12624, 1)
@@ -449,4 +450,4 @@ shadow_enabled = true
 [connection signal="p1_score_change" from="GameManager" to="CanvasLayer/GameUI/1p" method="SetScore"]
 [connection signal="p2_score_change" from="GameManager" to="CanvasLayer/GameUI/2p" method="SetScore"]
 
-[editable path="Win"]
+[editable path="Camera3D/Win"]

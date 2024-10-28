@@ -76,7 +76,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(2, 0, 4)]
+"values": [Vector3(3, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -88,7 +88,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-6, 3, 5)]
+"values": [Vector3(-6, 3, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -139,7 +139,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(3.605, 1),
 "update": 0,
-"values": [Vector3(20, 0, 4), Vector3(2, 0, 4)]
+"values": [Vector3(20, 0, 0), Vector3(1, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -151,7 +151,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(3.605, 1),
 "update": 0,
-"values": [Vector3(-20, 3, 5), Vector3(-6, 3, 5)]
+"values": [Vector3(-20, 2, 1), Vector3(-3.8, 3, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -199,12 +199,12 @@ _data = {
 [node name="Win" type="Node3D"]
 
 [node name="Text" type="Sprite3D" parent="."]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 2, 0, 4)
+transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 3, 0, 0)
 visible = false
 texture = ExtResource("1_l42eb")
 
 [node name="star" type="GPUParticles3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 0.666, 0, 0, 0, 0.666, -6, 3, 5)
+transform = Transform3D(1, 0, 0, 0, 0.333, 0, 0, 0, 0.333, -3.8, 3, 0)
 visible = false
 amount = 18
 lifetime = 0.4
@@ -212,7 +212,7 @@ process_material = SubResource("ParticleProcessMaterial_45xey")
 draw_pass_1 = SubResource("QuadMesh_hk1xh")
 
 [node name="Bird" type="Node3D" parent="."]
-transform = Transform3D(3.82842, 0.25, -1.13169, -0.767638, 3.47323, -1.82959, 0.868307, 1.96829, 3.37222, -6, 3, 5)
+transform = Transform3D(2.10563, 0.137501, -0.622431, -0.422202, 1.91028, -1.00627, 0.47757, 1.08256, 1.85472, -6, 3, 1)
 visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
