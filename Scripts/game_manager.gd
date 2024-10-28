@@ -283,14 +283,14 @@ func _process(delta: float) -> void:
 	if ready_go_player.is_playing():
 		return
 
+	if prevWinTimer > 0 && winTimer == 0:
+		_switch_to_arena_selection()
+
 	if deathTimer == 0 && isFinished && p1_score < 2 && p2_score < 2:
 		_reset_players()
 		
 	if winTimer == 0 && (p1_score >= 2 || p2_score >= 2):
 		_win()
-
-	if prevWinTimer > 0 && winTimer == 0:
-		_switch_to_arena_selection()
 
 	Engine.time_scale = slomoSpeed if slomoTimer > 0 && slomoTimer < slomoDuration - 0.1 else 1
 	if isFinished:
