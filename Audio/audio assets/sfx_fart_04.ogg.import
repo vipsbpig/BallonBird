@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bskupjy22ex66"
+path="res://.godot/imported/sfx_fart_04.ogg-9b7edcdefc6649afc31a3dbb59e452cf.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/audio assets/sfx_fart_04.ogg"
+dest_files=["res://.godot/imported/sfx_fart_04.ogg-9b7edcdefc6649afc31a3dbb59e452cf.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

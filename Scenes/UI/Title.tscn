@@ -1,17 +1,55 @@
-[gd_scene load_steps=13 format=3 uid="uid://b64t4uk0qhucf"]
+[gd_scene load_steps=16 format=3 uid="uid://egw7oexjceqw"]
 
 [ext_resource type="PackedScene" uid="uid://cpgk07vimsowh" path="res://Meshes/logo.glb" id="1_322hc"]
 [ext_resource type="PackedScene" uid="uid://ce46tpa5xqv2w" path="res://Meshes/MAP0.glb" id="1_b2i6x"]
 [ext_resource type="Script" path="res://Scripts/Data/title.gd" id="1_dehu6"]
 [ext_resource type="PackedScene" uid="uid://dnr2lxmrr6f4a" path="res://Scenes/UI/BallonSelection.tscn" id="2_omgbb"]
 [ext_resource type="PackedScene" uid="uid://uike57x1wqhi" path="res://Ballons/b1.tscn" id="3_g0qug"]
-[ext_resource type="PackedScene" uid="uid://bajxi67c3ddal" path="res://Arena/Collision.tscn" id="3_j51eb"]
+[ext_resource type="PackedScene" path="res://Arena/Collision.tscn" id="3_j51eb"]
 [ext_resource type="PackedScene" uid="uid://co1yqus7iijbf" path="res://Ballons/b2.tscn" id="5_rxptx"]
 [ext_resource type="PackedScene" uid="uid://slfp0f2au8ea" path="res://Ballons/b3.tscn" id="6_2rijw"]
 [ext_resource type="PackedScene" uid="uid://c1kbr2tklxb2m" path="res://Ballons/b4.tscn" id="7_r8otd"]
 [ext_resource type="PackedScene" uid="uid://h2k01ybc6dco" path="res://Ballons/b5.tscn" id="8_ggg8t"]
 [ext_resource type="PackedScene" uid="uid://ve47ltmcidb" path="res://Ballons/b6.tscn" id="9_jqhyy"]
 [ext_resource type="Script" path="res://Scripts/autobird.gd" id="12_iyp2p"]
+[ext_resource type="AudioStream" uid="uid://df3gqsnq8by7r" path="res://Audio/audio assets/ui_logo.ogg" id="12_unti4"]
+
+[sub_resource type="Animation" id="Animation_3wvy2"]
+resource_name = "logoAction"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("logo")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.0333333, 1, 0, 0, 0.0288866, 0.999583, 0.0666667, 1, 0, 0, 0.104623, 0.994512, 0.1, 1, -7.61516e-16, -1.86741e-08, 0.229409, 0.97333, 0.133333, 1, -1.10024e-08, -4.95113e-08, 0.403173, 0.915124, 0.166667, 1, -5.41637e-08, -5.9857e-08, 0.616192, 0.787596, 0.2, 1, -8.91309e-08, -1.11195e-07, 0.870366, 0.492405, 0.233333, 1, -4.15975e-08, -1.3376e-07, 0.99943, -0.0337569, 0.266667, 1, -2.51594e-08, 7.05295e-08, -0.756318, 0.654205, 0.3, 1, -4.48293e-08, -2.99374e-08, -0.189466, 0.981887, 0.333333, 1, -3.85452e-15, -2.7191e-08, 0.202376, 0.979308, 0.366667, 1, -9.29044e-16, -1.32074e-08, 0.0982998, 0.995157, 0.4, 1, -1.94796e-16, -9.68259e-09, 0.0720651, 0.9974, 0.433333, 1, 1.84356e-16, -1.80865e-09, 0.0134613, 0.999909, 0.466667, 1, 4.8975e-16, 1.03368e-08, -0.0769346, 0.997036, 0.5, 1, -5.57214e-16, 1.16618e-08, -0.0867958, 0.996226, 0.533333, 1, -1.11577e-16, 2.33517e-09, -0.0173801, 0.999849, 0.566667, 1, -7.24946e-16, -2.78684e-09, 0.0207418, 0.999785, 0.6, 1, -3.94461e-16, -5.89921e-10, 0.00439064, 0.99999, 0.633333, 1, 6.80836e-16, 3.40289e-09, -0.0253269, 0.999679, 0.666667, 1, 9.72106e-17, -4.95371e-09, 0.0368693, 0.99932, 0.7, 1, 1.94464e-17, -9.90958e-10, 0.00737546, 0.999973, 0.708333, 1, 0, 0, 0, 1)
+tracks/1/type = "scale_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("logo")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.0014258, 0.0014258, 0.0014258, 0.0333333, 1, 0.0470742, 0.0573039, 0.0219277, 0.0666667, 1, 0.135196, 0.165169, 0.0615182, 0.1, 1, 0.239792, 0.293189, 0.108533, 0.133333, 1, 0.337543, 0.412817, 0.152508, 0.166667, 1, 0.40781, 0.498784, 0.184179, 0.2, 1, 0.443025, 0.541839, 0.200121, 0.233333, 1, 0.461186, 0.564032, 0.208374, 0.266667, 1, 0.478156, 0.584774, 0.216072, 0.3, 1, 0.529208, 0.647208, 0.239145, 0.333333, 1, 0.669027, 0.818207, 0.302318, 0.366667, 1, 1.92711, 1.50938, 1.67308, 0.4, 1, 2.24163, 1.68218, 2.01577, 0.433333, 1, 1.85704, 1.38514, 1.72296, 0.466667, 1, 1.32354, 0.962728, 1.29674, 0.5, 1, 1.49711, 1.05533, 1.34878, 0.533333, 1, 1.29144, 1.03067, 1.16182, 0.566667, 1, 1.09601, 1.0098, 1.04603, 0.6, 1, 1.09601, 1.0098, 1.04603, 0.633333, 1, 1.18698, 1.01457, 1.08703, 0.666667, 1, 0.974816, 0.974816, 0.974816, 0.708333, 1, 1, 1, 1)
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("12_unti4")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/2/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b44cq"]
+_data = {
+"logoAction": SubResource("Animation_3wvy2")
+}
 
 [node name="Title" type="Node3D" node_paths=PackedStringArray("title_animPlayer")]
 script = ExtResource("1_dehu6")
@@ -39,7 +77,18 @@ transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 [node name="logo" parent="." instance=ExtResource("1_322hc")]
 
 [node name="logo" parent="logo" index="0"]
-transform = Transform3D(0.0014258, 0, 0, 0, 0.0014258, 0, 0, 0, 0.0014258, 0, 0, 0)
+transform = Transform3D(0.994855, -0.0146761, -1.97187e-09, 0.0146761, 0.994855, -1.45438e-11, 1.97187e-09, -1.45437e-11, 0.994963, 0, 0, 0)
+
+[node name="AnimationPlayer" parent="logo" index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_b44cq")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="logo"]
+stream = ExtResource("12_unti4")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="logo"]
+current = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 33)

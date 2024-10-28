@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://csshiub2rgtlt"
+path="res://.godot/imported/sfx_flap_03.ogg-50e020adf8f36a96b6c438d2d40c758c.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/audio assets/sfx_flap_03.ogg"
+dest_files=["res://.godot/imported/sfx_flap_03.ogg-50e020adf8f36a96b6c438d2d40c758c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
