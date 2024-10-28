@@ -5,11 +5,12 @@
 
 [resource]
 script = ExtResource("2_r1npj")
-torque = 2.0
+torque = 30.0
 angular_damp = 1.0
 accel_time = 0.05
 jump_force = 40.0
 linear_damp = 0.1
 rotate_time = 0.05
 mass = 0.4
+inertia = 1.0
 asset = ExtResource("1_6hs3r")

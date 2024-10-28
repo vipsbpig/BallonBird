@@ -47,6 +47,7 @@ const maxHealth : int = 1
 @export_category("parameters")
 @export var slomoSpeed : float
 @export var attackMomentum : float = 3
+@export var attackInertia : float = 3
 @export var redLineSpeed : float = 140
 @export var wind : Vector3
 
@@ -127,8 +128,10 @@ func _on_p1_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int,
 		return
 
 	if local_shape.name == "Beak" && other_shape.name == "Body" && other_shape.get_parent().is_in_group(p2_group):
-		print("p1: momentum is %f" % (rb.linear_velocity.length() * rb.mass))
-		if rb.linear_velocity.length() * rb.mass > attackMomentum:
+		var momentum = rb.linear_velocity.length() * rb.mass
+		var inertia = abs(rb.angular_velocity.z * rb.inertia.z)
+		print("p1: momentum: %f; inertia: %f" % [momentum, inertia])
+		if momentum > attackMomentum || inertia > attackInertia:
 			generic_player.stream = kill_sound
 			generic_player.play()
 			killVfx.global_position = contact_point
@@ -179,8 +182,10 @@ func _on_p2_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int,
 		return
 
 	if local_shape.name == "Beak" && other_shape.name == "Body" && other_shape.get_parent().is_in_group(p1_group):
-		print("p2: momentum is %f" % (rb.linear_velocity.length() * rb.mass))
-		if rb.linear_velocity.length() * rb.mass > attackMomentum:
+		var momentum = rb.linear_velocity.length() * rb.mass
+		var inertia = rb.angular_velocity.length() * rb.inertia
+		print("p2: momentum: %f; inertia: %f" % [momentum, inertia])
+		if momentum > attackMomentum || inertia > attackInertia:
 			_play_vfx(killVfx, contact_point)
 			p1_health -= 1
 		else:
@@ -257,6 +262,7 @@ func _reset_player(rigidBody: RigidBody3D, data: BirdConfig, position: Vector3) 
 	rigidBody.angular_velocity = Vector3.ZERO
 	rigidBody.gravity_scale = 0
 	rigidBody.mass = data.mass
+	rigidBody.inertia = Vector3(0, 0, data.inertia)
 	rigidBody.constant_force = wind
 
 	rigidBody.contact_monitor = true
