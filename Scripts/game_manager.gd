@@ -196,6 +196,8 @@ func _win() -> void:
 func _ready() -> void:
 	# map initialization
 	var map_prefab = arena_datas.Arenas[Global.arena_index]
+	var music_path = "res://Audio/music/mus_map%d.ogg" % (Global.arena_index + 1)
+	Global.play_bgm(load(music_path))
 	var map = map_prefab.instantiate() as Node3D
 	add_child(map)
 	map.global_position = map_position.global_position
@@ -370,3 +372,4 @@ func process_input(
 
 func _switch_to_arena_selection():
 	get_tree().change_scene_to_file("res://Scenes/UI/BallonSelection.tscn")
+	Global.play_bgm(load("res://Audio/music/mus_main.ogg"))
