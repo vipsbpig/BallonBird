@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BallonDatas" load_steps=9 format=3 uid="uid://bmb2y80utuas"]
+[gd_resource type="Resource" script_class="BallonDatas" load_steps=15 format=3 uid="uid://bmb2y80utuas"]
 
 [ext_resource type="Script" path="res://Scripts/bird_config.gd" id="1_7jha5"]
 [ext_resource type="Script" path="res://Scripts/Data/ballon_datas.gd" id="1_njk87"]
@@ -8,7 +8,14 @@
 [ext_resource type="Resource" uid="uid://6fe4c1g50lhf" path="res://Datas/b4_data.tres" id="5_i71rc"]
 [ext_resource type="Resource" uid="uid://bdxnrx1yuqgt8" path="res://Datas/b5_data.tres" id="6_prcgj"]
 [ext_resource type="Resource" uid="uid://c0hoh4mueqk3r" path="res://Datas/b6_data.tres" id="7_6vj1h"]
+[ext_resource type="PackedScene" uid="uid://b4g2nxr1eodvy" path="res://Meshes/B1.glb" id="8_q3lfr"]
+[ext_resource type="PackedScene" uid="uid://7ec06etbdtp3" path="res://Meshes/B2.glb" id="9_skbyi"]
+[ext_resource type="PackedScene" uid="uid://c7vxqedx1nll5" path="res://Meshes/B3.glb" id="10_v3wnr"]
+[ext_resource type="PackedScene" uid="uid://blyevi11brton" path="res://Meshes/B6.glb" id="11_jnwxd"]
+[ext_resource type="PackedScene" uid="uid://blwfv663s1vfs" path="res://Meshes/B4.glb" id="12_715oc"]
+[ext_resource type="PackedScene" uid="uid://uti1p784dysw" path="res://Meshes/B5.glb" id="13_l8lvn"]
 
 [resource]
 script = ExtResource("1_njk87")
 Ballons = Array[ExtResource("1_7jha5")]([ExtResource("2_jjuhp"), ExtResource("3_ea6lv"), ExtResource("4_6o54s"), ExtResource("7_6vj1h"), ExtResource("5_i71rc"), ExtResource("6_prcgj")])
+Meshes = Array[PackedScene]([ExtResource("8_q3lfr"), ExtResource("9_skbyi"), ExtResource("10_v3wnr"), ExtResource("11_jnwxd"), ExtResource("12_715oc"), ExtResource("13_l8lvn")])

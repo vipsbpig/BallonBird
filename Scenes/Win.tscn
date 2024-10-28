@@ -1,0 +1,221 @@
+[gd_scene load_steps=17 format=3 uid="uid://dtrfjuac03r0r"]
+
+[ext_resource type="Texture2D" uid="uid://cgeas3s0p1cin" path="res://Sprites/win.png" id="1_l42eb"]
+[ext_resource type="Texture2D" uid="uid://1u2hp7083tea" path="res://Sources/flame2.png" id="3_td7rw"]
+
+[sub_resource type="Curve" id="Curve_ddkr3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.156566, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_p27gn"]
+curve = SubResource("Curve_ddkr3")
+
+[sub_resource type="Gradient" id="Gradient_t13nv"]
+colors = PackedColorArray(1, 0.576059, 0.135632, 1, 1, 0.970282, 0.850212, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jlfuo"]
+gradient = SubResource("Gradient_t13nv")
+
+[sub_resource type="Curve" id="Curve_d3p3t"]
+_data = [Vector2(0.00757576, 0.688032), 0.0, 0.0, 0, 0, Vector2(0.340909, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0364521), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_uhbwx"]
+curve = SubResource("Curve_d3p3t")
+
+[sub_resource type="Curve" id="Curve_jmh1g"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0167072), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_x5o4d"]
+curve = SubResource("Curve_jmh1g")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_45xey"]
+emission_shape_scale = Vector3(4, 4, 4)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+angular_velocity_min = -44.77
+angular_velocity_max = 44.77
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_x5o4d")
+color_ramp = SubResource("GradientTexture1D_jlfuo")
+alpha_curve = SubResource("CurveTexture_p27gn")
+emission_curve = SubResource("CurveTexture_uhbwx")
+anim_speed_min = 0.5
+anim_speed_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_23ur6"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_td7rw")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_hk1xh"]
+material = SubResource("StandardMaterial3D_23ur6")
+size = Vector2(2, 2)
+
+[sub_resource type="Animation" id="Animation_75ys6"]
+resource_name = "WIN"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Text:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(3.605, 1),
+"update": 0,
+"values": [Vector3(20, 0, 4), Vector3(2, 0, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bird:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(3.605, 1),
+"update": 0,
+"values": [Vector3(-20, 3, 5), Vector3(-6, 3, 5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("star:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Text:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Bird:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_lk0eh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Text:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2, 0, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bird:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-6, 3, 5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("star:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Text:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Bird:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aoprs"]
+_data = {
+"RESET": SubResource("Animation_lk0eh"),
+"WIN": SubResource("Animation_75ys6")
+}
+
+[node name="Win" type="Node3D"]
+
+[node name="Text" type="Sprite3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 2, 0, 4)
+visible = false
+texture = ExtResource("1_l42eb")
+
+[node name="star" type="GPUParticles3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 0.666, 0, 0, 0, 0.666, -6, 3, 5)
+visible = false
+amount = 18
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_45xey")
+draw_pass_1 = SubResource("QuadMesh_hk1xh")
+
+[node name="Bird" type="Node3D" parent="."]
+transform = Transform3D(3.82842, 0.25, -1.13169, -0.767638, 3.47323, -1.82959, 0.868307, 1.96829, 3.37222, -6, 3, 5)
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_aoprs")
+}

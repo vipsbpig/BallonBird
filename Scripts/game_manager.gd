@@ -13,6 +13,8 @@ const maxHealth : int = 1
 @export var p2_position : Node3D
 @export var canvas : CanvasItem
 @export var ready_go_player : AnimationPlayer
+@export var win_player : AnimationPlayer
+@export var win_bird_position : Node3D
 
 @export_category("data")
 @export var arena_datas : ArenaDatas
@@ -31,7 +33,7 @@ const maxHealth : int = 1
 @export_category("timers")
 @export var slomoDuration : float
 @export var deathDuration : float
-@export var readyDuration : float
+@export var winDuration : float
 
 @export_category("parameters")
 @export var slomoSpeed : float
@@ -65,7 +67,7 @@ var p2_score : int = 0 : set = set_p2_score
 var isFinished : bool = false
 var slomoTimer : float = 0
 var deathTimer : float = 0
-var readyTimer : float = 0
+var winTimer : float = 0
 
 var hit_position : Vector2
 var line_direction : Vector2
@@ -103,6 +105,18 @@ func _on_p1_body_entered(body: Node) -> void:
 func _on_p2_body_entered(body: Node) -> void:
 	if p2_health > 0:
 		p2_player.play(bump_anim)
+
+func _win() -> void:
+	winTimer = winDuration
+	var mesh : Node3D
+	if p1_score == 2:
+		mesh = ballon_data.Meshes[Global.p1_ballon_index].instantiate() as Node3D
+	elif p2_score == 2:
+		mesh = ballon_data.Meshes[Global.p2_ballon_index].instantiate() as Node3D		
+	win_bird_position.add_child(mesh)
+	mesh.transform.basis = Basis.IDENTITY
+	mesh.transform.origin = Vector3.ZERO
+	win_player.play("WIN")
 	
 func _ready() -> void:
 	# map initialization
@@ -141,7 +155,6 @@ func _ready() -> void:
 	p2_rigidBody.body_entered.connect(_on_p2_body_entered)
 	canvas.draw.connect(_draw)
 
-	readyTimer = readyDuration
 	ready_go_player.queue("Prompt")
 
 func _reset_players() -> void:
@@ -180,10 +193,12 @@ func _draw() -> void:
 func _process(delta: float) -> void:
 	slomoTimer = max(0, slomoTimer - delta / Engine.time_scale)
 	deathTimer = max(0, deathTimer - delta / Engine.time_scale)
-	# readyTimer = max(0, readyTimer - delta / Engine.time_scale)
+	var prevWinTimer : float = winTimer
+	winTimer = max(0, winTimer - delta / Engine.time_scale)
 
-	# if readyTimer > 0:
-	# 	return
+	if prevWinTimer > 0 && winTimer == 0:
+		_switch_to_arena_selection()
+
 	if ready_go_player.is_playing():
 		return
 
@@ -192,7 +207,8 @@ func _process(delta: float) -> void:
 
 	if deathTimer == 0 && isFinished:
 		if p1_score >= 2 || p2_score >= 2:
-			_switch_to_arena_selection()
+			if winTimer == 0:
+				_win()
 		else:
 			_reset_players()
 

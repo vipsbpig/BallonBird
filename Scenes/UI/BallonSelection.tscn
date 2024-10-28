@@ -246,6 +246,7 @@ texture = ExtResource("2_sb7mj")
 expand_mode = 1
 
 [node name="InputHints" parent="Camera3D/CanvasLayer/Control" instance=ExtResource("6_u4f7i")]
+layout_mode = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D/CanvasLayer/Control"]
 root_node = NodePath("../..")
