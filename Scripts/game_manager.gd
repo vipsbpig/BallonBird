@@ -14,6 +14,8 @@ const maxHealth : int = 1
 @export var ready_go_player : AnimationPlayer
 @export var win_player : AnimationPlayer
 @export var win_bird_position : Node3D
+@export var audio_player1 : AudioStreamPlayer
+@export var audio_player2 : AudioStreamPlayer
 
 @export_category("particles")
 @export var killVfx : GPUParticles3D
@@ -47,6 +49,10 @@ const maxHealth : int = 1
 @export var redLineSpeed : float = 140
 @export var wind : Vector3
 
+@export_category("sfx")
+@export var farts : Array[AudioStream]
+@export var flaps : Array[AudioStream]
+
 # player runtime data
 var p1_rigidBody : RigidBody3D
 var p2_rigidBody : RigidBody3D
@@ -75,8 +81,7 @@ var slomoTimer : float = 0
 var deathTimer : float = 0
 var winTimer : float = 0
 
-var hit_position : Vector2
-var line_direction : Vector2
+var random = RandomNumberGenerator.new()
 
 # signals
 signal p1_score_change(score: int)
@@ -89,20 +94,6 @@ func set_p1_score(newscore: int):
 func set_p2_score(newscore: int):
 	p2_score = newscore
 	p2_score_change.emit(p2_score)
-
-func _on_p1_area_entered(other: Area3D) -> void:
-	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(p1_rigidBody.get_rid())
-	var contact_point = state.get_contact_collider_position(0)
-	if other.get_parent().is_in_group(p2_group):
-		_play_vfx(killVfx, contact_point)
-		p2_health -= 1
-
-func _on_p2_area_entered(other: Area3D) -> void:
-	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(p2_rigidBody.get_rid())
-	var contact_point = state.get_contact_collider_position(0)
-	if other.get_parent().is_in_group(p1_group):
-		_play_vfx(killVfx, contact_point)
-		p1_health -= 1
 
 func _on_p1_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
 	if p1_health == 0:
@@ -183,14 +174,6 @@ func _on_p2_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int,
 		else:
 			_play_vfx(bumpVfx, contact_point)
 
-func _on_p1_body_entered(body: Node) -> void:
-	if p1_health > 0:
-		p1_player.play(bump_anim)
-	
-func _on_p2_body_entered(body: Node) -> void:
-	if p2_health > 0:
-		p2_player.play(bump_anim)
-
 func _play_vfx(p: GPUParticles3D, position: Vector3) -> void:
 	p.global_position = position
 	p.emitting = true
@@ -227,8 +210,6 @@ func _ready() -> void:
 	add_child(p1_rigidBody)
 	p1_rigidBody.add_to_group(p1_group)
 	p1_rigidBody.body_shape_entered.connect(_on_p1_body_shape_entered)
-	# p1_hitBox = p1_rigidBody.get_node(hitBoxPath) as Area3D
-	# p1_hitBox.area_entered.connect(_on_p1_area_entered)
 	p1_player = p1_rigidBody.get_node(animPlayerPath) as AnimationPlayer
 
 	# p2 initialization
@@ -237,16 +218,11 @@ func _ready() -> void:
 	add_child(p2_rigidBody)
 	p2_rigidBody.add_to_group(p2_group)
 	p2_rigidBody.body_shape_entered.connect(_on_p2_body_shape_entered)
-	# p2_hitBox = p2_rigidBody.get_node(hitBoxPath) as Area3D
-	# p2_hitBox.area_entered.connect(_on_p2_area_entered)
 	p2_player = p2_rigidBody.get_node(animPlayerPath) as AnimationPlayer
 	# inverse
 	p2_rigidBody.rotation_degrees.y += 180
 
 	_reset_players()
-	# setup bump anim
-	p1_rigidBody.body_entered.connect(_on_p1_body_entered)
-	p2_rigidBody.body_entered.connect(_on_p2_body_entered)
 
 func _reset_players() -> void:
 	isFinished = false
@@ -268,7 +244,7 @@ func _reset_player(rigidBody: RigidBody3D, data: BirdConfig, position: Vector3) 
 	rigidBody.constant_force = wind
 
 	rigidBody.contact_monitor = true
-	rigidBody.max_contacts_reported = 2
+	rigidBody.max_contacts_reported = 4
 
 func _data_driven_anim(player: AnimationPlayer, health: int) -> void:
 	if health > 0 && player.current_animation != dash_anim:
@@ -315,6 +291,8 @@ func _process(delta: float) -> void:
 		return
 
 func _physics_process(delta: float) -> void:
+	print("p1: momentum is %f" % (p1_rigidBody.linear_velocity.length() * p1_rigidBody.mass))
+	print("p2: momentum is %f" % (p2_rigidBody.linear_velocity.length() * p2_rigidBody.mass))
 	if ready_go_player.is_playing():
 		return
 
@@ -325,7 +303,7 @@ func _physics_process(delta: float) -> void:
 	# process input for each player
 	p1_holdDuration = process_input(
 		p1_rigidBody,
-		# p1_hitBox,
+		audio_player1,
 		p1_player,
 		p1_data,
 		delta,
@@ -335,7 +313,8 @@ func _physics_process(delta: float) -> void:
 		"jump")
 	p2_holdDuration = process_input(
 		p2_rigidBody,
-		# p2_hitBox,
+		audio_player2,
+		
 		p2_player,
 		p2_data,
 		delta,
@@ -346,7 +325,7 @@ func _physics_process(delta: float) -> void:
 	
 func process_input(
 		rigidBody: RigidBody3D,
-		# hitBox: Area3D,
+		audio_player: AudioStreamPlayer,
 		animPlayer: AnimationPlayer,
 		player: BirdConfig,
 		delta: float,
@@ -374,11 +353,15 @@ func process_input(
 
 	if rotateDirection != 0 && holdDuration > 0:
 		animPlayer.play(fly_anim)
+		audio_player.stream = flaps[random.randi_range(0, flaps.size() - 1)]
+		audio_player.play()
 		rigidBody.apply_torque_impulse(local_z_direction * player.torque * rotateDirection * delta)
 
 	if Input.is_action_just_pressed(jump_input) && holdDuration > 0:
 		rigidBody.apply_force(local_x_direction * player.jump_force)
 		animPlayer.play(dash_anim)
+		audio_player.stream = farts[random.randi_range(0, farts.size() - 1)]
+		audio_player.play()
 		var particle = rigidBody.get_node(jumpParticlePath) as GPUParticles3D
 		particle.emitting = true
 		particle.restart()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bat6am4i5o3cb"]
+[gd_scene load_steps=40 format=3 uid="uid://bat6am4i5o3cb"]
 
 [ext_resource type="PackedScene" uid="uid://blbt3ecamsolc" path="res://Vfx/blood.tscn" id="1_qw5es"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ue1lb"]
@@ -20,6 +20,16 @@
 [ext_resource type="PackedScene" uid="uid://dtrfjuac03r0r" path="res://Scenes/Win.tscn" id="10_yb2en"]
 [ext_resource type="Script" path="res://Scripts/UI_player_score.gd" id="11_e1sfh"]
 [ext_resource type="Environment" uid="uid://cbw5xswycm6in" path="res://DefaultEnvironment.tres" id="12_o5n53"]
+[ext_resource type="AudioStream" uid="uid://dek50tc28wkwd" path="res://Audio/audio assets/sfx_fart_01.ogg" id="14_odmn7"]
+[ext_resource type="AudioStream" uid="uid://c0jf3xs8i6b2r" path="res://Audio/audio assets/sfx_fart_02.ogg" id="15_y1siq"]
+[ext_resource type="AudioStream" uid="uid://c6bk71up3s6ae" path="res://Audio/audio assets/sfx_fart_03.ogg" id="16_t7msw"]
+[ext_resource type="AudioStream" uid="uid://bskupjy22ex66" path="res://Audio/audio assets/sfx_fart_04.ogg" id="17_1arqb"]
+[ext_resource type="AudioStream" uid="uid://lqs4d2fcnn3n" path="res://Audio/audio assets/sfx_fart_05.ogg" id="18_qieub"]
+[ext_resource type="AudioStream" uid="uid://bu471af5bm6ft" path="res://Audio/audio assets/sfx_flap_01.ogg" id="19_2qlnt"]
+[ext_resource type="AudioStream" uid="uid://crb6skh0frooe" path="res://Audio/audio assets/sfx_flap_02.ogg" id="20_ywtis"]
+[ext_resource type="AudioStream" uid="uid://csshiub2rgtlt" path="res://Audio/audio assets/sfx_flap_03.ogg" id="21_ityjt"]
+[ext_resource type="AudioStream" uid="uid://snrtvjicha4c" path="res://Audio/audio assets/sfx_flap_04.ogg" id="22_q54wd"]
+[ext_resource type="AudioStream" uid="uid://2th22p8fjl5g" path="res://Audio/audio assets/sfx_flap_05.ogg" id="23_wmfbd"]
 
 [sub_resource type="Animation" id="Animation_s5qwr"]
 resource_name = "GoIn"
@@ -407,7 +417,7 @@ libraries = {
 "": SubResource("AnimationLibrary_id4bw")
 }
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("map_position", "p1_position", "p2_position", "ready_go_player", "win_player", "win_bird_position", "killVfx", "hitBeakVfx", "bumpVfx", "p1WallVfx", "p2WallVfx")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("map_position", "p1_position", "p2_position", "ready_go_player", "win_player", "win_bird_position", "audio_player1", "audio_player2", "killVfx", "hitBeakVfx", "bumpVfx", "p1WallVfx", "p2WallVfx")]
 script = ExtResource("8_ylc3v")
 map_position = NodePath("../MapRef")
 p1_position = NodePath("../P1Ref")
@@ -415,6 +425,8 @@ p2_position = NodePath("../P2Ref")
 ready_go_player = NodePath("../CanvasLayer/GameUI/Prompt/AnimationPlayer")
 win_player = NodePath("../Camera3D/Win/AnimationPlayer")
 win_bird_position = NodePath("../Camera3D/Win/Bird")
+audio_player1 = NodePath("../Sound/SFX1")
+audio_player2 = NodePath("../Sound/SFX2")
 killVfx = NodePath("../blood")
 hitBeakVfx = NodePath("../Particles/sword")
 bumpVfx = NodePath("../Particles/bump")
@@ -434,6 +446,8 @@ winDuration = 7.0
 slomoSpeed = 0.1
 attackMomentum = 1.5
 wind = Vector3(0, 0.1, 0)
+farts = Array[AudioStream]([ExtResource("14_odmn7"), ExtResource("15_y1siq"), ExtResource("16_t7msw"), ExtResource("17_1arqb"), ExtResource("18_qieub")])
+flaps = Array[AudioStream]([ExtResource("19_2qlnt"), ExtResource("20_ywtis"), ExtResource("21_ityjt"), ExtResource("22_q54wd"), ExtResource("23_wmfbd")])
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27782, 5.12624, 1)
@@ -444,9 +458,6 @@ script = ExtResource("1_ue1lb")
 
 [node name="Win" parent="Camera3D" instance=ExtResource("10_yb2en")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
-
-[node name="Bird" parent="Camera3D/Win" index="2"]
-transform = Transform3D(1.91421, 0.125002, -0.565846, -0.38382, 1.73662, -0.914792, 0.434154, 0.984144, 1.68611, -6, 3, 1)
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27782, 5.12624, 1)
@@ -475,6 +486,12 @@ environment = ExtResource("12_o5n53")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.938493, 0.345298, 0, -0.345298, 0.938493, 0, 3.50095, 5.20668)
 shadow_enabled = true
+
+[node name="Sound" type="Node" parent="."]
+
+[node name="SFX1" type="AudioStreamPlayer" parent="Sound"]
+
+[node name="SFX2" type="AudioStreamPlayer" parent="Sound"]
 
 [connection signal="p1_score_change" from="GameManager" to="CanvasLayer/GameUI/1p" method="SetScore"]
 [connection signal="p2_score_change" from="GameManager" to="CanvasLayer/GameUI/2p" method="SetScore"]
