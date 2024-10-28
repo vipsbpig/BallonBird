@@ -151,7 +151,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(3.605, 1),
 "update": 0,
-"values": [Vector3(-20, 2, 1), Vector3(-3.8, 3, 1)]
+"values": [Vector3(-20, 2, 1), Vector3(-3.64465, 1.47472, 2.91623)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -204,15 +204,15 @@ visible = false
 texture = ExtResource("1_l42eb")
 
 [node name="star" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.333, 0, 0, 0, 0.333, -3.8, 3, 0)
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.333, -3.8, 2.10442, 1.30957)
 visible = false
-amount = 18
+amount = 15
 lifetime = 0.4
 process_material = SubResource("ParticleProcessMaterial_45xey")
 draw_pass_1 = SubResource("QuadMesh_hk1xh")
 
 [node name="Bird" type="Node3D" parent="."]
-transform = Transform3D(2.10563, 0.137501, -0.622431, -0.422202, 1.91028, -1.00627, 0.47757, 1.08256, 1.85472, -6, 3, 1)
+transform = Transform3D(1.91421, 0.125001, -0.565847, -0.38382, 1.73662, -0.914794, 0.434154, 0.984144, 1.68611, -6, 3, 1)
 visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
