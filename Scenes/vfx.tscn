@@ -546,8 +546,8 @@ process_material = SubResource("ParticleProcessMaterial_4awja")
 draw_pass_1 = SubResource("SphereMesh_xgndp")
 
 [node name="star" type="GPUParticles3D" parent="."]
-transform = Transform3D(2.505, 0, 0, 0, 0.834, 0, 0, 0, 0.834, 0, 0, 0)
-amount = 18
+transform = Transform3D(1.35, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+amount = 12
 lifetime = 0.4
 process_material = SubResource("ParticleProcessMaterial_j8veg")
 draw_pass_1 = SubResource("QuadMesh_gf8jh")
