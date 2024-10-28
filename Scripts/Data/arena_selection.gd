@@ -9,6 +9,8 @@ var selection_tweens : Array[Tween]
 
 var current_index: int = 0
 
+var sfx_select_1p : AudioStream = preload("res://Audio/audio assets/ui_select_1p.ogg")
+
 func _ready():
 	for obj in selectable_objects:
 		var tween = obj.create_tween()
@@ -25,9 +27,11 @@ func _input(event):
 		if event.is_action_pressed("move_left"):
 			current_index = (current_index + selectable_objects.size() - 1) % selectable_objects.size()
 			update_selection()
+			Global.play_ui_sfx(sfx_select_1p)
 		elif event.is_action_pressed("move_right"):
 			current_index = (current_index + selectable_objects.size() + 1) % selectable_objects.size()
 			update_selection()
+			Global.play_ui_sfx(sfx_select_1p)
 		elif event.is_action_pressed("jump"):
 			confirm_selection()
 
@@ -54,6 +58,7 @@ func confirm_selection():
 	var selected_object = selectable_objects[current_index]
 	print("Selected object:", selected_object.name)
 	Global.arena_index = current_index
+	Global.play_ui_sfx(load("res://Audio/audio assets/ui_confirm_1.ogg"))
 	# 可以在这里执行特定的操作，例如触发动画或调用函数
 	animPlayer.play("fadeOut")
 	
