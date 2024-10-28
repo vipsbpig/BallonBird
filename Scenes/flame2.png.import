@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgeas3s0p1cin"
-path.s3tc="res://.godot/imported/win.png-8d20e53c0b7f03de1696585ed563e65e.s3tc.ctex"
+uid="uid://kue67rx1d5o5"
+path="res://.godot/imported/flame2.png-015ad534219b39480b30068037bb1cfc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/win.png"
-dest_files=["res://.godot/imported/win.png-8d20e53c0b7f03de1696585ed563e65e.s3tc.ctex"]
+source_file="res://Scenes/flame2.png"
+dest_files=["res://.godot/imported/flame2.png-015ad534219b39480b30068037bb1cfc.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
