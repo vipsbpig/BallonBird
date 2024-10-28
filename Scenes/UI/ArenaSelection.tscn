@@ -231,6 +231,7 @@ texture = ExtResource("4_ovh4c")
 expand_mode = 1
 
 [node name="InputHints" parent="Camera3D/CanvasLayer/Control" instance=ExtResource("5_5uqjw")]
+layout_mode = 1
 
 [node name="2p_keyboard" parent="Camera3D/CanvasLayer/Control/InputHints" index="1"]
 visible = false

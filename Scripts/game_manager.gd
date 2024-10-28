@@ -7,30 +7,37 @@ const animPlayerPath : NodePath = ^"Mesh/AnimationPlayer"
 const jumpParticlePath : NodePath = ^"JumpParticles"
 const maxHealth : int = 1
 
+@export_category("references")
 @export var map_position : Node3D
 @export var p1_position : Node3D
 @export var p2_position : Node3D
+@export var canvas : CanvasItem
+@export var ready_go_player : AnimationPlayer
 
-# config
+@export_category("data")
 @export var arena_datas : ArenaDatas
+@export var ballon_data : BallonDatas
 
+@export_category("groups")
 @export var p1_group : String
 @export var p2_group : String
 
+@export_category("animations")
 @export var fly_anim : String
 @export var death_anim : String
 @export var bump_anim : String
 @export var dash_anim : String
 
-@export var ballon_data : BallonDatas
+@export_category("timers")
 @export var slomoDuration : float
 @export var deathDuration : float
+@export var readyDuration : float
+
+@export_category("parameters")
 @export var slomoSpeed : float
 @export var attackSpeedThreshold : float
 @export var redLineSpeed : float = 140
 @export var wind : Vector3
-
-@export var canvas : CanvasItem
 
 # player runtime data
 var p1_rigidBody : RigidBody3D
@@ -58,6 +65,7 @@ var p2_score : int = 0 : set = set_p2_score
 var isFinished : bool = false
 var slomoTimer : float = 0
 var deathTimer : float = 0
+var readyTimer : float = 0
 
 var hit_position : Vector2
 var line_direction : Vector2
@@ -133,6 +141,9 @@ func _ready() -> void:
 	p2_rigidBody.body_entered.connect(_on_p2_body_entered)
 	canvas.draw.connect(_draw)
 
+	readyTimer = readyDuration
+	ready_go_player.queue("Prompt")
+
 func _reset_players() -> void:
 	isFinished = false
 	_reset_player(p1_rigidBody, p1_data, p1_position.position)
@@ -169,6 +180,12 @@ func _draw() -> void:
 func _process(delta: float) -> void:
 	slomoTimer = max(0, slomoTimer - delta / Engine.time_scale)
 	deathTimer = max(0, deathTimer - delta / Engine.time_scale)
+	# readyTimer = max(0, readyTimer - delta / Engine.time_scale)
+
+	# if readyTimer > 0:
+	# 	return
+	if ready_go_player.is_playing():
+		return
 
 	if isFinished:
 		canvas.queue_redraw()
@@ -202,6 +219,9 @@ func _process(delta: float) -> void:
 		return
 
 func _physics_process(delta: float) -> void:
+	if ready_go_player.is_playing():
+		return
+
 	# if the game is finished, it shouldn't update anything
 	if isFinished:
 		return

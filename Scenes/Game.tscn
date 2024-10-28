@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bat6am4i5o3cb"]
+[gd_scene load_steps=25 format=3 uid="uid://bat6am4i5o3cb"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ue1lb"]
 [ext_resource type="Texture2D" uid="uid://co0sdejt3j1f0" path="res://Sprites/egg_broken.png" id="3_5ymw0"]
@@ -9,10 +9,233 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_b67g5"]
 [ext_resource type="PackedScene" uid="uid://bifdj66at2hr7" path="res://Scenes/UI/InputHints.tscn" id="4_ml7ao"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="5_dpqps"]
+[ext_resource type="Texture2D" uid="uid://bstliyq7p8jj" path="res://Sprites/ready.png" id="5_q207w"]
 [ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="5_w7o3c"]
+[ext_resource type="Texture2D" uid="uid://co1m3kb0q2u8l" path="res://Sprites/go.png" id="6_yjmqd"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="8_ylc3v"]
 [ext_resource type="Script" path="res://Scripts/UI_player_score.gd" id="11_e1sfh"]
 [ext_resource type="Environment" uid="uid://cbw5xswycm6in" path="res://DefaultEnvironment.tres" id="12_o5n53"]
+
+[sub_resource type="Animation" id="Animation_s5qwr"]
+resource_name = "GoIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Go:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.052, 0.052)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Go:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_5wxqt"]
+resource_name = "GoOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Go:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.052, 0.052), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Go:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_82nmo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Ready:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.052, 0.052)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Ready:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Go:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.052, 0.052)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Go:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_p4oet"]
+resource_name = "ReadyIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Ready:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.052, 0.052)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Ready:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_274ac"]
+resource_name = "ReadyOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Ready:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0.052, 0.052), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Ready:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_bse3k"]
+resource_name = "Prompt"
+length = 3.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Ready:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(2, 1, 0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.052, 0.052), Vector2(0.052, 0.052), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Ready:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Go:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.7, 2.2, 2.66667, 3.2),
+"transitions": PackedFloat32Array(1, 2, 1, 0.5, 1),
+"update": 0,
+"values": [Vector2(0.052, 0.052), Vector2(1, 1), Vector2(0.052, 0.052), Vector2(0.052, 0.052), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Go:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.7, 2.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_id4bw"]
+_data = {
+"GoIn": SubResource("Animation_s5qwr"),
+"GoOut": SubResource("Animation_5wxqt"),
+"Prompt": SubResource("Animation_bse3k"),
+"RESET": SubResource("Animation_82nmo"),
+"ReadyIn": SubResource("Animation_p4oet"),
+"ReadyOut": SubResource("Animation_274ac")
+}
 
 [sub_resource type="Resource" id="Resource_i5y80"]
 script = ExtResource("4_b67g5")
@@ -112,26 +335,75 @@ expand_mode = 1
 stretch_mode = 4
 
 [node name="InputHints" parent="CanvasLayer/GameUI" instance=ExtResource("4_ml7ao")]
+layout_mode = 1
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("map_position", "p1_position", "p2_position", "canvas")]
+[node name="Ready" type="TextureRect" parent="CanvasLayer/GameUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4045.0
+offset_top = -857.0
+offset_right = 4045.0
+offset_bottom = 857.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.052, 0.052)
+pivot_offset = Vector2(4045, 857)
+texture = ExtResource("5_q207w")
+stretch_mode = 4
+
+[node name="Go" type="TextureRect" parent="CanvasLayer/GameUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2461.5
+offset_top = -857.0
+offset_right = 2461.5
+offset_bottom = 857.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.052, 0.052)
+pivot_offset = Vector2(2461, 857)
+texture = ExtResource("6_yjmqd")
+
+[node name="Prompt" type="Control" parent="CanvasLayer/GameUI"]
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 960.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/GameUI/Prompt"]
+libraries = {
+"": SubResource("AnimationLibrary_id4bw")
+}
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("map_position", "p1_position", "p2_position", "canvas", "ready_go_player")]
 script = ExtResource("8_ylc3v")
 map_position = NodePath("../MapRef")
 p1_position = NodePath("../P1Ref")
 p2_position = NodePath("../P2Ref")
+canvas = NodePath("../CanvasLayer/GameUI")
+ready_go_player = NodePath("../CanvasLayer/GameUI/Prompt/AnimationPlayer")
 arena_datas = ExtResource("3_j2lqo")
+ballon_data = ExtResource("3_hn235")
 p1_group = "p1"
 p2_group = "p2"
 fly_anim = "Fly3"
 death_anim = "death"
 bump_anim = "Bump"
 dash_anim = "Dash"
-ballon_data = ExtResource("3_hn235")
 slomoDuration = 1.4
 deathDuration = 6.0
 slomoSpeed = 0.1
 attackSpeedThreshold = 5.0
 wind = Vector3(0, 0.1, 0)
-canvas = NodePath("../CanvasLayer/GameUI")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27782, 5.12624, 1)
