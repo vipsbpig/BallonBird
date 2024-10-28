@@ -41,7 +41,6 @@ angular_velocity_min = -44.77
 angular_velocity_max = 44.77
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
-scale_max = 1.2
 scale_curve = SubResource("CurveTexture_x5o4d")
 color_ramp = SubResource("GradientTexture1D_jlfuo")
 alpha_curve = SubResource("CurveTexture_p27gn")
@@ -126,6 +125,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Bird:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2, 2, 2)]
+}
 
 [sub_resource type="Animation" id="Animation_75ys6"]
 resource_name = "WIN"
@@ -136,54 +147,66 @@ tracks/0/path = NodePath("Text:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(3.605, 1),
+"times": PackedFloat32Array(0, 0.865148, 0.8999, 0.9, 0.933333, 0.966667),
+"transitions": PackedFloat32Array(3.605, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(20, 0, 0), Vector3(1, 0, 0)]
+"values": [Vector3(20, 0, 0), Vector3(1, 0, 0), Vector3(0.818074, 0, 0), Vector3(0.720119, 0, 0), Vector3(1.02797, 0, 0), Vector3(1, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Bird:position")
+tracks/1/path = NodePath("Bird:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(3.605, 1),
+"times": PackedFloat32Array(0, 0.866667, 0.9, 0.933333, 0.972135),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(-20, 2, 1), Vector3(-3.64465, 1.47472, 2.91623)]
+"values": [Vector3(2, 2, 2), Vector3(2, 2, 2), Vector3(2.2, 2.2, 2.2), Vector3(1.8, 1.8, 1.8), Vector3(2, 2, 2)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("star:visible")
+tracks/2/path = NodePath("Bird:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.866667, 1),
+"transitions": PackedFloat32Array(3.605, 1, 1),
+"update": 0,
+"values": [Vector3(-20, 2, 1), Vector3(-3.64465, 1.47472, 2.91623), Vector3(-3.64465, 1.47472, 2.91623)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("star:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Text:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Text:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Bird:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Bird:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -204,15 +227,15 @@ visible = false
 texture = ExtResource("1_l42eb")
 
 [node name="star" type="GPUParticles3D" parent="."]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.333, -3.8, 2.10442, 1.30957)
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.333, -3.8, 1.95049, 1.30957)
 visible = false
-amount = 15
+amount = 18
 lifetime = 0.4
 process_material = SubResource("ParticleProcessMaterial_45xey")
 draw_pass_1 = SubResource("QuadMesh_hk1xh")
 
 [node name="Bird" type="Node3D" parent="."]
-transform = Transform3D(1.91421, 0.125001, -0.565847, -0.38382, 1.73662, -0.914794, 0.434154, 0.984144, 1.68611, -6, 3, 1)
+transform = Transform3D(1.91421, 0.125002, -0.565846, -0.38382, 1.73662, -0.914792, 0.434154, 0.984144, 1.68611, -6, 3, 1)
 visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
