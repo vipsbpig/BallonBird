@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Scripts/Data/title.gd" id="1_dehu6"]
 [ext_resource type="PackedScene" uid="uid://dnr2lxmrr6f4a" path="res://Scenes/UI/BallonSelection.tscn" id="2_omgbb"]
 [ext_resource type="PackedScene" uid="uid://uike57x1wqhi" path="res://Ballons/b1.tscn" id="3_g0qug"]
-[ext_resource type="PackedScene" path="res://Arena/Collision.tscn" id="3_j51eb"]
+[ext_resource type="PackedScene" uid="uid://bajxi67c3ddal" path="res://Arena/Collision.tscn" id="3_j51eb"]
 [ext_resource type="PackedScene" uid="uid://co1yqus7iijbf" path="res://Ballons/b2.tscn" id="5_rxptx"]
 [ext_resource type="PackedScene" uid="uid://slfp0f2au8ea" path="res://Ballons/b3.tscn" id="6_2rijw"]
 [ext_resource type="PackedScene" uid="uid://c1kbr2tklxb2m" path="res://Ballons/b4.tscn" id="7_r8otd"]
@@ -61,15 +61,59 @@ transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 
 [node name="b1" parent="." instance=ExtResource("3_g0qug")]
 
+[node name="b26" parent="." instance=ExtResource("3_g0qug")]
+
+[node name="b17" parent="." instance=ExtResource("3_g0qug")]
+
+[node name="b7" parent="." instance=ExtResource("3_g0qug")]
+
+[node name="b8" parent="." instance=ExtResource("3_g0qug")]
+
 [node name="b2" parent="." instance=ExtResource("5_rxptx")]
+
+[node name="b20" parent="." instance=ExtResource("5_rxptx")]
+
+[node name="b9" parent="." instance=ExtResource("5_rxptx")]
+
+[node name="b10" parent="." instance=ExtResource("5_rxptx")]
 
 [node name="b3" parent="." instance=ExtResource("6_2rijw")]
 
+[node name="b27" parent="." instance=ExtResource("6_2rijw")]
+
+[node name="b21" parent="." instance=ExtResource("6_2rijw")]
+
+[node name="b11" parent="." instance=ExtResource("6_2rijw")]
+
+[node name="b12" parent="." instance=ExtResource("6_2rijw")]
+
 [node name="b4" parent="." instance=ExtResource("7_r8otd")]
+
+[node name="b22" parent="." instance=ExtResource("7_r8otd")]
+
+[node name="b13" parent="." instance=ExtResource("7_r8otd")]
+
+[node name="b15" parent="." instance=ExtResource("7_r8otd")]
 
 [node name="b5" parent="." instance=ExtResource("8_ggg8t")]
 
+[node name="b28" parent="." instance=ExtResource("8_ggg8t")]
+
+[node name="b24" parent="." instance=ExtResource("8_ggg8t")]
+
+[node name="b23" parent="." instance=ExtResource("8_ggg8t")]
+
+[node name="b19" parent="." instance=ExtResource("8_ggg8t")]
+
+[node name="b14" parent="." instance=ExtResource("8_ggg8t")]
+
+[node name="b18" parent="." instance=ExtResource("8_ggg8t")]
+
 [node name="b6" parent="." instance=ExtResource("9_jqhyy")]
+
+[node name="b25" parent="." instance=ExtResource("9_jqhyy")]
+
+[node name="b16" parent="." instance=ExtResource("9_jqhyy")]
 
 [node name="MAP0" parent="." instance=ExtResource("1_b2i6x")]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
@@ -96,10 +140,11 @@ fov = 35.0
 
 [node name="AutoBird" type="Node" parent="." node_paths=PackedStringArray("birds")]
 script = ExtResource("12_iyp2p")
-birds = [NodePath("../b1"), NodePath("../b2"), NodePath("../b3"), NodePath("../b4"), NodePath("../b5"), NodePath("../b6")]
+birds = [NodePath("../b1"), NodePath("../b2"), NodePath("../b3"), NodePath("../b4"), NodePath("../b5"), NodePath("../b6"), NodePath("../b7"), NodePath("../b8"), NodePath("../b18"), NodePath("../b9"), NodePath("../b10"), NodePath("../b11"), NodePath("../b12"), NodePath("../b13"), NodePath("../b14"), NodePath("../b15"), NodePath("../b16"), NodePath("../b19"), NodePath("../b20"), NodePath("../b21"), NodePath("../b22"), NodePath("../b23"), NodePath("../b24"), NodePath("../b25"), NodePath("../b26"), NodePath("../b27"), NodePath("../b28")]
 width = Vector2(-11, 11)
 height = Vector2(-9, 9)
 speedRange = Vector2(2, 4)
 angularSpeedRange = Vector2(-5, 5)
+scale = 1.2
 
 [editable path="logo"]
