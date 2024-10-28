@@ -385,12 +385,11 @@ libraries = {
 "": SubResource("AnimationLibrary_id4bw")
 }
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("map_position", "p1_position", "p2_position", "canvas", "ready_go_player", "win_player", "win_bird_position")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("map_position", "p1_position", "p2_position", "ready_go_player", "win_player", "win_bird_position")]
 script = ExtResource("8_ylc3v")
 map_position = NodePath("../MapRef")
 p1_position = NodePath("../P1Ref")
 p2_position = NodePath("../P2Ref")
-canvas = NodePath("../CanvasLayer/GameUI")
 ready_go_player = NodePath("../CanvasLayer/GameUI/Prompt/AnimationPlayer")
 win_player = NodePath("../Camera3D/Win/AnimationPlayer")
 win_bird_position = NodePath("../Camera3D/Win/Bird")

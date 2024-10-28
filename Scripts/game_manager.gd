@@ -11,7 +11,6 @@ const maxHealth : int = 1
 @export var map_position : Node3D
 @export var p1_position : Node3D
 @export var p2_position : Node3D
-@export var canvas : CanvasItem
 @export var ready_go_player : AnimationPlayer
 @export var win_player : AnimationPlayer
 @export var win_bird_position : Node3D
@@ -153,7 +152,6 @@ func _ready() -> void:
 	# setup bump anim
 	p1_rigidBody.body_entered.connect(_on_p1_body_entered)
 	p2_rigidBody.body_entered.connect(_on_p2_body_entered)
-	canvas.draw.connect(_draw)
 
 func _reset_players() -> void:
 	isFinished = false
@@ -181,14 +179,6 @@ func _data_driven_anim(player: AnimationPlayer, health: int) -> void:
 	if health > 0 && player.current_animation != dash_anim:
 		player.play(fly_anim)
 
-func _draw() -> void:
-	if isFinished && slomoTimer > 0:
-		canvas.draw_line(
-			hit_position + line_direction * (slomoDuration - slomoTimer) * redLineSpeed,
-			hit_position - line_direction * (slomoDuration - slomoTimer) * redLineSpeed,
-			Color.RED,
-			4)
-
 func _process(delta: float) -> void:
 	slomoTimer = max(0, slomoTimer - delta / Engine.time_scale)
 	deathTimer = max(0, deathTimer - delta / Engine.time_scale)
@@ -200,9 +190,6 @@ func _process(delta: float) -> void:
 
 	if ready_go_player.is_playing():
 		return
-
-	if isFinished:
-		canvas.queue_redraw()
 
 	if winTimer == 0 && (p1_score >= 2 || p2_score >= 2):
 		_win()

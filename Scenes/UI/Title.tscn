@@ -1,14 +1,37 @@
-[gd_scene load_steps=5 format=3 uid="uid://b64t4uk0qhucf"]
+[gd_scene load_steps=13 format=3 uid="uid://b64t4uk0qhucf"]
 
 [ext_resource type="PackedScene" uid="uid://cpgk07vimsowh" path="res://Meshes/logo.glb" id="1_322hc"]
 [ext_resource type="PackedScene" uid="uid://ce46tpa5xqv2w" path="res://Meshes/MAP0.glb" id="1_b2i6x"]
 [ext_resource type="Script" path="res://Scripts/Data/title.gd" id="1_dehu6"]
 [ext_resource type="PackedScene" uid="uid://dnr2lxmrr6f4a" path="res://Scenes/UI/BallonSelection.tscn" id="2_omgbb"]
+[ext_resource type="PackedScene" uid="uid://uike57x1wqhi" path="res://Ballons/b1.tscn" id="3_g0qug"]
+[ext_resource type="PackedScene" uid="uid://bajxi67c3ddal" path="res://Arena/Collision.tscn" id="3_j51eb"]
+[ext_resource type="PackedScene" uid="uid://co1yqus7iijbf" path="res://Ballons/b2.tscn" id="5_rxptx"]
+[ext_resource type="PackedScene" uid="uid://slfp0f2au8ea" path="res://Ballons/b3.tscn" id="6_2rijw"]
+[ext_resource type="PackedScene" uid="uid://c1kbr2tklxb2m" path="res://Ballons/b4.tscn" id="7_r8otd"]
+[ext_resource type="PackedScene" uid="uid://h2k01ybc6dco" path="res://Ballons/b5.tscn" id="8_ggg8t"]
+[ext_resource type="PackedScene" uid="uid://ve47ltmcidb" path="res://Ballons/b6.tscn" id="9_jqhyy"]
+[ext_resource type="Script" path="res://Scripts/autobird.gd" id="12_iyp2p"]
 
 [node name="Title" type="Node3D" node_paths=PackedStringArray("title_animPlayer")]
 script = ExtResource("1_dehu6")
 title_animPlayer = NodePath("logo/AnimationPlayer")
 ballonScene = ExtResource("2_omgbb")
+
+[node name="Collision" parent="." instance=ExtResource("3_j51eb")]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+
+[node name="b1" parent="." instance=ExtResource("3_g0qug")]
+
+[node name="b2" parent="." instance=ExtResource("5_rxptx")]
+
+[node name="b3" parent="." instance=ExtResource("6_2rijw")]
+
+[node name="b4" parent="." instance=ExtResource("7_r8otd")]
+
+[node name="b5" parent="." instance=ExtResource("8_ggg8t")]
+
+[node name="b6" parent="." instance=ExtResource("9_jqhyy")]
 
 [node name="MAP0" parent="." instance=ExtResource("1_b2i6x")]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
@@ -21,5 +44,13 @@ transform = Transform3D(0.0014258, 0, 0, 0, 0.0014258, 0, 0, 0, 0.0014258, 0, 0,
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 33)
 fov = 35.0
+
+[node name="AutoBird" type="Node" parent="." node_paths=PackedStringArray("birds")]
+script = ExtResource("12_iyp2p")
+birds = [NodePath("../b1"), NodePath("../b2"), NodePath("../b3"), NodePath("../b4"), NodePath("../b5"), NodePath("../b6")]
+width = Vector2(-11, 11)
+height = Vector2(-9, 9)
+speedRange = Vector2(2, 4)
+angularSpeedRange = Vector2(-5, 5)
 
 [editable path="logo"]

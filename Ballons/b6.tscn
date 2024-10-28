@@ -51,8 +51,8 @@ collision_mask = 4
 polygon = PackedVector2Array(0.701256, 0.341992, 1.72456, 0.281013, 2.38009, 0.117131, 2.09996, -0.262082, 1.7036, -0.422152, 0.847987, -0.44883, 0.579298, -0.405002)
 
 [node name="HurtBoxArea" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 4
+collision_layer = 4
+collision_mask = 0
 
 [node name="HurtBoxShape" type="CollisionShape3D" parent="HurtBoxArea"]
 shape = SubResource("SphereShape3D_4ie6b")
