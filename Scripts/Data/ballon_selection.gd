@@ -16,6 +16,9 @@ var p2_current_index: int = 0
 var p1_is_confirm : bool = false
 var p2_is_confirm : bool = false
 
+var sfx_select_1p : AudioStream = preload("res://Audio/audio assets/ui_select_1p.ogg")
+var sfx_select_2p : AudioStream = preload("res://Audio/audio assets/ui_select_2p.ogg")
+
 func _ready():
 	for obj in selectable_objects:
 		var tween = obj.create_tween()
@@ -34,9 +37,11 @@ func _input(event):
 			if event.is_action_pressed("move_left"):
 				p1_current_index = (p1_current_index + selectable_objects.size() - 1) % selectable_objects.size()
 				update_selection()
+				Global.play_ui_sfx(sfx_select_1p)
 			elif event.is_action_pressed("move_right"):
 				p1_current_index = (p1_current_index + selectable_objects.size() + 1) % selectable_objects.size()
 				update_selection()
+				Global.play_ui_sfx(sfx_select_1p)
 			elif event.is_action_pressed("jump"):
 				confirm_p1_selection()
 			
@@ -46,9 +51,11 @@ func _input(event):
 			if event.is_action_pressed("move_left2"):
 				p2_current_index = (p2_current_index + selectable_objects.size() - 1) % selectable_objects.size()
 				update_selection()
+				Global.play_ui_sfx(sfx_select_2p)
 			elif event.is_action_pressed("move_right2"):
 				p2_current_index = (p2_current_index + selectable_objects.size() + 1) % selectable_objects.size()
 				update_selection()
+				Global.play_ui_sfx(sfx_select_2p)
 			elif event.is_action_pressed("jump2"):
 				confirm_p2_selection()
 
@@ -76,6 +83,8 @@ func confirm_p1_selection():
 	print("Selected p1 object:", selected_object.name)
 	Global.p1_ballon_index = p1_current_index
 	p1_is_confirm = true
+	var sfxpath = "res://Audio/audio assets/ui_confirm_%d.ogg" % (p1_current_index + 1)
+	Global.play_ui_sfx(load(sfxpath))
 	if p1_current_index != p2_current_index:
 		stop_floating_animation(selection_tweens[p1_current_index],selectable_objects[p1_current_index])
 
@@ -87,6 +96,8 @@ func confirm_p2_selection():
 	print("Selected p2 object:", selected_object.name)
 	Global.p2_ballon_index = p2_current_index
 	p2_is_confirm = true
+	var sfxpath = "res://Audio/audio assets/ui_confirm_%d.ogg" % (p2_current_index + 1)
+	Global.play_ui_sfx(load(sfxpath))
 	if p1_current_index != p2_current_index:
 		stop_floating_animation(selection_tweens[p2_current_index],selectable_objects[p2_current_index])
 
