@@ -50,6 +50,7 @@ const maxHealth : int = 1
 @export var attackInertia : float = 3
 @export var redLineSpeed : float = 140
 @export var wind : Vector3
+@export var spikeIndex : int = 3
 
 @export_category("sfx")
 @export var farts : Array[AudioStream]
@@ -98,46 +99,66 @@ func set_p2_score(newscore: int):
 	p2_score_change.emit(p2_score)
 
 func _on_p1_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	if p1_health == 0:
-		return
-
-	if body is GridMap:
-		return
-
 	var rb = p1_rigidBody
-	var other_shape = body.shape_owner_get_owner(body.shape_find_owner(body_shape_index))
-	var local_shape = rb.shape_owner_get_owner(rb.shape_find_owner(local_shape_index))
-
+	var anim_player = p1_player
+	var audio_player = audio_player1
+	var wallVfx = p1WallVfx
+	var momentum = rb.linear_velocity.length() * rb.mass
+	var inertia = abs(rb.angular_velocity.z * rb.inertia.z)
 	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(rb.get_rid())
 	var num_contacts = state.get_contact_count()
+	print("p1: momentum: %f; inertia: %f" % [momentum, inertia])
+
 	var index = 0
 	for n in num_contacts:
 		var rid: RID = state.get_contact_collider(n)
 		var shape_index = state.get_contact_collider_shape(n)
 		if rid == body_rid && shape_index == body_shape_index:
 			index = n
+
 	var contact_point = state.get_contact_collider_position(index)
+	var contact_normal = state.get_contact_local_normal(index)
+
+	var local_shape = rb.shape_owner_get_owner(rb.shape_find_owner(local_shape_index))
+
+	if p1_health == 0:
+		return
+
+	if body is GridMap:
+		var grid = body
+		var grid_pos = grid.local_to_map(grid.to_local(contact_point - contact_normal * 0.1))
+		grid_pos.z = 0
+		print("p1: contact point is ", contact_point, "contact normal is ", contact_normal, "grid position is ", grid_pos)
+		var item = grid.get_cell_item(grid_pos)
+		if item == spikeIndex && local_shape.name == "Body" && (momentum > attackMomentum || inertia > attackInertia):
+			generic_player.stream = kill_sound
+			generic_player.play()
+			_play_vfx(killVfx, contact_point)
+			p1_health -= 1
+		elif item != GridMap.INVALID_CELL_ITEM:
+			audio_player.stream = impacts[random.randi_range(0, impacts.size() - 1)]
+			audio_player.play()
+			_play_vfx(wallVfx, contact_point)
+		return
+
+	var other_shape = body.shape_owner_get_owner(body.shape_find_owner(body_shape_index))
 
 	if local_shape.name == "Body":
-		p1_player.play(bump_anim)
+		anim_player.play(bump_anim)
 
 	if body.name == "Collision":
-		audio_player1.stream = impacts[random.randi_range(0, impacts.size() - 1)]
-		audio_player1.play()
-		_play_vfx(p1WallVfx, contact_point)
+		audio_player.stream = impacts[random.randi_range(0, impacts.size() - 1)]
+		audio_player.play()
+		_play_vfx(wallVfx, contact_point)
 		return
 
 	if p2_health == 0:
 		return
 
 	if local_shape.name == "Beak" && other_shape.name == "Body" && other_shape.get_parent().is_in_group(p2_group):
-		var momentum = rb.linear_velocity.length() * rb.mass
-		var inertia = abs(rb.angular_velocity.z * rb.inertia.z)
-		print("p1: momentum: %f; inertia: %f" % [momentum, inertia])
 		if momentum > attackMomentum || inertia > attackInertia:
 			generic_player.stream = kill_sound
 			generic_player.play()
-			killVfx.global_position = contact_point
 			_play_vfx(killVfx, contact_point)
 			p2_health -= 1
 		else:
@@ -155,43 +176,66 @@ func _on_p1_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int,
 		_play_vfx(bumpVfx, contact_point)
 
 func _on_p2_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	if p2_health == 0:
-		return
-
-	if body is GridMap:
-		return
-
 	var rb = p2_rigidBody
-	var other_shape = body.shape_owner_get_owner(body.shape_find_owner(body_shape_index))
-	var local_shape = rb.shape_owner_get_owner(rb.shape_find_owner(local_shape_index))
-
+	var anim_player = p2_player
+	var audio_player = audio_player2
+	var wallVfx = p2WallVfx
+	var momentum = rb.linear_velocity.length() * rb.mass
+	var inertia = abs(rb.angular_velocity.z * rb.inertia.z)
 	var state: PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(rb.get_rid())
 	var num_contacts = state.get_contact_count()
+	print("p2: momentum: %f; inertia: %f" % [momentum, inertia])
+
 	var index = 0
 	for n in num_contacts:
 		var rid: RID = state.get_contact_collider(n)
 		var shape_index = state.get_contact_collider_shape(n)
 		if rid == body_rid && shape_index == body_shape_index:
 			index = n
+
 	var contact_point = state.get_contact_collider_position(index)
+	var contact_normal = state.get_contact_local_normal(index)
+
+	var local_shape = rb.shape_owner_get_owner(rb.shape_find_owner(local_shape_index))
+
+	if p2_health == 0:
+		return
+
+	if body is GridMap:
+		var grid = body
+		var grid_pos = grid.local_to_map(grid.to_local(contact_point - contact_normal * 0.1))
+		grid_pos.z = 0
+		print("p2: contact point is ", contact_point, "contact normal is ", contact_normal, "grid position is ", grid_pos)
+		var item = grid.get_cell_item(grid_pos)
+		if item == spikeIndex && local_shape.name == "Body" && (momentum > attackMomentum || inertia > attackInertia):
+			generic_player.stream = kill_sound
+			generic_player.play()
+			_play_vfx(killVfx, contact_point)
+			p2_health -= 1
+		elif item != GridMap.INVALID_CELL_ITEM:
+			audio_player.stream = impacts[random.randi_range(0, impacts.size() - 1)]
+			audio_player.play()
+			_play_vfx(wallVfx, contact_point)
+		return
+
+	var other_shape = body.shape_owner_get_owner(body.shape_find_owner(body_shape_index))
 
 	if local_shape.name == "Body":
-		p2_player.play(bump_anim)
+		anim_player.play(bump_anim)
 
 	if body.name == "Collision":
-		audio_player2.stream = impacts[random.randi_range(0, impacts.size() - 1)]
-		audio_player2.play()
-		_play_vfx(p2WallVfx, contact_point)
+		audio_player.stream = impacts[random.randi_range(0, impacts.size() - 1)]
+		audio_player.play()
+		_play_vfx(wallVfx, contact_point)
 		return
 
 	if p1_health == 0:
 		return
 
 	if local_shape.name == "Beak" && other_shape.name == "Body" && other_shape.get_parent().is_in_group(p1_group):
-		var momentum = rb.linear_velocity.length() * rb.mass
-		var inertia = abs(rb.angular_velocity.z * rb.inertia.z)
-		print("p2: momentum: %f; inertia: %f" % [momentum, inertia])
 		if momentum > attackMomentum || inertia > attackInertia:
+			generic_player.stream = kill_sound
+			generic_player.play()
 			_play_vfx(killVfx, contact_point)
 			p1_health -= 1
 		else:
