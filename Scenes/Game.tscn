@@ -500,7 +500,7 @@ script = ExtResource("1_ue1lb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
 
 [node name="Bird" parent="Camera3D/Win" index="2"]
-transform = Transform3D(1.91421, 0.125002, -0.565846, -0.38382, 1.73662, -0.914789, 0.434154, 0.984139, 1.68611, -6, 3, 1)
+transform = Transform3D(1.91421, 0.125003, -0.565846, -0.38382, 1.73662, -0.914788, 0.434154, 0.984139, 1.68611, -6, 3, 1)
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27782, 5.12624, 1)

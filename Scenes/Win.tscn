@@ -251,7 +251,7 @@ process_material = SubResource("ParticleProcessMaterial_45xey")
 draw_pass_1 = SubResource("QuadMesh_hk1xh")
 
 [node name="Bird" type="Node3D" parent="."]
-transform = Transform3D(1.91421, 0.125002, -0.565846, -0.38382, 1.73662, -0.914792, 0.434154, 0.984142, 1.68611, -6, 3, 1)
+transform = Transform3D(1.91421, 0.125002, -0.565846, -0.38382, 1.73662, -0.91479, 0.434154, 0.984141, 1.68611, -6, 3, 1)
 visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
