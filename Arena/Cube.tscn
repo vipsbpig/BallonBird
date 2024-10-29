@@ -97,7 +97,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_6xywq")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hbuk7"]
-bounce = 0.6
+bounce = 0.1
 
 [sub_resource type="Animation" id="Animation_nd6yb"]
 resource_name = "mcube2"
@@ -149,7 +149,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_uw0c5")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dadtg"]
-bounce = 0.6
+bounce = 1.0
 
 [sub_resource type="Animation" id="Animation_utpqo"]
 resource_name = "mcube3"
@@ -215,6 +215,7 @@ _data = {
 [node name="Cube" type="Node3D"]
 
 [node name="Mc1" type="Node3D" parent="."]
+visible = false
 
 [node name="mcube1" type="MeshInstance3D" parent="Mc1"]
 mesh = SubResource("ArrayMesh_o2yip")
@@ -249,6 +250,7 @@ libraries = {
 }
 
 [node name="Mc3" type="Node3D" parent="."]
+visible = false
 
 [node name="mcube3" type="MeshInstance3D" parent="Mc3"]
 mesh = SubResource("ArrayMesh_cybiv")
@@ -266,6 +268,7 @@ libraries = {
 }
 
 [node name="Mc4" type="Node3D" parent="."]
+visible = false
 
 [node name="mcube4" type="MeshInstance3D" parent="Mc4"]
 mesh = SubResource("ArrayMesh_qk1t4")
