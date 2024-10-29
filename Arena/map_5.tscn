@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://broqeq28j243c"]
 
 [ext_resource type="PackedScene" uid="uid://b2dsiro8qtncv" path="res://Meshes/MAP5.glb" id="1_eqpbu"]
-[ext_resource type="PackedScene" uid="uid://bajxi67c3ddal" path="res://Arena/Collision.tscn" id="2_aq1hf"]
+[ext_resource type="PackedScene" path="res://Arena/Collision.tscn" id="2_aq1hf"]
 [ext_resource type="MeshLibrary" uid="uid://orjkayvhkegd" path="res://Arena/MeshLib.meshlib" id="3_ofg0t"]
 
 [node name="map_5" type="Node3D"]
