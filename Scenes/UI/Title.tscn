@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Scripts/Data/title.gd" id="1_dehu6"]
 [ext_resource type="PackedScene" uid="uid://dnr2lxmrr6f4a" path="res://Scenes/UI/BallonSelection.tscn" id="2_omgbb"]
 [ext_resource type="PackedScene" uid="uid://uike57x1wqhi" path="res://Ballons/b1.tscn" id="3_g0qug"]
-[ext_resource type="PackedScene" path="res://Arena/Collision.tscn" id="3_j51eb"]
+[ext_resource type="PackedScene" uid="uid://bajxi67c3ddal" path="res://Arena/Collision.tscn" id="3_j51eb"]
 [ext_resource type="PackedScene" uid="uid://co1yqus7iijbf" path="res://Ballons/b2.tscn" id="5_rxptx"]
 [ext_resource type="PackedScene" uid="uid://slfp0f2au8ea" path="res://Ballons/b3.tscn" id="6_2rijw"]
 [ext_resource type="PackedScene" uid="uid://c1kbr2tklxb2m" path="res://Ballons/b4.tscn" id="7_r8otd"]
@@ -148,7 +148,7 @@ angularSpeedRange = Vector2(-5, 5)
 scale = 1.2
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, -6.38236, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, -5.32463, 0)
 texture = ExtResource("14_g285q")
 
 [editable path="logo"]
