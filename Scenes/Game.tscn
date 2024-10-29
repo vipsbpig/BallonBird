@@ -1,5 +1,6 @@
-[gd_scene load_steps=51 format=3 uid="uid://bat6am4i5o3cb"]
+[gd_scene load_steps=52 format=3 uid="uid://bat6am4i5o3cb"]
 
+[ext_resource type="PackedScene" uid="uid://cips6up2r34ja" path="res://Vfx/blood_stab.tscn" id="1_n5vph"]
 [ext_resource type="PackedScene" uid="uid://blbt3ecamsolc" path="res://Vfx/blood.tscn" id="1_qw5es"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ue1lb"]
 [ext_resource type="PackedScene" uid="uid://cvpsopg6uhdeu" path="res://Vfx/bump.tscn" id="2_16mqh"]
@@ -308,6 +309,8 @@ far = 4000.0
 
 [node name="Particles" type="Node3D" parent="."]
 
+[node name="blood2" parent="Particles" instance=ExtResource("1_n5vph")]
+
 [node name="blood" parent="Particles" instance=ExtResource("1_qw5es")]
 
 [node name="bump" parent="Particles" instance=ExtResource("2_16mqh")]
@@ -449,7 +452,7 @@ libraries = {
 
 [node name="UISFX" type="AudioStreamPlayer" parent="CanvasLayer/GameUI/Prompt/AnimationPlayer"]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("map_position", "p1_position", "p2_position", "ready_go_player", "win_player", "win_bird_position", "audio_player1", "audio_player2", "generic_player", "killVfx", "hitBeakVfx", "bumpVfx", "p1WallVfx", "p2WallVfx")]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("map_position", "p1_position", "p2_position", "ready_go_player", "win_player", "win_bird_position", "audio_player1", "audio_player2", "generic_player", "killVfx", "spikeKillVfx", "hitBeakVfx", "bumpVfx", "p1WallVfx", "p2WallVfx")]
 script = ExtResource("8_ylc3v")
 map_position = NodePath("../MapRef")
 p1_position = NodePath("../P1Ref")
@@ -461,6 +464,7 @@ audio_player1 = NodePath("../Sound/SFX1")
 audio_player2 = NodePath("../Sound/SFX2")
 generic_player = NodePath("../CanvasLayer/GameUI/Prompt/AnimationPlayer/UISFX")
 killVfx = NodePath("../blood")
+spikeKillVfx = NodePath("../Particles/blood2")
 hitBeakVfx = NodePath("../Particles/sword")
 bumpVfx = NodePath("../Particles/bump")
 p1WallVfx = NodePath("../Particles/p1Wall")
@@ -496,7 +500,7 @@ script = ExtResource("1_ue1lb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
 
 [node name="Bird" parent="Camera3D/Win" index="2"]
-transform = Transform3D(1.91421, 0.125002, -0.565846, -0.38382, 1.73662, -0.914789, 0.434154, 0.98414, 1.68611, -6, 3, 1)
+transform = Transform3D(1.91421, 0.125002, -0.565846, -0.38382, 1.73662, -0.914789, 0.434154, 0.984139, 1.68611, -6, 3, 1)
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27782, 5.12624, 1)

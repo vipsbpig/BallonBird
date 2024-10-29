@@ -20,6 +20,7 @@ const maxHealth : int = 1
 
 @export_category("particles")
 @export var killVfx : GPUParticles3D
+@export var spikeKillVfx : GPUParticles3D
 @export var hitBeakVfx : GPUParticles3D
 @export var bumpVfx : GPUParticles3D
 @export var p1WallVfx : GPUParticles3D
@@ -133,7 +134,7 @@ func _on_p1_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int,
 		if item == spikeIndex && local_shape.name == "Body" && (momentum > attackMomentum || inertia > attackInertia):
 			generic_player.stream = kill_sound
 			generic_player.play()
-			_play_vfx(killVfx, contact_point)
+			_play_vfx(spikeKillVfx, contact_point)
 			p1_health -= 1
 		elif item != GridMap.INVALID_CELL_ITEM:
 			audio_player.stream = impacts[random.randi_range(0, impacts.size() - 1)]
@@ -210,7 +211,7 @@ func _on_p2_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int,
 		if item == spikeIndex && local_shape.name == "Body" && (momentum > attackMomentum || inertia > attackInertia):
 			generic_player.stream = kill_sound
 			generic_player.play()
-			_play_vfx(killVfx, contact_point)
+			_play_vfx(spikeKillVfx, contact_point)
 			p2_health -= 1
 		elif item != GridMap.INVALID_CELL_ITEM:
 			audio_player.stream = impacts[random.randi_range(0, impacts.size() - 1)]
